@@ -10,18 +10,30 @@ popt *popt_init (void)
     popt *root = (popt *) malloc (sizeof (popt));
     root->tree = (struct init *) malloc (sizeof (struct init *));
     root->tree = NULL;
+
+    root->avl_flags = (char**) malloc (sizeof (char *));
+    // root->avl_keys  = (char**) malloc (sizeof (char *));
+
+    root->flags_num = 0;
+    root->keys_num  = 0;
     return root;
 }
 
-int popt_parse ( popt *root, int argc, char *argv[] )
+int popt_parse ( popt **root, int argc, char *argv[] )
 {
     char **flags;
-    int lastpoint= pget_flags_list ( &flags, argc, argv );
-
+    int flags_number = pget_flags_list ( &flags, argc, argv );
     
+    (*root)->avl_flags = (char **) realloc ((*root)->avl_flags, sizeof (char *)*flags_number);
+    (*root)->flags_num = flags_number;
+    (*root)->avl_flags = flags;
+}
+
+void pfree ( popt **root )
+{
     /* We must be free the all pointers :)
     */
-    for ( int i = 0 ; i < lastpoint ; ++i )
-        free (flags[i]);
-    free (flags);
+    for ( int i = 0 ; i < (*root)->flags_num ; ++i )
+        free ((*root)->avl_flags[i]);
+    free ((*root)->avl_flags);
 }

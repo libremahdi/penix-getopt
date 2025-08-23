@@ -5,7 +5,10 @@
 int main ( int argc, char *argv[] )
 {
     popt *simple = popt_init ();
-    popt_parse (simple, argc, argv);
+    popt_parse (&simple, argc, argv);
+    printf ("%s\n", simple->avl_flags[1]);
+
+    pfree (&simple);
     return 0;
 }
 
