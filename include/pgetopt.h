@@ -2,7 +2,7 @@
 #define PGETOPT_MACRO
 
 struct init {
-    char *name[16];
+    char *name;
     struct init **branches;
 };
 
@@ -11,7 +11,7 @@ typedef struct root {
     unsigned long int keys_num;
     char **avl_flags;
     char **avl_keys;
-    struct init *tree;
+    struct init **tree;
 } popt;
 
 popt *popt_init (void);
