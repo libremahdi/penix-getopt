@@ -11,7 +11,7 @@ popt *popt_init (void)
     root->tree = (struct init **) malloc (sizeof (struct init *));
 
     root->avl_flags = (char**) malloc (sizeof (char *));
-    // root->avl_keys  = (char**) malloc (sizeof (char *));
+    root->avl_keys  = (char**) malloc (sizeof (char *));
 
     root->flags_num = 0;
     root->keys_num  = 0;
@@ -20,23 +20,18 @@ popt *popt_init (void)
 
 int popt_parse ( popt **root, int argc, char *argv[] )
 {
-    char **flags;
+    char **flags= (char **) malloc (sizeof (char *));;
     int flags_number = pget_flags_list ( &flags, argc, argv );
     
-    ((*root)->tree) = (struct init **) realloc (((*root)->tree), sizeof (struct init *)*flags_number);
+    ((*root)->tree) = (struct init **) realloc (((*root)->tree), sizeof (struct init *)*(flags_number+1));
+    (*root)->flags_num = flags_number;
     for ( unsigned long int i=0 ; i<flags_number ; ++i )
     {
         ((*root)->tree)[i] = (struct init *) malloc (sizeof (struct init));
-        ((*root)->tree)[i]->name = (char*) malloc (sizeof (char));
         ((*root)->tree)[i]->name = flags[i];
         ((*root)->tree)[i]->branches = NULL;
     }
-
-    // (*root)->avl_flags = (char **) realloc ((*root)->avl_flags, sizeof (char *)*flags_number);
-    // (*root)->flags_num = flags_number;
-    // (*root)->avl_flags = flags;
-
-
+    free (flags);
 }
 
 void pfree ( popt **root )
@@ -44,6 +39,16 @@ void pfree ( popt **root )
     /* We must be free the all pointers :)
     */
     for ( int i = 0 ; i < (*root)->flags_num ; ++i )
-        free ((*root)->avl_flags[i]);
+    {
+        free ((*root)->tree[i]->name);
+        if ( (*root)->tree[i]->branches != NULL )
+        {
+            printf ("This is a key\n");
+        }
+
+    }
+    free ((*root)->tree);
     free ((*root)->avl_flags);
+    free ((*root)->avl_keys);
+    free (*root);
 }

@@ -1,6 +1,5 @@
 int pget_flags_list ( char ***flags, int argc, char *argv[] )
 {
-    (*flags) = (char **) malloc (sizeof (char *));
     unsigned long int lastpoint = 0;
 
     for ( int i = 1 ; i<argc ; ++i )

@@ -8,7 +8,7 @@ int main ( int argc, char *argv[] )
     popt_parse (&simple, argc, argv);
     // printf ("%s\n", simple->avl_flags[1]);
 
-    // pfree (&simple);
+    pfree (&simple);
     return 0;
 }
 
