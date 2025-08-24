@@ -1,6 +1,12 @@
 #ifndef PGETOPT_MACRO
 #define PGETOPT_MACRO
 
+
+
+typedef enum {
+    flag, key
+} optmod;
+
 struct init {
     char *name;
     struct init **branches;
@@ -9,13 +15,25 @@ struct init {
 typedef struct root {
     unsigned long int flags_num;
     unsigned long int keys_num;
-    char **avl_flags;
-    char **avl_keys;
+    unsigned long int avl_flags_num; // available flags number
+    unsigned long int avl_keys_num;  // available keys number
+    char **avl_flags; // available flags array pointer
+    char **avl_keys;  // available keys array pointer
     struct init **tree;
 } popt;
 
+#define EOL {NULL, 0} // Indicates the end of the list of allowed options.
+
+typedef struct {
+    char *opts;
+    optmod option_mode;
+} pavl;
+
+
 popt *popt_init (void);
-int  popt_parse ( popt **root, int argc, char *argv[] );
-char ploop_get_flags ( popt root, unsigned long int *i );
+char *popt_parse ( popt **root, const int argc, char *argv[] );
+void pset_avl_opts ( popt **root, pavl *avl_opts );
+// char ploop_get_flags ( popt root, unsigned long int *i );
 void pfree ( popt **root );
+
 #endif

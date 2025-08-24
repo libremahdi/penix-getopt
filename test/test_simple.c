@@ -5,9 +5,18 @@
 int main ( int argc, char *argv[] )
 {
     popt *simple = popt_init ();
-    popt_parse (&simple, argc, argv);
-    // printf ("%s\n", simple->avl_flags[1]);
+    pavl simple_available_flags [] = {
+        {"l", flag},{"b", key},EOL
+    };
 
+    pset_avl_opts (&simple, simple_available_flags);
+
+    char *error_string;
+    if ( (error_string = popt_parse (&simple, argc, argv)) != NULL )
+    {
+        printf ("Error in %s\n", error_string);
+        return -1;
+    }
     pfree (&simple);
     return 0;
 }

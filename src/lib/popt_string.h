@@ -1,3 +1,5 @@
+#include "pgetopt.h"
+
 int pget_flags_list ( char ***flags, int argc, char *argv[] )
 {
     unsigned long int lastpoint = 0;
@@ -17,4 +19,14 @@ int pget_flags_list ( char ***flags, int argc, char *argv[] )
         }
     }
     return lastpoint;
+}
+
+bool is_flag_available ( popt root, char *flags )
+{
+    int ret_value = 0;
+    for ( int i = 0 ; i<root.avl_flags_num ; ++i)
+    {
+        if ( strcmp (root.avl_flags[i] ,flags) == 0 )
+            return true;    }
+    return false;
 }
