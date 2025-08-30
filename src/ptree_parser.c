@@ -32,16 +32,18 @@ char *popt_parse ( popt **root, int argc, char *argv[] )
     for ( unsigned long int i=0 ; i<flags_number ; ++i )
     {
         if ( is_flag_available ((**root), flags[i]) == false )
-        {
             return flags[i];
-        }
         ((*root)->tree)[i] = (struct init *) malloc (sizeof (struct init));
         ((*root)->tree)[i]->name = flags[i];
         ((*root)->tree)[i]->branches = NULL;
     }
+    ////////////////////////////////////////////////////////////////
+
+    
     free (flags);
     return NULL;
 }
+
 
 void pset_avl_opts ( popt **root, pavl *avl_opts )
 {
@@ -52,37 +54,31 @@ void pset_avl_opts ( popt **root, pavl *avl_opts )
         switch (avl_opts[i].option_mode)
         {
             case flag:
-                // printf ("TEMPORARY : This is a flag : %s\n", avl_opts[i].opts);
+                if ( strlen (avl_opts[i].opts) != 1) {printf ("ERROR in available flags list\n"); exit (0);}
                 (*root)->avl_flags = (char **) realloc ((*root)->avl_flags, sizeof (char*)*((*root)->avl_flags_num+1));
                 (*root)->avl_flags[(*root)->avl_flags_num] = avl_opts[i].opts;
                 ++(*root)->avl_flags_num;
                 break;
             case key:
-                // printf ("TEMPORARY : This is a key  : %s\n", avl_opts[i].opts);
                 break;
         }
         ++i;
     }
 }
 
-//root->avl_flags = (char**) malloc (sizeof (char *));
-
 void pfree ( popt **root )
 {
     /* We must be free the all pointers :)
     */
-    for ( int i = 0 ; i < (*root)->flags_num ; ++i )
+    for ( int i = 0 ; i < ((*root)->flags_num + (*root)->keys_num) ; ++i )
     {
-        // printf ("%s\n", (*root)->tree[i]->name);
         free ((*root)->tree[i]->name);
         if ( (*root)->tree[i]->branches != NULL )
         {
-            printf ("This is a key\n");
+            // printf ("This is a key : %s\n", (*root)->tree[i]->name);
         }
-
     }
     free ((*root)->tree);
     free ((*root)->avl_flags);
-    free ((*root)->avl_keys);
     free (*root);
 }

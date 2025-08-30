@@ -9,7 +9,7 @@ typedef enum {
 
 struct init {
     char *name;
-    struct init **branches;
+    char **branches;
 };
 
 typedef struct root {
@@ -23,6 +23,7 @@ typedef struct root {
 } popt;
 
 #define EOL {NULL, 0} // Indicates the end of the list of allowed options.
+#define EOO -1        // Indicates the end of this list of argument options.
 
 typedef struct {
     char *opts;
@@ -33,7 +34,8 @@ typedef struct {
 popt *popt_init (void);
 char *popt_parse ( popt **root, const int argc, char *argv[] );
 void pset_avl_opts ( popt **root, pavl *avl_opts );
-// char ploop_get_flags ( popt root, unsigned long int *i );
 void pfree ( popt **root );
 
+
+char ploop_get_flags ( popt *root, unsigned long int i );
 #endif
