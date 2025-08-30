@@ -12,12 +12,9 @@ popt *popt_init (void)
     root->tree = (struct init **) malloc (sizeof (struct init *));
 
     root->avl_flags = (char**) malloc (sizeof (char *));
-    root->avl_keys  = (char**) malloc (sizeof (char *));
 
     root->flags_num = 0;
-    root->keys_num  = 0;
     root->avl_flags_num = 0;
-    root->avl_keys_num  = 0;
     return root;
 }
 
@@ -77,6 +74,7 @@ void pfree ( popt **root )
         {
             // printf ("This is a key : %s\n", (*root)->tree[i]->name);
         }
+        free ((*root)->tree[i]);
     }
     free ((*root)->tree);
     free ((*root)->avl_flags);
