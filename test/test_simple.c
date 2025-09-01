@@ -5,44 +5,19 @@
 int main ( int argc, char *argv[] )
 {
     popt *simple = popt_init ();
-    pavl simple_available_flags [] = {
-        {"l", flag},
-        {"t", flag},
-        {"r", flag},
-        {"h", flag},
-        EOL
+
+    /*
+    In this form and through this structure, 
+    you define the functionality of each option—specifying whether 
+    it is a `FLAG`, a `KEY`, or an `OBJECT`.
+    */
+    palw simple_allowed_options [] = {
+        {"l", FLAG}, // you can set a lower character as flag
+        {"T", FLAG}, // you can set an upper character as flag
+        EOL // End Of List
     };
+    pset_alw_opts ( &simple, simple_allowed_options );
 
-    pset_avl_opts (&simple, simple_available_flags);
-
-    char *error_string;
-    if ( (error_string = popt_parse (&simple, argc, argv)) != NULL )
-    {
-        printf ("Error in %s\n", error_string);
-        return -1;
-    }
-
-    int i=0; char ch;
-    while ( (ch=ploop_get_flags (simple, i)) != EOO )
-    {
-        switch (ch)
-        {
-            case 'l':
-                printf ("l is a flag!\n");
-                break;
-            case 't':
-                printf ("t is a flag!\n");
-                break;
-            case 'r':
-                printf ("r is a flag!\n");
-                break;
-            case 'h':
-                printf ("h is a flag!\n");
-                break;
-
-        }
-        ++i;
-    }
     pfree (&simple);
     return 0;
 }
