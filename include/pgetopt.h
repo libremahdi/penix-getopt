@@ -18,30 +18,32 @@
 typedef enum { FLAG, KEY, OBJECT } optmod; // This is defined to assign the functionality of each option.
 #define EOL { NULL, 0 } // To indicate the end of the list of `option functionalities`.
 
-typedef struct { char *option_name; optmod option_mode; } palw; 
+typedef struct { char *option_name; optmod option_mode; } palw;
 
+enum nodmod { PFLAG, PKEY, PNKEY, POBJECT };
 
-// Available Options segment
-enum nodmod { PFLAG, PKEY, PNKEY, POBJECT }; 
-struct init {
+struct branch {
     char *name;
     enum nodmod node_mode;
-    char **branches;
+    unsigned int values_size;
+    char **values;
 };
 
-typedef struct root {
+struct object {
+    char *name;
     unsigned int alw_size;
-    struct init **alw_tree; // a tree of Available options tree
+    struct branch **alw_tree; // a tree of Available options tree
     unsigned int avl_size;
-    struct init **avl_tree; // a tree of Allowed options tree
-} popt;
-// end segment
+    struct branch **avl_tree; // a tree of Allowed options tree
+};
 
-
+typedef struct init {
+    unsigned int class_size;
+    struct object **classes;
+} popt; // Parabyte Option
 
 
 popt*   popt_init       ( void ); // This function initializes all members of the root data structure.
-void    pset_alw_opts   ( popt **root, palw *alw_opts );
-void    pfree           ( popt **root );
-
+void    pclass_create   ( popt **main, char *name );
+void    pfree           ( popt **main );
 #endif

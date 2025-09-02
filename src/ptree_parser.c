@@ -7,91 +7,53 @@
 #include "lib/popt_string.h"
 #include "pgetopt.h"
 
-
-/* alw_tree avl_tree Manual
- * this is Example code for understanding how the tree work!
+void pclass_create (popt **init, char *name )
+{    
+    (*init)->classes = (struct object **) realloc ( (*init)->classes, ( sizeof (struct object *) * ((*init)->class_size+1) ) );
     
-    root->alw_tree      = (struct init **) realloc (root->alw_tree, sizeof (struct init *)*(SIZE_OF_LIST+1));
-    root->alw_tree[0]   = (struct init *) malloc (sizeof (struct init));
-    (root->alw_tree[0])->name = (char *) malloc (sizeof (char)*10);
-    (root->alw_tree[0])->name = "Mahdi";
-    (root->alw_tree[0])->node_mode = PFLAG;
-    (root->alw_tree[0])->branches = NULL; 
-    root->alw_tree[1]   = NULL;
+    (*init)->classes[(*init)->class_size]  = (struct object *) malloc (sizeof (struct object));
+    (*init)->classes[(*init)->class_size]->name = name;
+    
+    (*init)->classes[(*init)->class_size]->alw_size = 0;
+    (*init)->classes[(*init)->class_size]->avl_size = 0;
 
-*/
+    (*init)->classes[(*init)->class_size]->alw_tree = NULL;
+    (*init)->classes[(*init)->class_size]->avl_tree = NULL;
+
+    ++(*init)->class_size;
+}
+
 popt *popt_init (void)
 {
-    popt *root          = (popt *) malloc (sizeof (popt));
-    
-    root->alw_tree      = (struct init **) malloc (sizeof (struct init *));
-    root->alw_size      = 1;
-    root->avl_tree      = (struct init **) malloc (sizeof (struct init *));
-    root->avl_size      = 1;
-    return root;
+    popt *init          = (popt *) malloc (sizeof (popt));
+    init->class_size    = 0;
+    init->classes       = NULL;
+    pclass_create (&init, "main");
+    return init;
 }
 
-
-/*
-    root->alw_tree[0]   = (struct init *) malloc (sizeof (struct init));
-    (root->alw_tree[0])->name = (char *) malloc (sizeof (char)*10);
-    (root->alw_tree[0])->name = "Mahdi";
-    (root->alw_tree[0])->node_mode = PFLAG;
-    (root->alw_tree[0])->branches = NULL; 
-    root->alw_tree[1]   = NULL;
-*/
-void pset_alw_opts   ( popt **root, palw *alw_opts )
+void pfree ( popt **init )
 {
-    unsigned int i = 0;
-
-    while (alw_opts[i].option_name != NULL)
+    for ( unsigned int i0 = 0 ; i0<((*init)->class_size) ; ++i0 )
     {
-        (*root)->alw_tree[(*root)->alw_size-1] = (struct init *) malloc (sizeof (struct init));
-        switch (alw_opts[i].option_mode)
+        for ( unsigned int i1 = 0 ; i1 < (*init)->classes[i0]->alw_size ; ++i1 )
         {
-            case FLAG:
-                // printf ("KEY : %s\n", alw_opts[i].option_name);
-                (*root)->alw_tree[(*root)->alw_size-1]->name = alw_opts[i].option_name;
-                (*root)->alw_tree[(*root)->alw_size-1]->node_mode = PFLAG;
-                (*root)->alw_tree[(*root)->alw_size-1]->branches = NULL;
-                break;
-            case KEY:
-                break;
-            case OBJECT:
-                break;
+            for ( unsigned int i2 = 0 ; i2 < (*init)->classes[i0]->alw_tree[i1]->values_size ; ++i2 )
+            {
+                free ((*init)->classes[i0]->alw_tree[i1]->values[i2]);
+            }
         }
-        ++i;
-        ++(*root)->alw_size;
-        (*root)->alw_tree   = (struct init **) realloc ( (*root)->alw_tree, ( sizeof (struct init *)*((*root)->alw_size) ) );
-    }
-    (*root)->alw_tree[(*root)->alw_size-1] = NULL;
-}
-
-
-void pfree ( popt **root ) // We must be free the all pointers :)
-{
-    unsigned int i = 0;
-
-    while ((*root)->alw_tree[i] != NULL)
-    /*
-     * In this loop, all elements of alw_tree are traversed until, 
-     * as per convention, a NULL is encountered (a NULL is always 
-     * present at the end of these elements). Then, based on node_mode, 
-     * it determines how deep into the structure it should perform the 
-     * free operation.
-    */
-    {
-        switch ( (*root)->alw_tree[i]->node_mode )
+        for ( unsigned int i1 = 0 ; i1 < (*init)->classes[i0]->avl_size ; ++i1 )
         {
-            case PFLAG:
-                free ((*root)->alw_tree[i]);
-                break;
+            for ( unsigned int i2 = 0 ; i2 < (*init)->classes[i0]->avl_tree[i1]->values_size ; ++i2 )
+            {
+                free ((*init)->classes[i0]->avl_tree[i1]->values[i2]);
+            }
         }
-
-        ++i;
+        free ((*init)->classes[i0]->alw_tree);
+        free ((*init)->classes[i0]->avl_tree);
+        free ((*init)->classes[i0]);
     }
-
-    free ((*root)->avl_tree);
-    free ((*root)->alw_tree);
-    free (*root);
+    free ((*init)->classes);
+    free ((*init));
 }
