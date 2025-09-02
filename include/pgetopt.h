@@ -15,8 +15,8 @@
 #ifndef PGETOPT_MACRO
 #define PGETOPT_MACRO
 
-typedef enum { FLAG, KEY, OBJECT } optmod; // This is defined to assign the functionality of each option.
-#define EOL { NULL, 0 } // To indicate the end of the list of `option functionalities`.
+typedef enum { FLAG, KEY, OBJECT } optmod;
+#define EOL { NULL, 0 }
 
 typedef struct { char *option_name; optmod option_mode; } palw;
 
@@ -32,18 +32,22 @@ struct branch {
 struct object {
     char *name;
     unsigned int alw_size;
-    struct branch **alw_tree; // a tree of Available options tree
+    struct branch **alw_tree;
     unsigned int avl_size;
-    struct branch **avl_tree; // a tree of Allowed options tree
+    struct branch **avl_tree;
 };
 
 typedef struct init {
     unsigned int class_size;
     struct object **classes;
-} popt; // Parabyte Option
+} popt;
+typedef struct object pclass;
 
+popt    *popt_init              ( void ); 
+void    pinit_free              ( popt **init );
+void    pset_allowed_options    ( pclass **class, palw *alw_opts );
 
-popt*   popt_init       ( void ); // This function initializes all members of the root data structure.
-void    pclass_create   ( popt **main, char *name );
-void    pfree           ( popt **main );
+pclass  *pclass_create          ( popt **init, char *name );
+void    pclass_free             ( pclass **class );
+
 #endif
