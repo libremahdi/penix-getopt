@@ -13,7 +13,7 @@ int main ( int argc, char *argv[] )
         {"t", FLAG, 101},
         {"r", FLAG, 102},
         {"h", FLAG, 103},
-        {"hello", FLAG, 104},
+        {"Hello", FLAG, 104},
         EOL
     };
 
@@ -32,19 +32,19 @@ int main ( int argc, char *argv[] )
         switch ( opt_id )
         {
             case (100):
-                // printf ("FLAG: l\n");
+                printf ("FLAG: l\n");
                 break;
             case (101):
-                // printf ("FLAG: t\n");
+                printf ("FLAG: t\n");
                 break;
             case (102):
-                // printf ("FLAG: r\n");
+                printf ("FLAG: r\n");
                 break;
             case (103):
-                // printf ("FLAG: h\n");
+                printf ("FLAG: h\n");
                 break;
             case (104):
-                // printf ("FLAG: multi_letter\n");
+                printf ("FLAG: Hello\n");
                 break;
         }
         ++i;
