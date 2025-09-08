@@ -12,19 +12,20 @@
     for each subobject key.
 */
 
+#include <stdlib.h>
+
 #ifndef PGETOPT_MACRO
 #define PGETOPT_MACRO
 
-typedef enum { FLAG, KEY, OBJECT } optmod;
-#define EOL { NULL, 0 }
+typedef enum    { FLAG, KEY, OBJECT } optmod;
+typedef struct  { char *option_name; optmod option_mode; unsigned int ID; } palw;
+#define EOL     { NULL, 0 } // Indicates the end of the list of allowed options.
 
-typedef struct { char *option_name; optmod option_mode; } palw;
-
-enum nodmod { PFLAG, PKEY, PNKEY, POBJECT };
 
 struct branch {
     char *name;
-    enum nodmod node_mode;
+    optmod node_mode;
+    unsigned int ID;
     unsigned int values_size;
     char **values;
 };
@@ -38,16 +39,19 @@ struct object {
 };
 
 typedef struct init {
-    unsigned int class_size;
+    unsigned int classes_index;
     struct object **classes;
-} popt;
+} pinit;
 typedef struct object pclass;
 
-popt    *popt_init              ( void ); 
-void    pinit_free              ( popt **init );
-void    pset_allowed_options    ( pclass **class, palw *alw_opts );
 
-pclass  *pclass_create          ( popt **init, char *name );
+pinit*  pinit_create            (); 
+void    pinit_free              ( pinit **init );
+void    pinit_set_main_class    ( pinit **init, pclass *class );
+int     pinit_parse             ( pinit **init, int argc, char **argv );
+
+pclass  *pclass_create          ( pinit **init, char *name );
 void    pclass_free             ( pclass **class );
+void pclass_set_allowed_options ( pclass **class, palw *alw_opts );
 
 #endif
