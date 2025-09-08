@@ -47,6 +47,14 @@ void pclass_set_allowed_options ( pclass **class, palw *alw_opts )
     }
 }
 
+int pclass_loop_get ( pclass  *class, unsigned int index )
+{
+    if ( index >= (class->avl_size))    return -1;
+    // printf ("%s\n", class->avl_tree[index]->name);
+    return class->avl_tree[index]->ID;
+}
+
+
 void pclass_free ( pclass **class )
 {
         for ( unsigned int i1 = 0 ; i1 < (*class)->alw_size ; ++i1 )

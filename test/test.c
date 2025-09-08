@@ -9,8 +9,11 @@ int main ( int argc, char *argv[] )
     pinit_set_main_class (&init, main);
     
     palw simple_available_flags [] = {
-        {"H", FLAG, 100},
-        {"Hello", FLAG, 101},
+        {"l", FLAG, 100},
+        {"t", FLAG, 101},
+        {"r", FLAG, 102},
+        {"h", FLAG, 103},
+        {"hello", FLAG, 104},
         EOL
     };
 
@@ -22,6 +25,31 @@ int main ( int argc, char *argv[] )
         printf ("Error in %s\n", argv[err_index]);
         goto err_ret;
     }
+
+    int opt_id, i = 0;
+    while ( (opt_id = pclass_loop_get ( main, i )) != -1 )
+    {
+        switch ( opt_id )
+        {
+            case (100):
+                // printf ("FLAG: l\n");
+                break;
+            case (101):
+                // printf ("FLAG: t\n");
+                break;
+            case (102):
+                // printf ("FLAG: r\n");
+                break;
+            case (103):
+                // printf ("FLAG: h\n");
+                break;
+            case (104):
+                // printf ("FLAG: multi_letter\n");
+                break;
+        }
+        ++i;
+    }
+
 
 err_ret:
     pclass_free (&main);

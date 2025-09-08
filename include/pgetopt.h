@@ -50,8 +50,9 @@ void    pinit_free              ( pinit **init );
 void    pinit_set_main_class    ( pinit **init, pclass *class );
 int     pinit_parse             ( pinit **init, int argc, char **argv );
 
-pclass  *pclass_create          ( pinit **init, char *name );
+pclass  *pclass_create          ( pinit  **init, char *name );
 void    pclass_free             ( pclass **class );
 void pclass_set_allowed_options ( pclass **class, palw *alw_opts );
+int     pclass_loop_get         ( pclass  *class, unsigned int opt_id );
 
 #endif
