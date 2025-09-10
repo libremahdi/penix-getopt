@@ -5,19 +5,26 @@ int main ( int argc, char *argv[] )
 {
     pinit *init = pinit_create ();
     pclass *main = pclass_create (&init, "main");
+    pclass *user = pclass_create (&init, "user");
 
     pinit_set_main_class (&init, main);
     
-    palw simple_available_flags [] = {
+    palw main_allowed_options [] = {
         {"l", FLAG, 100},
-        {"t", FLAG, 101},
-        {"r", FLAG, 102},
-        {"h", FLAG, 103},
-        {"Hello", FLAG, 104},
+        {"output", FLAG, 101},
         EOL
     };
 
-    pclass_set_allowed_options ( &main, simple_available_flags );
+    palw user_allowed_options [] = {
+        {"m", FLAG, 100},
+        {"input", FLAG, 101},
+        EOL
+    };
+
+
+
+    pclass_set_allowed_options ( &main, main_allowed_options );
+    pclass_set_allowed_options ( &user, user_allowed_options );
 
     int err_index;
     if ( (err_index = pinit_parse (&init, argc, argv)) != 0 )
@@ -27,7 +34,7 @@ int main ( int argc, char *argv[] )
     }
 
     int opt_id, i = 0;
-    while ( (opt_id = pclass_loop_get ( main, i )) != -1 )
+    while ( ( opt_id = pclass_loop_get ( main, i ) ) != -1 )
     {
         switch ( opt_id )
         {
@@ -35,16 +42,7 @@ int main ( int argc, char *argv[] )
                 printf ("FLAG: l\n");
                 break;
             case (101):
-                printf ("FLAG: t\n");
-                break;
-            case (102):
-                printf ("FLAG: r\n");
-                break;
-            case (103):
-                printf ("FLAG: h\n");
-                break;
-            case (104):
-                printf ("FLAG: Hello\n");
+                printf ("FLAG: output\n");
                 break;
         }
         ++i;
@@ -52,6 +50,7 @@ int main ( int argc, char *argv[] )
 
 
 err_ret:
+    pclass_free (&user);
     pclass_free (&main);
     pinit_free (&init);
     return 0;

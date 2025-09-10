@@ -6,7 +6,7 @@
 
 #include "pgetopt.h"
 #include "lib/popt_tree.h"
-
+#include "lib/popt_class.h"
 pinit* pinit_create ( int INIT_MODE )
 {
     pinit *init          = (pinit *) malloc (sizeof (pinit));
@@ -68,6 +68,11 @@ int pinit_parse ( pinit **init, int argc, char **argv )
                     free (char2strv);
                     return i;
             }
+        }
+        else if ( argv[i][0] == '@' )
+        {
+            char2strv = strdup (argv[i]+1);
+            pstr_get_class (char2strv);
         }
     }
     return 0; // The function returns 0 when all options are valid and no issues are present.

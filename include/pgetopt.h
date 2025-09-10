@@ -1,15 +1,5 @@
-/*  Manual of General Architecture
-    At the initial stage, pgetopt must be initialized with a structure  
-    containing all valid options and their respective types. Subsequently,  
-    if the developer deems it necessary, they may define which values are  
-    allowed or disallowed for each key or object. For example, they can  
-    specify that the type key may only accept the values file and folder,  
-    or alternatively, mark those values as invalid.
-
-    For objects, the process differs slightly. It is mandatory for the  
-    developer to specify which keys and flags each object can accept.  
-    After that, they may define which values are permitted or prohibited  
-    for each subobject key.
+/* Forgiveness is the fragrance that the violet sheds on the heel that has crushed it.
+ *  -Mark Twain
 */
 
 #include <stdlib.h>
@@ -49,6 +39,7 @@ pinit*  pinit_create            ();
 void    pinit_free              ( pinit **init );
 void    pinit_set_main_class    ( pinit **init, pclass *class );
 int     pinit_parse             ( pinit **init, int argc, char **argv );
+
 
 pclass  *pclass_create          ( pinit  **init, char *name );
 void    pclass_free             ( pclass **class );
