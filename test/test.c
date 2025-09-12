@@ -1,40 +1,44 @@
 #include "pgetopt.h"
 #include <stdio.h>
 
+
 int main ( int argc, char *argv[] )
 {
     pinit *init = pinit_create ();
-    pclass *main = pclass_create (&init, "main");
-    pclass *user = pclass_create (&init, "user");
 
-    pinit_set_main_class (&init, main);
-    
+    // main's class segment
+    pclass *main_class = pclass_create (&init, "main");
+    pinit_set_main_class (&init, main_class);
     palw main_allowed_options [] = {
         {"l", FLAG, 100},
         {"output", FLAG, 101},
         EOL
     };
+    pclass_set_allowed_options ( &main_class, main_allowed_options );
 
+    // user's class segment
+    pclass *user = pclass_create (&init, "user");
     palw user_allowed_options [] = {
         {"m", FLAG, 100},
         {"input", FLAG, 101},
         EOL
     };
-
-
-
-    pclass_set_allowed_options ( &main, main_allowed_options );
     pclass_set_allowed_options ( &user, user_allowed_options );
 
-    int err_index;
-    if ( (err_index = pinit_parse (&init, argc, argv)) != 0 )
+    
+    // parsing the options from arguments and managing errors
+    int err_index = pinit_parse (&init, argc, argv);
+    if ( err_index != 0 )
     {
         printf ("Error in %s\n", argv[err_index]);
         goto err_ret;
     }
 
-    int opt_id, i = 0;
-    while ( ( opt_id = pclass_loop_get ( main, i ) ) != -1 )
+    // get options loop segment
+    int opt_id, i;
+
+    i = 0;
+    while ( ( opt_id = pclass_loop_get ( main_class, i ) ) != -1 )
     {
         switch ( opt_id )
         {
@@ -62,11 +66,11 @@ int main ( int argc, char *argv[] )
         }
         ++i;
     }
-
+    // end of segment
 
 err_ret:
     pclass_free (&user);
-    pclass_free (&main);
+    pclass_free (&main_class);
     pinit_free (&init);
     return 0;
 }
