@@ -77,10 +77,12 @@ int pinit_parse ( pinit **init, int argc, char **argv )
         }
         else if ( argv[i][0] == '@' )
         {
-            char2strv = strdup (argv[i]+1);
-            class_name = pstr_get_class_name (char2strv);
+            char2strv   = strdup (argv[i]+1);
+            class_name  = pstr_get_class_name (char2strv);
             class_value = pstr_get_class_value (char2strv);
             if ( (class_index = get_class_index ((*init), class_name)) == -1 ) return i;
+            free (class_name);
+            free (char2strv);
 
             switch ( is_alw ((*init)->classes[class_index], class_value) )
             {
@@ -95,9 +97,7 @@ int pinit_parse ( pinit **init, int argc, char **argv )
                         ++(*init)->classes[class_index]->avl_size;
                     break;  
                 case -1:
-                    free (class_name);
                     free (class_value);
-                    free (char2strv);
                     return i;
             }
         }
