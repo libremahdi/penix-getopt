@@ -35,7 +35,7 @@ typedef struct init {
 typedef struct object pclass;
 
 
-pinit*  pinit_create            (); 
+pinit* pinit_create             ( );
 void    pinit_free              ( pinit **init );
 void    pinit_set_main_class    ( pinit **init, pclass *class );
 int     pinit_parse             ( pinit **init, int argc, char **argv );

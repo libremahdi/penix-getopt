@@ -7,7 +7,9 @@
 #include "pgetopt.h"
 #include "lib/popt_tree.h"
 #include "lib/popt_class.h"
-pinit* pinit_create ( int INIT_MODE )
+
+
+pinit* pinit_create ()
 {
     pinit *init          = (pinit *) malloc (sizeof (pinit));
     init->classes_index = 1; // first index is for main class
@@ -20,7 +22,8 @@ pinit* pinit_create ( int INIT_MODE )
 int pinit_parse ( pinit **init, int argc, char **argv )
 {
     char *char2strv = NULL;
-    
+    char *class_name = NULL;
+
     for ( int i = 1 ; i < argc ; ++i )
     {
         if ( argv[i][0] == '-' && argv[i][1] != '-' )
@@ -72,7 +75,10 @@ int pinit_parse ( pinit **init, int argc, char **argv )
         else if ( argv[i][0] == '@' )
         {
             char2strv = strdup (argv[i]+1);
-            pstr_get_class (char2strv);
+            class_name = pstr_get_class (char2strv);
+            printf ("Class name = %s\n", class_name);
+            free (class_name);
+            free (char2strv);
         }
     }
     return 0; // The function returns 0 when all options are valid and no issues are present.

@@ -14,8 +14,7 @@ static unsigned int find_char_index ( char *str, char ch, unsigned int chnum )
         if ( str[i] == ch )
         {
             ++n;
-            if ( n == chnum )
-                return i;
+            if ( n == chnum ) return i;
         }
         ++i;
     }
