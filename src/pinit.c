@@ -25,6 +25,7 @@ int pinit_parse ( pinit **init, int argc, char **argv )
 
     unsigned int class_index;    
     char *class_name = NULL;
+    char *class_value = NULL;
 
     for ( int i = 1 ; i < argc ; ++i )
     {
@@ -77,10 +78,28 @@ int pinit_parse ( pinit **init, int argc, char **argv )
         else if ( argv[i][0] == '@' )
         {
             char2strv = strdup (argv[i]+1);
-            class_name = pstr_get_class (char2strv);
+            class_name = pstr_get_class_name (char2strv);
+            class_value = pstr_get_class_value (char2strv);
             if ( (class_index = get_class_index ((*init), class_name)) == -1 ) return i;
-            free (class_name);
-            free (char2strv);
+
+            switch ( is_alw ((*init)->classes[class_index], class_value) )
+            {
+                case FLAG:
+                        if ( is_repetitive_flag ( (*init)->classes[class_index], class_value ) == true )   continue;
+                        (*init)->classes[class_index]->avl_tree = ( struct branch **) realloc ( ((*init)->classes[class_index]->avl_tree), ( sizeof (struct branch *) * ( (*init)->classes[class_index]->avl_size + 1 )) );
+                        (*init)->classes[class_index]->avl_tree[(*init)->classes[class_index]->avl_size] = ( struct branch * ) malloc ( sizeof ( struct branch ) );
+                        (*init)->classes[class_index]->avl_tree[(*init)->classes[class_index]->avl_size]->name          = class_value;
+                        (*init)->classes[class_index]->avl_tree[(*init)->classes[class_index]->avl_size]->ID            = what_is_ID ((*init)->classes[class_index], class_value);
+                        (*init)->classes[class_index]->avl_tree[(*init)->classes[class_index]->avl_size]->values_size   = 0;
+                        (*init)->classes[class_index]->avl_tree[(*init)->classes[class_index]->avl_size]->values        = NULL;
+                        ++(*init)->classes[class_index]->avl_size;
+                    break;  
+                case -1:
+                    free (class_name);
+                    free (class_value);
+                    free (char2strv);
+                    return i;
+            }
         }
     }
     return 0; // The function returns 0 when all options are valid and no issues are present.

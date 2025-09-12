@@ -39,10 +39,25 @@ int main ( int argc, char *argv[] )
         switch ( opt_id )
         {
             case (100):
-                printf ("FLAG: l\n");
+                printf ("main FLAG: l\n");
                 break;
             case (101):
-                printf ("FLAG: output\n");
+                printf ("main FLAG: output\n");
+                break;
+        }
+        ++i;
+    }
+
+    i=0;
+    while ( ( opt_id = pclass_loop_get ( user, i ) ) != -1 )
+    {
+        switch ( opt_id )
+        {
+            case (100):
+                printf ("user FLAG: m\n");
+                break;
+            case (101):
+                printf ("user FLAG: input\n");
                 break;
         }
         ++i;

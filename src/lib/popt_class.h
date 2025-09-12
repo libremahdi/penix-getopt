@@ -23,13 +23,20 @@ static unsigned int find_char_index ( char *str, char ch, unsigned int chnum )
 
 
 static char *pstr_get_class_name ( char *str )
+// when you insert the 'class.flag' string, this function must return 'class' from the string
 {
-    char *ret_value = (char *) malloc (sizeof (char) *  (find_char_index (str, '.', 1)+1)); // one character for \0
+    char *ret_value = (char *) malloc (sizeof (char) * (find_char_index (str, '.', 1)+1)); // one character for \0
     strcpy (ret_value, str);
     ret_value[find_char_index (str, '.', 1)]='\0';
     return ret_value;
 }
 
+static char *pstr_get_class_value ( char *str )
+// when you insert the 'class.flag' string, this function must return 'flag' from the string
+{
+    char *ret_value = strdup ( str + find_char_index (str, '.', 1) + 1 );
+    return ret_value;
+}
 
 
 static unsigned int get_class_index ( pinit *init, char *class_name )
