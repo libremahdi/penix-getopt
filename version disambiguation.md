@@ -8,14 +8,17 @@ The versioning system of this software follows the **PENIX** software developmen
 
 The versioning system defined by PENIX consists of the following components:
 
-ver-<Major version>.<Minor version>.<Status>
+ver-<Major version>.<Minor version>.<path>.<Status>
 
 
 ### 1. **Major Version**
-The **Major version** is incremented when significant changes are made to the software's structure and behavior, resulting in incompatibility with previous versions. These changes may affect input, output, or other parts of the software.
+Major Version refers to a version in which a significant and fundamental change has occurred in the software's structure and foundation, such that it is either incompatible with previous versions or has undergone major changes.
 
-### 2. **Minor Version**
-The **Minor version** is updated for changes that do not affect the core structure of the software or introduce incompatibility with previous versions.
+## 2. **Minor Version**
+Minor Version refers to the addition of a new feature or the removal of a specific feature.
+
+## 3. **Path**
+Patch refers to small optimizations and changes that do not affect the usage compared to the previous version.
 
 ### 3. **Status**
 The **Status** section is represented by Latin letters, which indicate the current stage of the software:
