@@ -22,7 +22,7 @@ static unsigned int find_char_index ( char *str, char ch, unsigned int chnum )
 }
 
 
-static char *pstr_get_class ( char *str )
+static char *pstr_get_class_name ( char *str )
 {
     char *ret_value = (char *) malloc (sizeof (char) *  (find_char_index (str, '.', 1)+1)); // one character for \0
     strcpy (ret_value, str);
@@ -30,7 +30,15 @@ static char *pstr_get_class ( char *str )
     return ret_value;
 }
 
+
+
 static unsigned int get_class_index ( pinit *init, char *class_name )
 {
+    for ( unsigned int i = 0 ; i < init->classes_index ; ++i )
+    {
+        if ( strcmp ( init->classes[i]->name, class_name ) == 0 )
+            return i;
+    }
+    return -1;
 }
 #endif

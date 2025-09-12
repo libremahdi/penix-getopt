@@ -12,7 +12,7 @@
 pinit* pinit_create ()
 {
     pinit *init          = (pinit *) malloc (sizeof (pinit));
-    init->classes_index = 1; // first index is for main class
+    init->classes_index = 0;
 
     init->classes = (struct object **) malloc ( ( sizeof (struct object *) ) );
     init->classes[0] = NULL; // this is the main class
@@ -22,6 +22,8 @@ pinit* pinit_create ()
 int pinit_parse ( pinit **init, int argc, char **argv )
 {
     char *char2strv = NULL;
+
+    unsigned int class_index;    
     char *class_name = NULL;
 
     for ( int i = 1 ; i < argc ; ++i )
@@ -76,7 +78,7 @@ int pinit_parse ( pinit **init, int argc, char **argv )
         {
             char2strv = strdup (argv[i]+1);
             class_name = pstr_get_class (char2strv);
-            printf ("Class name = %s\n", class_name);
+            if ( (class_index = get_class_index ((*init), class_name)) == -1 ) return i;
             free (class_name);
             free (char2strv);
         }
