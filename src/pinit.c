@@ -96,6 +96,7 @@ int pinit_parse ( pinit **init, int argc, char **argv )
                         strcpy ( (*key_point)->values [(*key_point) -> values_size], argv[i+1]);
                         ++(*key_point) -> values_size;
                         ++i;
+                        free (char2strv);
                         break;
             }
         }

@@ -11,6 +11,7 @@ int main ( int argc, char *argv[] )
     pinit_set_main_class (&init, main_class);
     palw main_allowed_options [] = {
         {"l"        , 100},
+        {"hello"    , 102},
         {"output"   , 101},
         EOL
     };

@@ -69,9 +69,11 @@ void pclass_free ( pclass **class )
             {
                 free ((*class)->avl_tree[i1]->values[i2]);
             }
+            free ((*class)->avl_tree[i1]->values);
             free ((*class)->avl_tree[i1]->name);
             free ((*class)->avl_tree[i1]);
         }
+
         free ((*class)->alw_tree);
         free ((*class)->avl_tree);
         free (*class);
