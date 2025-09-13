@@ -1,4 +1,4 @@
-// #include <stdio.h>
+#include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 
@@ -49,15 +49,25 @@ int pclass_loop_get ( pclass  *class, unsigned int index )
     return class->avl_tree[index]->ID;
 }
 
+pkey pclass_set_key ( pclass **class, unsigned int KEY_ID, enum PKEY_TYPE key_type )
+{
+    for ( int classI=0 ; classI <  (*class)->alw_size ; ++classI )
+    {
+        if ( (*class)->alw_tree[classI]->ID == KEY_ID )
+        {
+            (*class)->alw_tree[classI]->key_type = key_type;
+            return (*class)->alw_tree[classI];
+        }
+    }
+    printf ("Error: cant find %d in options list\n", KEY_ID);
+    abort ();
+}
 
 void pclass_free ( pclass **class )
 {
         for ( unsigned int i1 = 0 ; i1 < (*class)->alw_size ; ++i1 )
         {
-            for ( unsigned int i2 = 0 ; i2 < (*class)->alw_tree[i1]->values_size ; ++i2 )
-            {
-                free ((*class)->alw_tree[i1]->values[i2]);
-            }
+            free ((*class)->alw_tree[i1]->values); // (*class)->alw_tree[i1]->values[XXXX]->name dont Need to free
             // free ((*class)->alw_tree[i1]->name); Dont Need to use this free function
             /* 
              * Since in the pclass_set_allowed_options function, the name field in the branch structure is assigned using the value passed 

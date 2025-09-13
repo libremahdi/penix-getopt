@@ -46,6 +46,7 @@ int pinit_parse ( pinit **init, int argc, char **argv )
                         (*init)->classes[0]->avl_tree = ( struct branch **) realloc ( ((*init)->classes[0]->avl_tree), ( sizeof (struct branch *) * ( (*init)->classes[0]->avl_size + 1 )) );
                         (*init)->classes[0]->avl_tree[(*init)->classes[0]->avl_size] = ( struct branch * ) malloc ( sizeof ( struct branch ) );
                         (*init)->classes[0]->avl_tree[(*init)->classes[0]->avl_size]->name          = char2strv;
+                        (*init)->classes[0]->avl_tree[(*init)->classes[0]->avl_size]->key_type      = -1;
                         (*init)->classes[0]->avl_tree[(*init)->classes[0]->avl_size]->ID            = what_is_ID ((*init)->classes[0], char2strv);
                         (*init)->classes[0]->avl_tree[(*init)->classes[0]->avl_size]->values_size   = 0;
                         (*init)->classes[0]->avl_tree[(*init)->classes[0]->avl_size]->values        = NULL;
@@ -68,6 +69,7 @@ int pinit_parse ( pinit **init, int argc, char **argv )
                         (*init)->classes[0]->avl_tree = ( struct branch **) realloc ( ((*init)->classes[0]->avl_tree), ( sizeof (struct branch *) * ( (*init)->classes[0]->avl_size + 1 )) );
                         (*init)->classes[0]->avl_tree[(*init)->classes[0]->avl_size] = ( struct branch * ) malloc ( sizeof ( struct branch ) );
                         (*init)->classes[0]->avl_tree[(*init)->classes[0]->avl_size]->name          = char2strv;
+                        (*init)->classes[0]->avl_tree[(*init)->classes[0]->avl_size]->key_type      = -1;
                         (*init)->classes[0]->avl_tree[(*init)->classes[0]->avl_size]->ID            = what_is_ID ((*init)->classes[0], char2strv);
                         (*init)->classes[0]->avl_tree[(*init)->classes[0]->avl_size]->values_size   = 0;
                         (*init)->classes[0]->avl_tree[(*init)->classes[0]->avl_size]->values        = NULL;
@@ -80,13 +82,20 @@ int pinit_parse ( pinit **init, int argc, char **argv )
             char2strv   = strdup (argv[i]+1);
             class_name  = pstr_get_class_name (char2strv);
             class_value = pstr_get_class_value (char2strv);
-            if ( (class_index = get_class_index ((*init), class_name)) == -1 ) return i;
+            if ( (class_index = get_class_index ((*init), class_name)) == -1 ) 
+            {
+                free (class_name);
+                free (class_value);
+                free (char2strv);
+                return i;
+            }
             free (class_name);
             free (char2strv);
 
             switch ( is_alw ((*init)->classes[class_index], class_value) )
             {
                 case -1:
+
                     free (class_value);
                     return i;
                 default:
@@ -94,6 +103,7 @@ int pinit_parse ( pinit **init, int argc, char **argv )
                         (*init)->classes[class_index]->avl_tree = ( struct branch **) realloc ( ((*init)->classes[class_index]->avl_tree), ( sizeof (struct branch *) * ( (*init)->classes[class_index]->avl_size + 1 )) );
                         (*init)->classes[class_index]->avl_tree[(*init)->classes[class_index]->avl_size] = ( struct branch * ) malloc ( sizeof ( struct branch ) );
                         (*init)->classes[class_index]->avl_tree[(*init)->classes[class_index]->avl_size]->name          = class_value;
+                        (*init)->classes[class_index]->avl_tree[(*init)->classes[class_index]->avl_size]->key_type      = -1;
                         (*init)->classes[class_index]->avl_tree[(*init)->classes[class_index]->avl_size]->ID            = what_is_ID ((*init)->classes[class_index], class_value);
                         (*init)->classes[class_index]->avl_tree[(*init)->classes[class_index]->avl_size]->values_size   = 0;
                         (*init)->classes[class_index]->avl_tree[(*init)->classes[class_index]->avl_size]->values        = NULL;

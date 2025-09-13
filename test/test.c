@@ -10,21 +10,16 @@ int main ( int argc, char *argv[] )
     pclass *main_class = pclass_create (&init, "main");
     pinit_set_main_class (&init, main_class);
     palw main_allowed_options [] = {
-        {"l", 100},
-        {"output", 101},
+        {"l"        , 100},
+        {"output"   , 101},
         EOL
     };
     pclass_set_allowed_options ( &main_class, main_allowed_options );
-
-    // user's class segment
-    pclass *user = pclass_create (&init, "user");
-    palw user_allowed_options [] = {
-        {"m", 100},
-        {"input", 101},
-        EOL
-    };
-    pclass_set_allowed_options ( &user, user_allowed_options );
-
+    
+    // key-value segment
+    pkey key1 = pclass_set_key ( &main_class, 101, ALW_CUSTOM);
+    pkey_set_custom_value ( &key1, "Hello" );
+    // end segment
     
     // parsing the options from arguments and managing errors
     int err_index = pinit_parse (&init, argc, argv);
@@ -52,24 +47,8 @@ int main ( int argc, char *argv[] )
         ++i;
     }
 
-    i=0;
-    while ( ( opt_id = pclass_loop_get ( user, i ) ) != -1 )
-    {
-        switch ( opt_id )
-        {
-            case (100):
-                printf ("user FLAG: m\n");
-                break;
-            case (101):
-                printf ("user FLAG: input\n");
-                break;
-        }
-        ++i;
-    }
-    // end of segment
 
 err_ret:
-    pclass_free (&user);
     pclass_free (&main_class);
     pinit_free (&init);
     return 0;
