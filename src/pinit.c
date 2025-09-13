@@ -27,7 +27,7 @@ int pinit_parse ( pinit **init, int argc, char **argv )
     char *class_name = NULL;
     char *class_value = NULL;
 
-    struct branch *key_point;
+    struct branch **key_point;
 
     for ( int i = 1 ; i < argc ; ++i )
     {
@@ -78,7 +78,6 @@ int pinit_parse ( pinit **init, int argc, char **argv )
                     default:
                         if ( is_repetitive ( (*init)->classes[0], char2strv ) == false )
                         {
-                            printf ("First %d\n", what_is_ID ((*init)->classes[0], char2strv));
                             (*init)->classes[0]->avl_tree = ( struct branch **) realloc ( ((*init)->classes[0]->avl_tree), ( sizeof (struct branch *) * ( (*init)->classes[0]->avl_size + 1 )) );
                             (*init)->classes[0]->avl_tree[(*init)->classes[0]->avl_size] = ( struct branch * ) malloc ( sizeof ( struct branch ) );
                             (*init)->classes[0]->avl_tree[(*init)->classes[0]->avl_size]->name          = char2strv;
@@ -86,12 +85,17 @@ int pinit_parse ( pinit **init, int argc, char **argv )
                             (*init)->classes[0]->avl_tree[(*init)->classes[0]->avl_size]->values_size   = 1;
                             (*init)->classes[0]->avl_tree[(*init)->classes[0]->avl_size]->values        = ( char ** ) malloc ( sizeof (char *) );
                             (*init)->classes[0]->avl_tree[(*init)->classes[0]->avl_size]->values[0]     = ( char * ) malloc ( sizeof (char) * ( strlen (argv[i+1]) + 1 ) );
+                            strcpy ( (*init)->classes[0]->avl_tree[(*init)->classes[0]->avl_size]->values[0], argv[i+1]);
                             ++(*init)->classes[0]->avl_size;
                             ++i;
                             break;
                         }
                         key_point=get_point ((*init)->classes[0], char2strv);
-                        printf ("%s\n", key_point->name);
+                        (*key_point)->values   = ( char ** ) realloc ( (*key_point)->values, (sizeof (char *) * ((*key_point)->values_size+1)));
+                        (*key_point)->values [(*key_point) -> values_size] = ( char * ) malloc ( sizeof (char) * ( strlen (argv[i+1]) + 1 ) );
+                        strcpy ( (*key_point)->values [(*key_point) -> values_size], argv[i+1]);
+                        ++(*key_point) -> values_size;
+                        ++i;
                         break;
             }
         }

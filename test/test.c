@@ -42,8 +42,10 @@ int main ( int argc, char *argv[] )
                 printf ("main FLAG: l\n");
                 break;
             case (101):
-                // printf (">%d\n", pclass_get_key_size (main_class, 101));
-                printf ("main FLAG: output\n");
+                for ( int in = 0 ; in < pclass_get_key_size (main_class, 101) ; ++in )
+                {
+                    printf ("main KEY : Value = %s\n", pclass_get_value(main_class, 101, in));
+                }
                 break;
         }
         ++i;

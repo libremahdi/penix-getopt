@@ -33,11 +33,11 @@ static bool is_repetitive ( pclass *class, char *option )
     return false;
 }
 
-static struct branch *get_point ( pclass *class, char *option )
+static struct branch **get_point ( pclass *class, char *option )
 {
     for ( int i = 0 ; i < class->avl_size ; ++i )
         if ( strcmp (class->avl_tree[i]->name, option) == 0 )
-            return class->avl_tree[i];
+            return &class->avl_tree[i];
 }
 
 #endif

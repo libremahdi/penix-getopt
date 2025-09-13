@@ -49,6 +49,7 @@ int          pclass_loop_get         ( pclass  *class, unsigned int opt_id );
 typedef struct branch *pkey;
 pkey         pclass_set_key          ( pclass **class, unsigned int KEY_ID, enum PKEY_TYPE key_type );
 unsigned int pclass_get_key_size     ( pclass *class, unsigned int KEY_ID );
+char        *pclass_get_value        ( pclass *class, unsigned int KEY_ID, unsigned int index );
 
 
 void         pkey_custom_set_value   ( pkey *KEY, char *value );

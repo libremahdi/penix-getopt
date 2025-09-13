@@ -96,13 +96,24 @@ pkey pclass_set_key ( pclass **class, unsigned int KEY_ID, enum PKEY_TYPE key_ty
 
 unsigned int pclass_get_key_size ( pclass *class, unsigned int KEY_ID )
 {
-    for ( int classI=0 ; classI <  (class)->alw_size ; ++classI )
+    for ( int classI=0 ; classI <  (class)->avl_size ; ++classI )
     {
-        if ( (class)->alw_tree[classI]->ID == KEY_ID )
+        if ( (class)->avl_tree[classI]->ID == KEY_ID )
         {
-            return (class)->alw_tree[classI]->values_size;
+            return (class)->avl_tree[classI]->values_size;
         }
     }
-    printf ("ERROR: cant find `%d` key in alw options\n", KEY_ID);
+    printf ("ERROR: cant find `%d` key in avl options\n", KEY_ID);
     abort ();
+}
+
+char *pclass_get_value ( pclass *class, unsigned int KEY_ID, unsigned int index )
+{
+    for ( int classI=0 ; classI <  (class)->avl_size ; ++classI )
+    {
+        if ( (class)->avl_tree[classI]->ID == KEY_ID )
+        {
+            return (class)->avl_tree[classI]->values[index];
+        }
+    }
 }
