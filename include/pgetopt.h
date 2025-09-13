@@ -35,21 +35,22 @@ typedef struct init {
 typedef struct object pclass;
 
 
-pinit* pinit_create             ( );
-void    pinit_free              ( pinit **init );
-void    pinit_set_main_class    ( pinit **init, pclass *class );
-int     pinit_parse             ( pinit **init, int argc, char **argv );
+pinit      *pinit_create             ( );
+void        pinit_free              ( pinit **init );
+void        pinit_set_main_class    ( pinit **init, pclass *class );
+int         pinit_parse             ( pinit **init, int argc, char **argv );
 
 
-pclass  *pclass_create          ( pinit  **init, char *name );
-void    pclass_free             ( pclass **class );
-void pclass_set_allowed_options ( pclass **class, palw *alw_opts );
-int     pclass_loop_get         ( pclass  *class, unsigned int opt_id );
+pclass      *pclass_create          ( pinit  **init, char *name );
+void         pclass_free             ( pclass **class );
+void         pclass_set_allowed_options ( pclass **class, palw *alw_opts );
+int          pclass_loop_get         ( pclass  *class, unsigned int opt_id );
 
 typedef struct branch *pkey;
-pkey    pclass_set_key          ( pclass **class, unsigned int KEY_ID, enum PKEY_TYPE key_type );
+pkey         pclass_set_key          ( pclass **class, unsigned int KEY_ID, enum PKEY_TYPE key_type );
+unsigned int pclass_get_key_size     ( pclass *class, unsigned int KEY_ID );
 
-void    pkey_set_custom_value   ( pkey *KEY, char *value );
 
+void         pkey_custom_set_value   ( pkey *KEY, char *value );
 
 #endif

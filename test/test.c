@@ -18,9 +18,10 @@ int main ( int argc, char *argv[] )
     
     // key-value segment
     pkey key1 = pclass_set_key ( &main_class, 101, ALW_CUSTOM);
-    pkey_set_custom_value ( &key1, "Hello" );
+    pkey_custom_set_value ( &key1, "Hello" );
+    pkey_custom_set_value ( &key1, "Hi" );
     // end segment
-    
+
     // parsing the options from arguments and managing errors
     int err_index = pinit_parse (&init, argc, argv);
     if ( err_index != 0 )
@@ -41,6 +42,7 @@ int main ( int argc, char *argv[] )
                 printf ("main FLAG: l\n");
                 break;
             case (101):
+                // printf (">%d\n", pclass_get_key_size (main_class, 101));
                 printf ("main FLAG: output\n");
                 break;
         }

@@ -49,20 +49,6 @@ int pclass_loop_get ( pclass  *class, unsigned int index )
     return class->avl_tree[index]->ID;
 }
 
-pkey pclass_set_key ( pclass **class, unsigned int KEY_ID, enum PKEY_TYPE key_type )
-{
-    for ( int classI=0 ; classI <  (*class)->alw_size ; ++classI )
-    {
-        if ( (*class)->alw_tree[classI]->ID == KEY_ID )
-        {
-            (*class)->alw_tree[classI]->key_type = key_type;
-            return (*class)->alw_tree[classI];
-        }
-    }
-    printf ("Error: cant find %d in options list\n", KEY_ID);
-    abort ();
-}
-
 void pclass_free ( pclass **class )
 {
         for ( unsigned int i1 = 0 ; i1 < (*class)->alw_size ; ++i1 )
@@ -89,4 +75,34 @@ void pclass_free ( pclass **class )
         free ((*class)->alw_tree);
         free ((*class)->avl_tree);
         free (*class);
+}
+
+
+
+
+pkey pclass_set_key ( pclass **class, unsigned int KEY_ID, enum PKEY_TYPE key_type )
+{
+    for ( int classI=0 ; classI <  (*class)->alw_size ; ++classI )
+    {
+        if ( (*class)->alw_tree[classI]->ID == KEY_ID )
+        {
+            (*class)->alw_tree[classI]->key_type = key_type;
+            return (*class)->alw_tree[classI];
+        }
+    }
+    printf ("Error: cant find %d in options list\n", KEY_ID);
+    abort ();
+}
+
+unsigned int pclass_get_key_size ( pclass *class, unsigned int KEY_ID )
+{
+    for ( int classI=0 ; classI <  (class)->alw_size ; ++classI )
+    {
+        if ( (class)->alw_tree[classI]->ID == KEY_ID )
+        {
+            return (class)->alw_tree[classI]->values_size;
+        }
+    }
+    printf ("ERROR: cant find `%d` key in alw options\n", KEY_ID);
+    abort ();
 }

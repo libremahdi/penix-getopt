@@ -5,7 +5,7 @@
 #include "pgetopt.h"
 #include "lib/popt_key.h"
 
-void pkey_set_custom_value ( pkey *KEY, char *value )
+void pkey_custom_set_value ( pkey *KEY, char *value )
 {
     if ( ((*KEY)->key_type != ALW_CUSTOM) && ((*KEY)->key_type != DENY_CUSTOM) )
     {
@@ -16,3 +16,4 @@ void pkey_set_custom_value ( pkey *KEY, char *value )
     (*KEY)->values[ ((*KEY)->values_size) ] = value;
     ++(*KEY)->values_size;
 }
+
