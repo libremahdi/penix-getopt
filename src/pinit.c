@@ -38,7 +38,10 @@ int pinit_parse ( pinit **init, int argc, char **argv )
                 char2strv[1]='\0';
                 switch ( is_alw ((*init)->classes[0], char2strv) )
                 {
-                    case FLAG:
+                    case -1:
+                        free (char2strv);
+                        return i;
+                    default:
                         if ( is_repetitive_flag ( (*init)->classes[0], char2strv ) == true )   continue;
                         (*init)->classes[0]->avl_tree = ( struct branch **) realloc ( ((*init)->classes[0]->avl_tree), ( sizeof (struct branch *) * ( (*init)->classes[0]->avl_size + 1 )) );
                         (*init)->classes[0]->avl_tree[(*init)->classes[0]->avl_size] = ( struct branch * ) malloc ( sizeof ( struct branch ) );
@@ -48,9 +51,6 @@ int pinit_parse ( pinit **init, int argc, char **argv )
                         (*init)->classes[0]->avl_tree[(*init)->classes[0]->avl_size]->values        = NULL;
                         ++(*init)->classes[0]->avl_size;
                         break;    
-                    case -1:
-                        free (char2strv);
-                        return i;
                 }
             }
         }
@@ -60,7 +60,10 @@ int pinit_parse ( pinit **init, int argc, char **argv )
 
             switch ( is_alw ((*init)->classes[0], char2strv) )
             {
-                case FLAG:
+                case -1:
+                    free (char2strv);
+                    return i;
+                default:
                         if ( is_repetitive_flag ( (*init)->classes[0], char2strv ) == true )   continue;
                         (*init)->classes[0]->avl_tree = ( struct branch **) realloc ( ((*init)->classes[0]->avl_tree), ( sizeof (struct branch *) * ( (*init)->classes[0]->avl_size + 1 )) );
                         (*init)->classes[0]->avl_tree[(*init)->classes[0]->avl_size] = ( struct branch * ) malloc ( sizeof ( struct branch ) );
@@ -70,9 +73,6 @@ int pinit_parse ( pinit **init, int argc, char **argv )
                         (*init)->classes[0]->avl_tree[(*init)->classes[0]->avl_size]->values        = NULL;
                         ++(*init)->classes[0]->avl_size;
                     break;  
-                case -1:
-                    free (char2strv);
-                    return i;
             }
         }
         else if ( argv[i][0] == '@' )
@@ -86,7 +86,10 @@ int pinit_parse ( pinit **init, int argc, char **argv )
 
             switch ( is_alw ((*init)->classes[class_index], class_value) )
             {
-                case FLAG:
+                case -1:
+                    free (class_value);
+                    return i;
+                default:
                         if ( is_repetitive_flag ( (*init)->classes[class_index], class_value ) == true )   continue;
                         (*init)->classes[class_index]->avl_tree = ( struct branch **) realloc ( ((*init)->classes[class_index]->avl_tree), ( sizeof (struct branch *) * ( (*init)->classes[class_index]->avl_size + 1 )) );
                         (*init)->classes[class_index]->avl_tree[(*init)->classes[class_index]->avl_size] = ( struct branch * ) malloc ( sizeof ( struct branch ) );
@@ -96,9 +99,6 @@ int pinit_parse ( pinit **init, int argc, char **argv )
                         (*init)->classes[class_index]->avl_tree[(*init)->classes[class_index]->avl_size]->values        = NULL;
                         ++(*init)->classes[class_index]->avl_size;
                     break;  
-                case -1:
-                    free (class_value);
-                    return i;
             }
         }
     }

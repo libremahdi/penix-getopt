@@ -6,12 +6,12 @@
 
 #include "pgetopt.h"
 
-static optmod is_alw ( pclass *class, char *option )
+static unsigned int is_alw ( pclass *class, char *option )
 {
     for ( int classI=0 ; classI < class->alw_size ; ++classI )
     {
         if ( strcmp (class->alw_tree[classI]->name, option) == 0 )
-            return class->alw_tree[classI]->node_mode;
+            return class->alw_tree[classI]->values_size;
     }
     return -1;
 }

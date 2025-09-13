@@ -7,14 +7,12 @@
 #ifndef PGETOPT_MACRO
 #define PGETOPT_MACRO
 
-typedef enum    { FLAG, KEY, OBJECT } optmod;
-typedef struct  { char *option_name; optmod option_mode; unsigned int ID; } palw;
+typedef struct  { char *option_name; unsigned int ID; } palw;
 #define EOL     { NULL, 0 } // Indicates the end of the list of allowed options.
 
 
 struct branch {
     char *name;
-    optmod node_mode;
     unsigned int ID;
     unsigned int values_size;
     char **values;

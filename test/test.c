@@ -10,8 +10,8 @@ int main ( int argc, char *argv[] )
     pclass *main_class = pclass_create (&init, "main");
     pinit_set_main_class (&init, main_class);
     palw main_allowed_options [] = {
-        {"l", FLAG, 100},
-        {"output", FLAG, 101},
+        {"l", 100},
+        {"output", 101},
         EOL
     };
     pclass_set_allowed_options ( &main_class, main_allowed_options );
@@ -19,8 +19,8 @@ int main ( int argc, char *argv[] )
     // user's class segment
     pclass *user = pclass_create (&init, "user");
     palw user_allowed_options [] = {
-        {"m", FLAG, 100},
-        {"input", FLAG, 101},
+        {"m", 100},
+        {"input", 101},
         EOL
     };
     pclass_set_allowed_options ( &user, user_allowed_options );
