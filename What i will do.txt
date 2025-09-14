@@ -1,3 +1,5 @@
-Support for classes has not yet been implemented for the keys, and classes only support flags.
+The --key=value and -k=value options have not been implemented yet. 
+
+Color-coded error handling is preferable.
 
 Restricting input values for keys has not been implemented. For example, you should be able to specify that a key named 'input' only accepts numeric values, or any value, or predefined values.
