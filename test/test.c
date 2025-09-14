@@ -37,11 +37,13 @@ int main ( int argc, char *argv[] )
 
 
     pgoerr err_index = pinit_parse (&init, argc, argv);
-    if ( err_index.error != 0 )
-    {
-        printf ("Error in %s\n", argv[err_index.index]);
-        goto err_ret;
-    }
+    // if ( err_index.error != 0 ) // Manual error Managment. 
+    // {
+        // printf ("Error in %s\n", argv[err_index.index]); 
+        // goto err_ret;
+    // }
+
+    if ( pgoerror_parser (err_index, argv) ) goto err_ret; // Automatic error parsing
 
     int opt_id, i;
 

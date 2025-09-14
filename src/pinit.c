@@ -8,6 +8,7 @@
 #include "lib/popt_tree.h"
 #include "lib/popt_class.h"
 #include "lib/popt_key.h"
+#include "lib/popt_error.h"
 
 pinit* pinit_create ()
 {
@@ -23,7 +24,7 @@ pgoerr pinit_parse ( pinit **init, int argc, char **argv )
 {
     char *char2strv = NULL;
 
-    pgoerr _return;
+    pgoerr return_err;
     unsigned int class_index;    
     char *class_name = NULL;
     char *class_value = NULL;
@@ -41,9 +42,9 @@ pgoerr pinit_parse ( pinit **init, int argc, char **argv )
                 {
                     case -1:
                         free (char2strv);
-                        _return.index = i;
-                        _return.error = 1;
-                        return _return;
+                        return_err.index = i;
+                        return_err.error = _invalid_option;
+                        return return_err;
                     case 0:
                             if ( is_repetitive ( (*init)->classes[0], char2strv ) == true )   continue;
                             (*init)->classes[0]->avl_tree = ( struct branch **) realloc ( ((*init)->classes[0]->avl_tree), ( sizeof (struct branch *) * ( (*init)->classes[0]->avl_size + 1 )) );
@@ -57,15 +58,15 @@ pgoerr pinit_parse ( pinit **init, int argc, char **argv )
                     default:
                         if ( i+1 >= argc )
                         {
-                            _return.index = i;
-                            _return.error = 1;
-                            return _return;
+                            return_err.index = i;
+                            return_err.error = _key_without_value;
+                            return return_err;
                         }
-                        if ( is_value_alw ( argv[i+1]) )
+                        if ( is_value_syntax_ok ( argv[i+1]) )
                         {
-                            _return.index = i;
-                            _return.error = 1;
-                            return _return;
+                            return_err.index = i;
+                            return_err.error = _value_syntax_error;
+                            return return_err;
                         }
                         
                         if ( is_repetitive ( (*init)->classes[0], char2strv ) == false )
@@ -103,9 +104,9 @@ pgoerr pinit_parse ( pinit **init, int argc, char **argv )
                     {
                         case -1:
                             free (char2strv);
-                            _return.index = i;
-                            _return.error = 1;
-                            return _return;
+                            return_err.index = i;
+                            return_err.error = _invalid_option;
+                            return return_err;
                         case 0:
                             if ( is_repetitive ( (*init)->classes[0], char2strv ) == true )   continue;
                             (*init)->classes[0]->avl_tree = ( struct branch **) realloc ( ((*init)->classes[0]->avl_tree), ( sizeof (struct branch *) * ( (*init)->classes[0]->avl_size + 1 )) );
@@ -129,9 +130,9 @@ pgoerr pinit_parse ( pinit **init, int argc, char **argv )
             {
                 case -1:
                     free (char2strv);
-                    _return.index = i;
-                    _return.error = 1;
-                    return _return;
+                    return_err.index = i;
+                    return_err.error = _invalid_option;
+                    return return_err;
                 case 0:
                         if ( is_repetitive ( (*init)->classes[0], char2strv ) == true )   continue;
                         (*init)->classes[0]->avl_tree = ( struct branch **) realloc ( ((*init)->classes[0]->avl_tree), ( sizeof (struct branch *) * ( (*init)->classes[0]->avl_size + 1 )) );
@@ -145,15 +146,15 @@ pgoerr pinit_parse ( pinit **init, int argc, char **argv )
                 default:
                     if ( i+1 >= argc )
                     {
-                        _return.index = i;
-                        _return.error = 1;
-                        return _return;
+                        return_err.index = i;
+                        return_err.error = _key_without_value;
+                        return return_err;
                     }
-                    if ( is_value_alw ( argv[i+1]) )
+                    if ( is_value_syntax_ok ( argv[i+1]) )
                     {
-                        _return.index = i;
-                        _return.error = 1;
-                        return _return;
+                        return_err.index = i;
+                        return_err.error = _value_syntax_error;
+                        return return_err;
                     }
                     
                     if ( is_repetitive ( (*init)->classes[0], char2strv ) == false )
@@ -190,9 +191,9 @@ pgoerr pinit_parse ( pinit **init, int argc, char **argv )
                 free (class_name);
                 free (class_value);
                 free (char2strv);
-                _return.index = i;
-                _return.error = 1;
-                return _return;
+                return_err.index = i;
+                return_err.error = _lack_of_class;
+                return return_err;
             }
             free (class_name);
             free (char2strv);
@@ -201,9 +202,9 @@ pgoerr pinit_parse ( pinit **init, int argc, char **argv )
             {
                 case -1:
                     free (class_value);
-                    _return.index = i;
-                    _return.error = 1;
-                    return _return;
+                    return_err.index = i;
+                    return_err.error = 1;
+                    return return_err;
                 case 0:
                     if ( is_repetitive ( (*init)->classes[class_index], class_value ) == true )   continue;
                     (*init)->classes[class_index]->avl_tree = ( struct branch **) realloc ( ((*init)->classes[class_index]->avl_tree), ( sizeof (struct branch *) * ( (*init)->classes[class_index]->avl_size + 1 )) );
@@ -218,15 +219,15 @@ pgoerr pinit_parse ( pinit **init, int argc, char **argv )
                 default:
                     if ( i+1 >= argc )
                     {
-                        _return.index = i;
-                        _return.error = 1;
-                        return _return;
+                        return_err.index = i;
+                        return_err.error = _key_without_value;
+                        return return_err;
                     }
-                    if ( is_value_alw ( argv[i+1]) )
+                    if ( is_value_syntax_ok ( argv[i+1]) )
                     {
-                        _return.index = i;
-                        _return.error = 1;
-                        return _return;
+                        return_err.index = i;
+                        return_err.error = _value_syntax_error;
+                        return return_err;
                     }
                     if ( is_repetitive ( (*init)->classes[class_index], class_value ) == false )
                     {
@@ -252,9 +253,9 @@ pgoerr pinit_parse ( pinit **init, int argc, char **argv )
             }
         }
     }
-    _return.index = -1;
-    _return.error = 0;
-    return _return;
+    return_err.index = -1;
+    return_err.error = _without_error;
+    return return_err;
 }
 
 void pinit_set_main_class ( pinit **init, pclass *class )

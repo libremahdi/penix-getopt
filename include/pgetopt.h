@@ -39,7 +39,7 @@ typedef struct object pclass;
 pinit      *pinit_create                ();
 void        pinit_free                  ( pinit **init );
 void        pinit_set_main_class        ( pinit **init, pclass *class );
-pgoerr       pinit_parse                ( pinit **init, int argc, char **argv );
+pgoerr      pinit_parse                 ( pinit **init, int argc, char **argv );
 
 
 pclass      *pclass_create              ( pinit  **init, char *name );
@@ -54,5 +54,8 @@ char        *pclass_get_value           ( pclass *class, unsigned int KEY_ID, un
 
 
 void         pkey_custom_set_value      ( pkey *KEY, char *value );
+
+
+int         pgoerror_parser             ( pgoerr _error, char **argv );
 
 #endif
