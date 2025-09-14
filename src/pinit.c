@@ -19,10 +19,11 @@ pinit* pinit_create ()
     return init;
 }
 
-int pinit_parse ( pinit **init, int argc, char **argv )
+pgerr pinit_parse ( pinit **init, int argc, char **argv )
 {
     char *char2strv = NULL;
 
+    pgerr _return;
     unsigned int class_index;    
     char *class_name = NULL;
     char *class_value = NULL;
@@ -40,7 +41,9 @@ int pinit_parse ( pinit **init, int argc, char **argv )
                 {
                     case -1:
                         free (char2strv);
-                        return i;
+                        _return.index = i;
+                        _return.error = 1;
+                        return _return;
                     case 0:
                             if ( is_repetitive ( (*init)->classes[0], char2strv ) == true )   continue;
                             (*init)->classes[0]->avl_tree = ( struct branch **) realloc ( ((*init)->classes[0]->avl_tree), ( sizeof (struct branch *) * ( (*init)->classes[0]->avl_size + 1 )) );
@@ -52,8 +55,18 @@ int pinit_parse ( pinit **init, int argc, char **argv )
                             ++(*init)->classes[0]->avl_size;
                             break;
                     default:
-                        if ( i+1 >= argc ) return i;
-                        if ( is_value_alw ( argv[i+1]) ) return i;
+                        if ( i+1 >= argc )
+                        {
+                            _return.index = i;
+                            _return.error = 1;
+                            return _return;
+                        }
+                        if ( is_value_alw ( argv[i+1]) )
+                        {
+                            _return.index = i;
+                            _return.error = 1;
+                            return _return;
+                        }
                         
                         if ( is_repetitive ( (*init)->classes[0], char2strv ) == false )
                         {
@@ -90,7 +103,9 @@ int pinit_parse ( pinit **init, int argc, char **argv )
                     {
                         case -1:
                             free (char2strv);
-                            return i;
+                            _return.index = i;
+                            _return.error = 1;
+                            return _return;
                         case 0:
                             if ( is_repetitive ( (*init)->classes[0], char2strv ) == true )   continue;
                             (*init)->classes[0]->avl_tree = ( struct branch **) realloc ( ((*init)->classes[0]->avl_tree), ( sizeof (struct branch *) * ( (*init)->classes[0]->avl_size + 1 )) );
@@ -114,7 +129,9 @@ int pinit_parse ( pinit **init, int argc, char **argv )
             {
                 case -1:
                     free (char2strv);
-                    return i;
+                    _return.index = i;
+                    _return.error = 1;
+                    return _return;
                 case 0:
                         if ( is_repetitive ( (*init)->classes[0], char2strv ) == true )   continue;
                         (*init)->classes[0]->avl_tree = ( struct branch **) realloc ( ((*init)->classes[0]->avl_tree), ( sizeof (struct branch *) * ( (*init)->classes[0]->avl_size + 1 )) );
@@ -126,8 +143,18 @@ int pinit_parse ( pinit **init, int argc, char **argv )
                         ++(*init)->classes[0]->avl_size;
                         break;
                 default:
-                    if ( i+1 >= argc ) return i;
-                    if ( is_value_alw ( argv[i+1]) ) return i;
+                    if ( i+1 >= argc )
+                    {
+                        _return.index = i;
+                        _return.error = 1;
+                        return _return;
+                    }
+                    if ( is_value_alw ( argv[i+1]) )
+                    {
+                        _return.index = i;
+                        _return.error = 1;
+                        return _return;
+                    }
                     
                     if ( is_repetitive ( (*init)->classes[0], char2strv ) == false )
                     {
@@ -163,7 +190,9 @@ int pinit_parse ( pinit **init, int argc, char **argv )
                 free (class_name);
                 free (class_value);
                 free (char2strv);
-                return i;
+                _return.index = i;
+                _return.error = 1;
+                return _return;
             }
             free (class_name);
             free (char2strv);
@@ -173,7 +202,9 @@ int pinit_parse ( pinit **init, int argc, char **argv )
                 case -1:
 
                     free (class_value);
-                    return i;
+                    _return.index = i;
+                    _return.error = 1;
+                    return _return;
                 case 0:
                         if ( is_repetitive ( (*init)->classes[class_index], class_value ) == true )   continue;
                         (*init)->classes[class_index]->avl_tree = ( struct branch **) realloc ( ((*init)->classes[class_index]->avl_tree), ( sizeof (struct branch *) * ( (*init)->classes[class_index]->avl_size + 1 )) );
@@ -188,7 +219,9 @@ int pinit_parse ( pinit **init, int argc, char **argv )
             }
         }
     }
-    return 0; // The function returns 0 when all options are valid and no issues are present.
+    _return.index = -1;
+    _return.error = 0;
+    return _return;
 }
 
 void pinit_set_main_class ( pinit **init, pclass *class )

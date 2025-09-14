@@ -29,10 +29,10 @@ int main ( int argc, char *argv[] )
 
 
     // parsing the options from arguments and managing errors
-    int err_index = pinit_parse (&init, argc, argv);
-    if ( err_index != 0 )
+    pgerr err_index = pinit_parse (&init, argc, argv);
+    if ( err_index.error != 0 )
     {
-        printf ("Error in %s\n", argv[err_index]);
+        printf ("Error in %s\n", argv[err_index.index]);
         goto err_ret;
     }
 

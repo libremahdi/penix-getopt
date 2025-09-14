@@ -8,6 +8,7 @@
 #define PGETOPT_MACRO
 
 typedef struct  { char *option_name; unsigned int ID; } palw;
+typedef struct  { unsigned int error; unsigned int index; } pgerr;
 #define EOL     { NULL, 0 } // Indicates the end of the list of allowed options.
 
 enum PKEY_TYPE { INT, STR, ALW_CUSTOM, DENY_CUSTOM, NONE }; // -1 for flags
@@ -38,7 +39,7 @@ typedef struct object pclass;
 pinit      *pinit_create             ( );
 void        pinit_free              ( pinit **init );
 void        pinit_set_main_class    ( pinit **init, pclass *class );
-int         pinit_parse             ( pinit **init, int argc, char **argv );
+pgerr       pinit_parse             ( pinit **init, int argc, char **argv );
 
 
 pclass      *pclass_create          ( pinit  **init, char *name );
