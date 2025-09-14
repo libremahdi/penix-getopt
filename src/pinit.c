@@ -200,22 +200,55 @@ pgoerr pinit_parse ( pinit **init, int argc, char **argv )
             switch ( is_alw ((*init)->classes[class_index], class_value) )
             {
                 case -1:
-
                     free (class_value);
                     _return.index = i;
                     _return.error = 1;
                     return _return;
                 case 0:
-                        if ( is_repetitive ( (*init)->classes[class_index], class_value ) == true )   continue;
+                    if ( is_repetitive ( (*init)->classes[class_index], class_value ) == true )   continue;
+                    (*init)->classes[class_index]->avl_tree = ( struct branch **) realloc ( ((*init)->classes[class_index]->avl_tree), ( sizeof (struct branch *) * ( (*init)->classes[class_index]->avl_size + 1 )) );
+                    (*init)->classes[class_index]->avl_tree[(*init)->classes[class_index]->avl_size] = ( struct branch * ) malloc ( sizeof ( struct branch ) );
+                    (*init)->classes[class_index]->avl_tree[(*init)->classes[class_index]->avl_size]->name          = class_value;
+                    (*init)->classes[class_index]->avl_tree[(*init)->classes[class_index]->avl_size]->key_type      = -1;
+                    (*init)->classes[class_index]->avl_tree[(*init)->classes[class_index]->avl_size]->ID            = what_is_ID ((*init)->classes[class_index], class_value);
+                    (*init)->classes[class_index]->avl_tree[(*init)->classes[class_index]->avl_size]->values_size   = 0;
+                    (*init)->classes[class_index]->avl_tree[(*init)->classes[class_index]->avl_size]->values        = NULL;
+                    ++(*init)->classes[class_index]->avl_size;
+                    break;
+                default:
+                    if ( i+1 >= argc )
+                    {
+                        _return.index = i;
+                        _return.error = 1;
+                        return _return;
+                    }
+                    if ( is_value_alw ( argv[i+1]) )
+                    {
+                        _return.index = i;
+                        _return.error = 1;
+                        return _return;
+                    }
+                    if ( is_repetitive ( (*init)->classes[class_index], class_value ) == false )
+                    {
                         (*init)->classes[class_index]->avl_tree = ( struct branch **) realloc ( ((*init)->classes[class_index]->avl_tree), ( sizeof (struct branch *) * ( (*init)->classes[class_index]->avl_size + 1 )) );
                         (*init)->classes[class_index]->avl_tree[(*init)->classes[class_index]->avl_size] = ( struct branch * ) malloc ( sizeof ( struct branch ) );
                         (*init)->classes[class_index]->avl_tree[(*init)->classes[class_index]->avl_size]->name          = class_value;
-                        (*init)->classes[class_index]->avl_tree[(*init)->classes[class_index]->avl_size]->key_type      = -1;
                         (*init)->classes[class_index]->avl_tree[(*init)->classes[class_index]->avl_size]->ID            = what_is_ID ((*init)->classes[class_index], class_value);
-                        (*init)->classes[class_index]->avl_tree[(*init)->classes[class_index]->avl_size]->values_size   = 0;
-                        (*init)->classes[class_index]->avl_tree[(*init)->classes[class_index]->avl_size]->values        = NULL;
+                        (*init)->classes[class_index]->avl_tree[(*init)->classes[class_index]->avl_size]->values_size   = 1;
+                        (*init)->classes[class_index]->avl_tree[(*init)->classes[class_index]->avl_size]->values        = ( char ** ) malloc ( sizeof (char *) );
+                        (*init)->classes[class_index]->avl_tree[(*init)->classes[class_index]->avl_size]->values[0]     = ( char * ) malloc ( sizeof (char) * ( strlen (argv[i+1]) + 1 ) );
+                        strcpy ( (*init)->classes[class_index]->avl_tree[(*init)->classes[class_index]->avl_size]->values[0], argv[i+1]);
                         ++(*init)->classes[class_index]->avl_size;
-                        break;  
+                        ++i;
+                        break;
+                    }
+                    key_point=get_point ((*init)->classes[class_index], class_value);
+                    (*key_point)->values   = ( char ** ) realloc ( (*key_point)->values, (sizeof (char *) * ((*key_point)->values_size+1)));
+                    (*key_point)->values [(*key_point) -> values_size] = ( char * ) malloc ( sizeof (char) * ( strlen (argv[i+1]) + 1 ) );
+                    strcpy ( (*key_point)->values [(*key_point) -> values_size], argv[i+1]);
+                    ++(*key_point) -> values_size;
+                    ++i;
+                    break;
             }
         }
     }
