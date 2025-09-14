@@ -11,17 +11,22 @@ int main ( int argc, char *argv[] )
     pinit_set_main_class (&init, main_class);
     palw main_allowed_options [] = {
         {"l"        , 100},
-        {"hello"    , 102},
-        {"output"   , 101},
+        {"o"   , 101},
+        {"output"   , 102},
         EOL
     };
     pclass_set_allowed_options ( &main_class, main_allowed_options );
-    
     // key-value segment
     pkey key1 = pclass_set_key ( &main_class, 101, ALW_CUSTOM);
     pkey_custom_set_value ( &key1, "Hello" );
     pkey_custom_set_value ( &key1, "Hi" );
     // end segment
+    // key-value segment
+    pkey key2 = pclass_set_key ( &main_class, 102, ALW_CUSTOM);
+    pkey_custom_set_value ( &key2, "Hello" );
+    pkey_custom_set_value ( &key2, "Hi" );
+    // end segment
+
 
     // parsing the options from arguments and managing errors
     int err_index = pinit_parse (&init, argc, argv);
@@ -45,9 +50,16 @@ int main ( int argc, char *argv[] )
             case (101):
                 for ( int in = 0 ; in < pclass_get_key_size (main_class, 101) ; ++in )
                 {
-                    printf ("main KEY : Value = %s\n", pclass_get_value(main_class, 101, in));
+                    printf ("-o KEY : Value = %s\n", pclass_get_value(main_class, 101, in));
                 }
                 break;
+            case (102):
+                for ( int in = 0 ; in < pclass_get_key_size (main_class, 102) ; ++in )
+                {
+                    printf ("--output KEY : Value = %s\n", pclass_get_value(main_class, 102, in));
+                }
+                break;
+
         }
         ++i;
     }

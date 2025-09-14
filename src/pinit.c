@@ -33,49 +33,28 @@ int pinit_parse ( pinit **init, int argc, char **argv )
     {
         if ( argv[i][0] == '-' && argv[i][1] != '-' )
         {
-            for ( int j = 1 ; j <=strlen (argv[i])-1 ; ++j )
+            if ( strlen (argv[i]) == 2 )
             {
-                char2strv = (char *) malloc (sizeof (char)*2);
-                char2strv[0]=argv[i][j];
-                char2strv[1]='\0';
+                char2strv = strdup (argv[i]+1);
                 switch ( is_alw ((*init)->classes[0], char2strv) )
                 {
                     case -1:
                         free (char2strv);
                         return i;
                     case 0:
-                        if ( is_repetitive ( (*init)->classes[0], char2strv ) == true )   continue;
-                        (*init)->classes[0]->avl_tree = ( struct branch **) realloc ( ((*init)->classes[0]->avl_tree), ( sizeof (struct branch *) * ( (*init)->classes[0]->avl_size + 1 )) );
-                        (*init)->classes[0]->avl_tree[(*init)->classes[0]->avl_size] = ( struct branch * ) malloc ( sizeof ( struct branch ) );
-                        (*init)->classes[0]->avl_tree[(*init)->classes[0]->avl_size]->name          = char2strv;
-                        (*init)->classes[0]->avl_tree[(*init)->classes[0]->avl_size]->ID            = what_is_ID ((*init)->classes[0], char2strv);
-                        (*init)->classes[0]->avl_tree[(*init)->classes[0]->avl_size]->values_size   = 0;
-                        (*init)->classes[0]->avl_tree[(*init)->classes[0]->avl_size]->values        = NULL;
-                        ++(*init)->classes[0]->avl_size;
-                        break;
-                }
-            }
-        }
-        else if ( argv[i][0] == '-' && argv[i][1] == '-' )
-        {
-            char2strv = strdup (argv[i]+2);
-
-            switch ( is_alw ((*init)->classes[0], char2strv) )
-            {
-                case -1:
-                    free (char2strv);
-                    return i;
-                case 0:
-                        if ( is_repetitive ( (*init)->classes[0], char2strv ) == true )   continue;
-                        (*init)->classes[0]->avl_tree = ( struct branch **) realloc ( ((*init)->classes[0]->avl_tree), ( sizeof (struct branch *) * ( (*init)->classes[0]->avl_size + 1 )) );
-                        (*init)->classes[0]->avl_tree[(*init)->classes[0]->avl_size] = ( struct branch * ) malloc ( sizeof ( struct branch ) );
-                        (*init)->classes[0]->avl_tree[(*init)->classes[0]->avl_size]->name          = char2strv;
-                        (*init)->classes[0]->avl_tree[(*init)->classes[0]->avl_size]->ID            = what_is_ID ((*init)->classes[0], char2strv);
-                        (*init)->classes[0]->avl_tree[(*init)->classes[0]->avl_size]->values_size   = 0;
-                        (*init)->classes[0]->avl_tree[(*init)->classes[0]->avl_size]->values        = NULL;
-                        ++(*init)->classes[0]->avl_size;
-                        break;
+                            if ( is_repetitive ( (*init)->classes[0], char2strv ) == true )   continue;
+                            (*init)->classes[0]->avl_tree = ( struct branch **) realloc ( ((*init)->classes[0]->avl_tree), ( sizeof (struct branch *) * ( (*init)->classes[0]->avl_size + 1 )) );
+                            (*init)->classes[0]->avl_tree[(*init)->classes[0]->avl_size] = ( struct branch * ) malloc ( sizeof ( struct branch ) );
+                            (*init)->classes[0]->avl_tree[(*init)->classes[0]->avl_size]->name          = char2strv;
+                            (*init)->classes[0]->avl_tree[(*init)->classes[0]->avl_size]->ID            = what_is_ID ((*init)->classes[0], char2strv);
+                            (*init)->classes[0]->avl_tree[(*init)->classes[0]->avl_size]->values_size   = 0;
+                            (*init)->classes[0]->avl_tree[(*init)->classes[0]->avl_size]->values        = NULL;
+                            ++(*init)->classes[0]->avl_size;
+                            break;
                     default:
+                        if ( i+1 >= argc ) return i;
+                        if ( is_value_alw ( argv[i+1]) ) return i;
+                        
                         if ( is_repetitive ( (*init)->classes[0], char2strv ) == false )
                         {
                             (*init)->classes[0]->avl_tree = ( struct branch **) realloc ( ((*init)->classes[0]->avl_tree), ( sizeof (struct branch *) * ( (*init)->classes[0]->avl_size + 1 )) );
@@ -98,6 +77,80 @@ int pinit_parse ( pinit **init, int argc, char **argv )
                         ++i;
                         free (char2strv);
                         break;
+                }
+            }
+            else
+            {
+                for ( int j = 1 ; j <=strlen (argv[i])-1 ; ++j )
+                {
+                    char2strv = (char *) malloc (sizeof (char)*2);
+                    char2strv[0]=argv[i][j];
+                    char2strv[1]='\0';
+                    switch ( is_alw ((*init)->classes[0], char2strv) )
+                    {
+                        case -1:
+                            free (char2strv);
+                            return i;
+                        case 0:
+                            if ( is_repetitive ( (*init)->classes[0], char2strv ) == true )   continue;
+                            (*init)->classes[0]->avl_tree = ( struct branch **) realloc ( ((*init)->classes[0]->avl_tree), ( sizeof (struct branch *) * ( (*init)->classes[0]->avl_size + 1 )) );
+                            (*init)->classes[0]->avl_tree[(*init)->classes[0]->avl_size] = ( struct branch * ) malloc ( sizeof ( struct branch ) );
+                            (*init)->classes[0]->avl_tree[(*init)->classes[0]->avl_size]->name          = char2strv;
+                            (*init)->classes[0]->avl_tree[(*init)->classes[0]->avl_size]->ID            = what_is_ID ((*init)->classes[0], char2strv);
+                            (*init)->classes[0]->avl_tree[(*init)->classes[0]->avl_size]->values_size   = 0;
+                            (*init)->classes[0]->avl_tree[(*init)->classes[0]->avl_size]->values        = NULL;
+                            ++(*init)->classes[0]->avl_size;
+                            break;
+                    }
+                }
+            }
+
+        }
+        else if ( argv[i][0] == '-' && argv[i][1] == '-' )
+        {
+            char2strv = strdup (argv[i]+2);
+
+            switch ( is_alw ((*init)->classes[0], char2strv) )
+            {
+                case -1:
+                    free (char2strv);
+                    return i;
+                case 0:
+                        if ( is_repetitive ( (*init)->classes[0], char2strv ) == true )   continue;
+                        (*init)->classes[0]->avl_tree = ( struct branch **) realloc ( ((*init)->classes[0]->avl_tree), ( sizeof (struct branch *) * ( (*init)->classes[0]->avl_size + 1 )) );
+                        (*init)->classes[0]->avl_tree[(*init)->classes[0]->avl_size] = ( struct branch * ) malloc ( sizeof ( struct branch ) );
+                        (*init)->classes[0]->avl_tree[(*init)->classes[0]->avl_size]->name          = char2strv;
+                        (*init)->classes[0]->avl_tree[(*init)->classes[0]->avl_size]->ID            = what_is_ID ((*init)->classes[0], char2strv);
+                        (*init)->classes[0]->avl_tree[(*init)->classes[0]->avl_size]->values_size   = 0;
+                        (*init)->classes[0]->avl_tree[(*init)->classes[0]->avl_size]->values        = NULL;
+                        ++(*init)->classes[0]->avl_size;
+                        break;
+                default:
+                    if ( i+1 >= argc ) return i;
+                    if ( is_value_alw ( argv[i+1]) ) return i;
+                    
+                    if ( is_repetitive ( (*init)->classes[0], char2strv ) == false )
+                    {
+                        (*init)->classes[0]->avl_tree = ( struct branch **) realloc ( ((*init)->classes[0]->avl_tree), ( sizeof (struct branch *) * ( (*init)->classes[0]->avl_size + 1 )) );
+                        (*init)->classes[0]->avl_tree[(*init)->classes[0]->avl_size] = ( struct branch * ) malloc ( sizeof ( struct branch ) );
+                        (*init)->classes[0]->avl_tree[(*init)->classes[0]->avl_size]->name          = char2strv;
+                        (*init)->classes[0]->avl_tree[(*init)->classes[0]->avl_size]->ID            = what_is_ID ((*init)->classes[0], char2strv);
+                        (*init)->classes[0]->avl_tree[(*init)->classes[0]->avl_size]->values_size   = 1;
+                        (*init)->classes[0]->avl_tree[(*init)->classes[0]->avl_size]->values        = ( char ** ) malloc ( sizeof (char *) );
+                        (*init)->classes[0]->avl_tree[(*init)->classes[0]->avl_size]->values[0]     = ( char * ) malloc ( sizeof (char) * ( strlen (argv[i+1]) + 1 ) );
+                        strcpy ( (*init)->classes[0]->avl_tree[(*init)->classes[0]->avl_size]->values[0], argv[i+1]);
+                        ++(*init)->classes[0]->avl_size;
+                        ++i;
+                        break;
+                    }
+                    key_point=get_point ((*init)->classes[0], char2strv);
+                    (*key_point)->values   = ( char ** ) realloc ( (*key_point)->values, (sizeof (char *) * ((*key_point)->values_size+1)));
+                    (*key_point)->values [(*key_point) -> values_size] = ( char * ) malloc ( sizeof (char) * ( strlen (argv[i+1]) + 1 ) );
+                    strcpy ( (*key_point)->values [(*key_point) -> values_size], argv[i+1]);
+                    ++(*key_point) -> values_size;
+                    ++i;
+                    free (char2strv);
+                    break;
             }
         }
         else if ( argv[i][0] == '@' )
