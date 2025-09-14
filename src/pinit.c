@@ -19,11 +19,11 @@ pinit* pinit_create ()
     return init;
 }
 
-pgerr pinit_parse ( pinit **init, int argc, char **argv )
+pgoerr pinit_parse ( pinit **init, int argc, char **argv )
 {
     char *char2strv = NULL;
 
-    pgerr _return;
+    pgoerr _return;
     unsigned int class_index;    
     char *class_name = NULL;
     char *class_value = NULL;
