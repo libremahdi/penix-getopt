@@ -33,6 +33,15 @@ static bool is_repetitive ( pclass *class, char *option )
     return false;
 }
 
+static bool is_repetitive_ID ( pclass *class, unsigned int ID )
+{
+    for ( int i = 0 ; i < class->avl_size ; ++i )
+        if ( class->avl_tree[i]->ID == ID )
+            return true;
+    return false;
+}
+
+
 static struct branch **get_point ( pclass *class, char *option )
 {
     for ( int i = 0 ; i < class->avl_size ; ++i )

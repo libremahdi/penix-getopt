@@ -1,3 +1,11 @@
+/* The file main_test.c is a general test file for the developer. There is no specific functionality of the library being tested in this file. This file is solely for the developer to test their latest changes.
+ * To compile and use this file, enter the following command:
+
+ $ make test_main
+ 
+ * This command creates a binary file with the same name in `~/build`.
+*/
+
 #include "pgetopt.h"
 #include <stdio.h>
 
@@ -6,12 +14,13 @@ int main ( int argc, char *argv[] )
 {
     pinit *init = pinit_create ();
 
-    // main's class segment
+
     pclass *main_class = pclass_create (&init, "main");
     pinit_set_main_class (&init, main_class);
     palw main_allowed_options [] = {
-        {"l"        , 100},
-        {"o"        , 101},
+        {"flag1"        , 100},
+        {"o"        , 100},
+        {"on"        , 101},
         EOL
     };
     pclass_set_allowed_options ( &main_class, main_allowed_options );
@@ -24,6 +33,7 @@ int main ( int argc, char *argv[] )
     palw user_alw [] = {
         {"name"   , 1},
         {"poweroff"  , 2},
+        {"shutdown"  , 2},
         EOL
     };
     pclass_set_allowed_options ( &user, user_alw );
@@ -62,6 +72,13 @@ int main ( int argc, char *argv[] )
                     printf ("Class=main_class : key=o : Value = %s\n", pclass_get_value(main_class, 101, in));
                 }
                 break;
+            case (102):
+                for ( int in = 0 ; in < pclass_get_key_size (main_class, 102) ; ++in )
+                {
+                    printf ("Class=main_class : key=o : Value = %s\n", pclass_get_value(main_class, 102, in));
+                }
+                break;
+
         }
         ++i;
     }

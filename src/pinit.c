@@ -46,7 +46,8 @@ pgoerr pinit_parse ( pinit **init, int argc, char **argv )
                         return_err.error = _invalid_option;
                         return return_err;
                     case 0:
-                            if ( is_repetitive ( (*init)->classes[0], char2strv ) == true )   continue;
+                            if ( is_repetitive_ID ( (*init)->classes[0], what_is_ID ((*init)->classes[0], char2strv ) ) == true ) continue;
+
                             (*init)->classes[0]->avl_tree = ( struct branch **) realloc ( ((*init)->classes[0]->avl_tree), ( sizeof (struct branch *) * ( (*init)->classes[0]->avl_size + 1 )) );
                             (*init)->classes[0]->avl_tree[(*init)->classes[0]->avl_size] = ( struct branch * ) malloc ( sizeof ( struct branch ) );
                             (*init)->classes[0]->avl_tree[(*init)->classes[0]->avl_size]->name          = char2strv;
@@ -108,7 +109,7 @@ pgoerr pinit_parse ( pinit **init, int argc, char **argv )
                             return_err.error = _invalid_option;
                             return return_err;
                         case 0:
-                            if ( is_repetitive ( (*init)->classes[0], char2strv ) == true )   continue;
+                            if ( is_repetitive_ID ( (*init)->classes[0], what_is_ID ((*init)->classes[0], char2strv ) ) == true )   continue;
                             (*init)->classes[0]->avl_tree = ( struct branch **) realloc ( ((*init)->classes[0]->avl_tree), ( sizeof (struct branch *) * ( (*init)->classes[0]->avl_size + 1 )) );
                             (*init)->classes[0]->avl_tree[(*init)->classes[0]->avl_size] = ( struct branch * ) malloc ( sizeof ( struct branch ) );
                             (*init)->classes[0]->avl_tree[(*init)->classes[0]->avl_size]->name          = char2strv;
@@ -134,7 +135,7 @@ pgoerr pinit_parse ( pinit **init, int argc, char **argv )
                     return_err.error = _invalid_option;
                     return return_err;
                 case 0:
-                        if ( is_repetitive ( (*init)->classes[0], char2strv ) == true )   continue;
+                        if ( is_repetitive_ID ( (*init)->classes[0], what_is_ID ((*init)->classes[0], char2strv ) ) == true )   continue;
                         (*init)->classes[0]->avl_tree = ( struct branch **) realloc ( ((*init)->classes[0]->avl_tree), ( sizeof (struct branch *) * ( (*init)->classes[0]->avl_size + 1 )) );
                         (*init)->classes[0]->avl_tree[(*init)->classes[0]->avl_size] = ( struct branch * ) malloc ( sizeof ( struct branch ) );
                         (*init)->classes[0]->avl_tree[(*init)->classes[0]->avl_size]->name          = char2strv;
@@ -206,7 +207,7 @@ pgoerr pinit_parse ( pinit **init, int argc, char **argv )
                     return_err.error = 1;
                     return return_err;
                 case 0:
-                    if ( is_repetitive ( (*init)->classes[class_index], class_value ) == true )   continue;
+                    if ( is_repetitive_ID ( (*init)->classes[class_index], what_is_ID ((*init)->classes[class_index], class_value ) ) == true )   continue;
                     (*init)->classes[class_index]->avl_tree = ( struct branch **) realloc ( ((*init)->classes[class_index]->avl_tree), ( sizeof (struct branch *) * ( (*init)->classes[class_index]->avl_size + 1 )) );
                     (*init)->classes[class_index]->avl_tree[(*init)->classes[class_index]->avl_size] = ( struct branch * ) malloc ( sizeof ( struct branch ) );
                     (*init)->classes[class_index]->avl_tree[(*init)->classes[class_index]->avl_size]->name          = class_value;

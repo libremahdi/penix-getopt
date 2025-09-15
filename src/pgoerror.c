@@ -13,13 +13,13 @@ int pgoerror_parser ( pgoerr _error, char **argv )
             printf ("Error in `%s` : This option is not exist.\n", argv[_error.index]);
             break;
         case _key_without_value:
-            printf ("Error in `%s` : This option is a key and takes a value.", argv[_error.index]);
+            printf ("Error in `%s` : This option is a key and takes a value.\n", argv[_error.index]);
             break;
         case _value_syntax_error:
-            printf ("Error in `%s` : Values ​​cannot start with `@` and `-`.", argv[_error.index]);
+            printf ("Error in `%s` : Values cannot start with `@` and `-`.\n", argv[_error.index]);
             break;
         case _lack_of_class:
-            printf ("Error in `%s` : No class was found under this name.", argv[_error.index]);
+            printf ("Error in `%s` : No class was found under this name.\n", argv[_error.index]);
             break;
         case _without_error:
             return 0;
