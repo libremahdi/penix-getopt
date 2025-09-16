@@ -7,21 +7,9 @@
 #ifndef PGETOPT_MACRO
 #define PGETOPT_MACRO
 
-
-
-
-
-
-
-
-
-
-
-
-
-typedef struct  { unsigned int ID; char *option_name; } palw;
+typedef struct  { unsigned int option_id; char *option_name; } palw;
 typedef struct  { unsigned int error; unsigned int index; } pgoerr;
-#define EOL     { NULL, 0 } // Indicates the end of the list of allowed options.
+#define EOL     { 0, NULL } // Indicates the end of the list of allowed options.
 
 
 enum PKEY_TYPE { INT, STR, ALW_CUSTOM, DENY_CUSTOM, NONE, PFLAG };
@@ -29,7 +17,7 @@ enum PKEY_TYPE { INT, STR, ALW_CUSTOM, DENY_CUSTOM, NONE, PFLAG };
 
 
 struct alw_branch {
-    unsigned int ID;
+    unsigned int opt_id;
     unsigned int values_size;
     char **values;
     unsigned int names_size;
@@ -46,9 +34,9 @@ struct avl_branch {
 struct object {
     char *name;
     unsigned int alw_size;
-    struct alw_branch alw_tree;
+    struct alw_branch **alw_tree;
     unsigned int avl_size;
-    struct avl_branch avl_tree;
+    struct avl_branch **avl_tree;
 
 };
 typedef struct object pclass;
@@ -64,5 +52,11 @@ typedef struct init {
 
 pinit      *pinit_create                ();
 void        pinit_free                  ( pinit **init );
+
+pclass     *pclass_create               ( pinit **init, char *name );
+void        pclass_free                 ( pclass **class );
+void        pclass_set_allowed_options  ( pclass **class, palw *allowed_options );
+
+
 
 #endif
