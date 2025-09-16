@@ -18,28 +18,27 @@ int main ( int argc, char *argv[] )
     pclass *main_class = pclass_create (&init, "main");
     pinit_set_main_class (&init, main_class);
     palw main_allowed_options [] = {
-        {"flag1"        , 100},
-        {"o"        , 100},
-        {"on"        , 101},
+        {"long_flag"   , 100},
+        {"f"           , 100}, // short flag
+        {"l"           , 100}, // short flag 2
+        {"long_key"    , 101},
         EOL
     };
     pclass_set_allowed_options ( &main_class, main_allowed_options );
 
-    pkey key = pclass_set_key ( &main_class, 101, ALW_CUSTOM);
-    pkey_custom_set_value ( &key, "Hello" );
+    pkey key = pclass_set_key ( &main_class, 101, NONE);
 
 
     pclass *user = pclass_create (&init, "user");
     palw user_alw [] = {
-        {"name"   , 1},
-        {"poweroff"  , 2},
-        {"shutdown"  , 2},
+        {"long_flag"    , 1},
+        {"f"            , 1},
+        {"long_key"     , 2},
         EOL
     };
     pclass_set_allowed_options ( &user, user_alw );
 
-    pkey key1 = pclass_set_key ( &user, 1, ALW_CUSTOM);
-    pkey_custom_set_value ( &key1, "Hello" );
+    pkey key1 = pclass_set_key ( &user, 2, NONE);
 
 
 
@@ -64,37 +63,30 @@ int main ( int argc, char *argv[] )
         switch ( opt_id )
         {
             case (100):
-                printf ("Class=main_class : flag=l\n");
+                printf ("Class=main_class : flag\n");
                 break;
             case (101):
                 for ( int in = 0 ; in < pclass_get_key_size (main_class, 101) ; ++in )
                 {
-                    printf ("Class=main_class : key=o : Value = %s\n", pclass_get_value(main_class, 101, in));
-                }
-                break;
-            case (102):
-                for ( int in = 0 ; in < pclass_get_key_size (main_class, 102) ; ++in )
-                {
-                    printf ("Class=main_class : key=o : Value = %s\n", pclass_get_value(main_class, 102, in));
+                    printf ("Class=main_class : key : Value = %s\n", pclass_get_value(main_class, 101, in));
                 }
                 break;
 
         }
         ++i;
     }
-    printf ("\n");
     i=0;
     while ( ( opt_id = pclass_loop_get ( user, i ) ) != -1 )
     {
         switch ( opt_id )
         {
-            case (2):
-                printf ("Class=user : flag=poweroff\n");
-                break;
             case (1):
-                for ( int in = 0 ; in < pclass_get_key_size (user, 1) ; ++in )
+                printf ("Class=user : flag\n");
+                break;
+            case (2):
+                for ( int in = 0 ; in < pclass_get_key_size (user, 2) ; ++in )
                 {
-                    printf ("Class=user ; key=name ; Value = %s\n", pclass_get_value(user, 1, in));
+                    printf ("Class=user ; key ; Value = %s\n", pclass_get_value(user, 2, in));
                 }
                 break;
         }

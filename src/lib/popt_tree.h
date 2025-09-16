@@ -52,4 +52,5 @@ static struct branch **get_point ( pclass *class, char *option )
             return &class->avl_tree[i];
 }
 
+
 #endif

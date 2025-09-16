@@ -31,6 +31,7 @@ void pclass_set_allowed_options ( pclass **class, palw *alw_opts )
         (*class)->alw_tree = (struct branch **) realloc ( (*class)->alw_tree, ( sizeof (struct branch *) * ((*class)->alw_size + 1) ) );
         (*class)->alw_tree[(*class)->alw_size] = (struct branch *) malloc ( sizeof (struct branch));
         (*class)->alw_tree[(*class)->alw_size]->name = alw_opts[i].option_name;
+        (*class)->alw_tree[(*class)->alw_size]->key_type = -1;
         (*class)->alw_tree[(*class)->alw_size]->ID = alw_opts[i].ID;
         (*class)->alw_tree[(*class)->alw_size]->values_size = 0;
         (*class)->alw_tree[(*class)->alw_size]->values = NULL;
