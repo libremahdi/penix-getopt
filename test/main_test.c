@@ -14,6 +14,7 @@ int main ( int argc, char **argv )
         EOL
     };
     pclass_set_allowed_options ( &main, main_allowed_options );
+    printf ("%s\n", main->alw_tree[0]->names[0]);
 
     pclass_free ( &main );
     pinit_free ( &init );

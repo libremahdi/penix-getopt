@@ -30,9 +30,9 @@ void pclass_set_allowed_options ( pclass **class, palw *allowed_options )
     {
         if ( ( repetitive_opt_id = is_alw_tree_repetitive_id ( (*class), allowed_options[i].option_id ) ) != -1 )
         {
-            (*class)->alw_tree[repetitive_opt_id]->names = ( char ** ) realloc ( ( (*class)->alw_tree[repetitive_opt_id]->names ) , ( sizeof (char *) * (*class)->alw_tree[repetitive_opt_id]->names_size ) );
-            (*class)->alw_tree[repetitive_opt_id]->names[(*class)->alw_tree[repetitive_opt_id]->names_size] = ( char * ) malloc ( sizeof (char) * ( strlen (allowed_options[i].option_name)+1 ));
+            (*class)->alw_tree[repetitive_opt_id]->names = ( char ** ) realloc ( ( (*class)->alw_tree[repetitive_opt_id]->names ) , ( sizeof (char *) * ( (*class)->alw_tree[repetitive_opt_id]->names_size + 1) ) );
             (*class)->alw_tree[repetitive_opt_id]->names[(*class)->alw_tree[repetitive_opt_id]->names_size] = allowed_options[i].option_name;
+            ++(*class)->alw_tree[repetitive_opt_id]->names_size;
             ++i;
             continue;
         }
@@ -40,7 +40,6 @@ void pclass_set_allowed_options ( pclass **class, palw *allowed_options )
         (*class)->alw_tree[(*class)->alw_size] = (struct alw_branch *) malloc ( sizeof (struct alw_branch));
 
         (*class)->alw_tree[(*class)->alw_size]->names = ( char ** ) malloc ( sizeof (char *) );
-        (*class)->alw_tree[(*class)->alw_size]->names[0] = ( char * ) malloc ( sizeof (char) * ( strlen (allowed_options[i].option_name)+1 ));
         (*class)->alw_tree[(*class)->alw_size]->names[0] = allowed_options[i].option_name;
         (*class)->alw_tree[(*class)->alw_size]->names_size = 1;
 
@@ -61,5 +60,12 @@ void pclass_set_allowed_options ( pclass **class, palw *allowed_options )
 
 void pclass_free ( pclass **class )
 {
+    // ALW Frees
+    for ( int i = 0 ; i < (*class)->alw_size ; ++i )
+    {
+        free ((*class)->alw_tree[i]->names);
+        free ((*class)->alw_tree[i]);
+    }
+    free ( (*class)->alw_tree );
     free ((*class));
 }
