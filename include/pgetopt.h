@@ -26,7 +26,7 @@ struct alw_branch {
 };
 
 struct avl_branch {
-    unsigned int ID;
+    unsigned int opt_id;
     unsigned int values_size;
     char **values;
 };
@@ -52,6 +52,8 @@ typedef struct init {
 
 pinit      *pinit_create                ();
 void        pinit_free                  ( pinit **init );
+void        pinit_set_main_class        ( pinit **init, pclass *class );
+pgoerr      pinit_parser                ( pinit **init, int argc, char **argv );
 
 pclass     *pclass_create               ( pinit **init, char *name );
 void        pclass_free                 ( pclass **class );
