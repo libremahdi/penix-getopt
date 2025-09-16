@@ -185,6 +185,13 @@ pgoerr pinit_parse ( pinit **init, int argc, char **argv )
         else if ( argv[i][0] == '@' )
         {
             char2strv   = strdup (argv[i]+1);
+            if ( !is_class_syntax_correct (char2strv) )
+            {
+                free (char2strv);
+                return_err.index = i;
+                return_err.error = _class_syntax_error;
+                return return_err;
+            }
             class_name  = pstr_get_class_name (char2strv);
             class_value = pstr_get_class_value (char2strv);
             if ( (class_index = get_class_index ((*init), class_name)) == -1 ) 

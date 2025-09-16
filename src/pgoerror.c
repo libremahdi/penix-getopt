@@ -21,6 +21,9 @@ int pgoerror_parser ( pgoerr _error, char **argv )
         case _lack_of_class:
             printf ("Error in `%s` : No class was found under this name.\n", argv[_error.index]);
             break;
+        case _class_syntax_error:
+            printf ("Error in `%s` : class syntax is not correct.\n", argv[_error.index]);
+            break;
         case _without_error:
             return 0;
     }
