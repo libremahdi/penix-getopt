@@ -57,7 +57,6 @@ void pclass_set_allowed_options ( pclass **class, palw *allowed_options )
     }
 }
 
-
 void pclass_free ( pclass **class )
 {
     // ALW Frees
@@ -67,5 +66,19 @@ void pclass_free ( pclass **class )
         free ((*class)->alw_tree[i]);
     }
     free ( (*class)->alw_tree );
+
+    // AVL Frees
+    for ( int i = 0 ; i < (*class)->avl_size ; ++i )
+    {
+        free ((*class)->avl_tree[i]);
+    }
+    free ( (*class)->avl_tree );
     free ((*class));
 }
+
+int pclass_loop_get ( pclass  *class, unsigned int index )
+{
+    if ( index >= (class->avl_size) )    return -1;
+    return class->avl_tree[index]->opt_id;
+}
+

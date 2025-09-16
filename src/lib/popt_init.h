@@ -27,4 +27,11 @@ static int get_id ( pclass *class, char *option )
     }
     return -1;
 }
+
+static enum PKEY_TYPE get_key_type ( pclass *class, int opt_id )
+{
+    for ( int i = 0 ; i < class->alw_size ; ++i )
+        if ( class->alw_tree[i]->opt_id == opt_id ) return class->alw_tree[i]->key_type;
+}
+
 #endif

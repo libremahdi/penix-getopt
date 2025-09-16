@@ -10,4 +10,57 @@ static unsigned int is_alw_tree_repetitive_id ( pclass *class, unsigned int opt_
     return -1;
 }
 
+
+static unsigned int find_char_index ( char *str, char ch, unsigned int chnum )
+{
+    int i=0;
+    int n=0;
+    while ( str[i] != '\0' )
+    {
+        if ( str[i] == ch )
+        {
+            ++n;
+            if ( n == chnum ) return i;
+        }
+        ++i;
+    }
+    return -1;
+}
+
+
+static char *pstr_get_class_name ( char *str )
+// when you insert the 'class.flag' string, this function must return 'class' from the string
+{
+    char *ret_value = (char *) malloc (sizeof (char) * (strlen (str)+1)); // one character for \0
+    strcpy (ret_value, str);
+    ret_value[find_char_index (str, '.', 1)]='\0';
+    return ret_value;
+}
+static char *pstr_get_class_value ( char *str )
+// when you insert the 'class.flag' string, this function must return 'flag' from the string
+{
+    char *ret_value = strdup ( str + find_char_index (str, '.', 1) + 1 );
+    return ret_value;
+}
+static bool is_class_syntax_correct ( char *str )
+{
+    unsigned int strln = strlen (str);
+    for ( unsigned int i = 0 ; i < strln ; ++i )
+    {
+        if ( str[i] == '.' )    return true;
+    }
+    return false;
+}
+
+static unsigned int get_class_index ( pinit *init, char *class_name )
+{
+    for ( unsigned int i = 0 ; i < init->classes_size ; ++i )
+    {
+        if ( strcmp ( init->classes[i]->name, class_name ) == 0 )
+            return i;
+    }
+    return -1;
+}
+
+
 #endif

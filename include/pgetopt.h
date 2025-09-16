@@ -58,6 +58,7 @@ pgoerr      pinit_parser                ( pinit **init, int argc, char **argv );
 pclass     *pclass_create               ( pinit **init, char *name );
 void        pclass_free                 ( pclass **class );
 void        pclass_set_allowed_options  ( pclass **class, palw *allowed_options );
+int         pclass_loop_get             ( pclass  *class, unsigned int opt_id );
 
 
 
