@@ -76,7 +76,7 @@ void pclass_free ( pclass **class )
     free ((*class));
 }
 
-int pclass_loop_get ( pclass  *class, unsigned int index )
+int pclass_loop_get_id ( pclass  *class, unsigned int index )
 {
     if ( index >= (class->avl_size) )    return -1;
     return class->avl_tree[index]->opt_id;

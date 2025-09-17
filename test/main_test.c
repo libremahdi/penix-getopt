@@ -31,7 +31,7 @@ int main ( int argc, char **argv )
     int opt_id, i;
 
     i=0;
-    while ( ( opt_id = pclass_loop_get ( main, i ) ) != -1 )
+    while ( ( opt_id = pclass_loop_get_id ( main, i ) ) != -1 )
     {
         switch ( opt_id )
         {
@@ -47,7 +47,7 @@ int main ( int argc, char **argv )
     }
 
     i=0;
-    while ( ( opt_id = pclass_loop_get ( user, i ) ) != -1 )
+    while ( ( opt_id = pclass_loop_get_id ( user, i ) ) != -1 )
     {
         switch ( opt_id )
         {

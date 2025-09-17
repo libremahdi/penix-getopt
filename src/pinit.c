@@ -155,6 +155,12 @@ pgoerr pinit_parser ( pinit **init, int argc, char **argv )
                     break;
             }
         }
+        else {
+            printf ("This is Master key : %s\n", argv[i]);
+            // check that the Master key is correct
+            // then, send all the options to the end of the arguments in order
+            // to implement a feature like this : $ git commit -m "Hello"
+        }
         
     }
 
