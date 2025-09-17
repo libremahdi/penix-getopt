@@ -37,7 +37,7 @@ pgoerr pinit_parser ( pinit **init, int argc, char **argv )
 
             switch ( get_key_type ( (*init)->classes[0], opt_id ) )
             {
-                case PFLAG:
+                case VOID:
                     if ( is_avl_tree_repetitive_id ( (*init)->classes[0], opt_id ) == -1 ) // -1 means no
                     {
                         (*init)->classes[0]->avl_tree = ( struct avl_branch **) realloc ( ((*init)->classes[0]->avl_tree), ( sizeof (struct avl_branch *) * ( (*init)->classes[0]->avl_size + 1 )) );
@@ -91,7 +91,7 @@ pgoerr pinit_parser ( pinit **init, int argc, char **argv )
 
             switch ( get_key_type ( (*init)->classes[0], opt_id ) )
             {
-                case PFLAG:
+                case VOID:
                     if ( is_avl_tree_repetitive_id ( (*init)->classes[0], opt_id ) == -1 ) // -1 means no
                     {
                         (*init)->classes[0]->avl_tree = ( struct avl_branch **) realloc ( ((*init)->classes[0]->avl_tree), ( sizeof (struct avl_branch *) * ( (*init)->classes[0]->avl_size + 1 )) );
@@ -139,7 +139,7 @@ pgoerr pinit_parser ( pinit **init, int argc, char **argv )
 
             switch ( get_key_type ( (*init)->classes[class_index], opt_id ) )
             {
-                case PFLAG:
+                case VOID:
                     if ( is_avl_tree_repetitive_id ( (*init)->classes[class_index], opt_id ) == -1 ) // -1 means no
                     {
                         (*init)->classes[class_index]->avl_tree = ( struct avl_branch **) realloc ( ((*init)->classes[class_index]->avl_tree), ( sizeof (struct avl_branch *) * ( (*init)->classes[class_index]->avl_size + 1 )) );

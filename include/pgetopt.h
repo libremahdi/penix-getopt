@@ -12,7 +12,7 @@ typedef struct  { unsigned int error; unsigned int index; } pgoerr;
 #define EOL     { 0, NULL } // Indicates the end of the list of allowed options.
 
 
-enum PKEY_TYPE { INT, STR, ALW_CUSTOM, DENY_CUSTOM, NONE, PFLAG };
+enum PKEY_TYPE { ALW_CUSTOM, DENY_CUSTOM, NONE, VOID };
 
 
 
@@ -50,15 +50,24 @@ typedef struct init {
 
 
 
-pinit      *pinit_create                ();
-void        pinit_free                  ( pinit **init );
-void        pinit_set_main_class        ( pinit **init, pclass *class );
-pgoerr      pinit_parser                ( pinit **init, int argc, char **argv );
+pinit          *pinit_create                        ();
+void            pinit_free                          ( pinit **init );
+void            pinit_set_main_class                ( pinit **init, pclass *class );
+pgoerr          pinit_parser                        ( pinit **init, int argc, char **argv );
 
-pclass     *pclass_create               ( pinit **init, char *name );
-void        pclass_free                 ( pclass **class );
-void        pclass_set_allowed_options  ( pclass **class, palw *allowed_options );
-int         pclass_loop_get_id             ( pclass  *class, unsigned int opt_id );
+pclass         *pclass_create                       ( pinit **init, char *name );
+void            pclass_free                         ( pclass **class );
+void            pclass_set_allowed_options          ( pclass **class, palw *allowed_options );
+int             pclass_loop_get_id                  ( pclass  *class, unsigned int index );
+
+typedef struct alw_branch *pkey;
+pkey            pclass_set_key                      ( pclass **class, unsigned int opt_id, enum PKEY_TYPE key_type );
+
+/*
+unsigned int    pkey_get_key_size           ( pkey *key );
+char           *pkey_key_loop_get_value     ( pkey *key, unsigned int index );
+void            pkey_set_custom_value       ( pkey *key, char *value );
+*/
 
 // pmaster    *pmaster_create_init         ();
 // void        pmaster_set_allowed_names   ( pmaster **mater_init, palw *allowed_names );

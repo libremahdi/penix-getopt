@@ -45,7 +45,7 @@ void pclass_set_allowed_options ( pclass **class, palw *allowed_options )
 
         (*class)->alw_tree[(*class)->alw_size]->opt_id = allowed_options[i].option_id;
 
-        (*class)->alw_tree[(*class)->alw_size]->key_type = PFLAG;
+        (*class)->alw_tree[(*class)->alw_size]->key_type = VOID;
 
         (*class)->alw_tree[(*class)->alw_size]->values_size = 0;
         (*class)->alw_tree[(*class)->alw_size]->values = NULL;
