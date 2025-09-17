@@ -15,6 +15,8 @@ int main ( int argc, char **argv )
     };
     pclass_set_allowed_options ( &main, main_allowed_options );
 
+    // pkey Hi_key = pclass_set_key (&main, 100, NONE);
+
 
     pclass *user = pclass_create ( &init, "user" );
     palw user_allowed_options [] = {
