@@ -37,17 +37,20 @@ struct object {
     struct alw_branch **alw_tree;
     unsigned int avl_size;
     struct avl_branch **avl_tree;
-
 };
-typedef struct object pclass;
 
-typedef struct init {
+
+struct init {
     unsigned int classes_size;
     struct object **classes;
-} pinit;
+};
 
 
 
+
+typedef struct init pinit;
+typedef struct object pclass;
+typedef struct alw_branch pkey;
 
 
 pinit          *pinit_create                        ();
@@ -55,18 +58,20 @@ void            pinit_free                          ( pinit **init );
 void            pinit_set_main_class                ( pinit **init, pclass *class );
 pgoerr          pinit_parser                        ( pinit **init, int argc, char **argv );
 
+
 pclass         *pclass_create                       ( pinit **init, char *name );
 void            pclass_free                         ( pclass **class );
 void            pclass_set_allowed_options          ( pclass **class, palw *allowed_options );
 int             pclass_loop_get_id                  ( pclass  *class, unsigned int index );
 
-typedef struct alw_branch *pkey;
-pkey            pclass_set_key                      ( pclass **class, unsigned int opt_id, enum PKEY_TYPE key_type );
+
+
+pkey            *pclass_set_key                      ( pclass **class, unsigned int opt_id, enum PKEY_TYPE key_type );
+unsigned int    pkey_get_key_size                    ( pkey *key );
+void            pkey_set_custom_value                ( pkey **key, char *value );
+char           *pkey_key_loop_get_value              ( pkey *key, unsigned int index );
 
 /*
-unsigned int    pkey_get_key_size           ( pkey *key );
-char           *pkey_key_loop_get_value     ( pkey *key, unsigned int index );
-void            pkey_set_custom_value       ( pkey *key, char *value );
 */
 
 // pmaster    *pmaster_create_init         ();
