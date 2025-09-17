@@ -82,3 +82,30 @@ int pclass_loop_get_id ( pclass  *class, unsigned int index )
     return class->avl_tree[index]->opt_id;
 }
 
+
+unsigned int pclass_get_key_size ( pclass  *class, unsigned int opt_id )
+{
+    for ( int classI=0 ; classI <  (class)->avl_size ; ++classI )
+    {
+        if ( (class)->avl_tree[classI]->opt_id == opt_id )
+        {
+            return (class)->avl_tree[classI]->values_size;
+        }
+    }
+    printf ("ERROR: cant find `%d` key in avl options\n", opt_id);
+    abort ();
+}
+
+
+char *pclass_key_loop_get_value ( pclass  *class, unsigned int opt_id, unsigned int index )
+{
+    for ( int classI=0 ; classI <  (class)->avl_size ; ++classI )
+    {
+        if ( (class)->avl_tree[classI]->opt_id == opt_id )
+        {
+            return (class)->avl_tree[classI]->values[index];
+        }
+    }
+    printf ("ERROR: cant find `%d` key in avl options\n", opt_id);
+    abort ();
+}

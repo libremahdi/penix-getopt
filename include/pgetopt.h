@@ -63,13 +63,11 @@ pclass         *pclass_create                       ( pinit **init, char *name )
 void            pclass_free                         ( pclass **class );
 void            pclass_set_allowed_options          ( pclass **class, palw *allowed_options );
 int             pclass_loop_get_id                  ( pclass  *class, unsigned int index );
+pkey            *pclass_set_key                     ( pclass **class, unsigned int opt_id, enum PKEY_TYPE key_type );
+void            pkey_set_custom_value               ( pkey **key, char *value );
 
-
-
-pkey            *pclass_set_key                      ( pclass **class, unsigned int opt_id, enum PKEY_TYPE key_type );
-unsigned int    pkey_get_key_size                    ( pkey *key );
-void            pkey_set_custom_value                ( pkey **key, char *value );
-char           *pkey_key_loop_get_value              ( pkey *key, unsigned int index );
+unsigned int    pclass_get_key_size                 ( pclass  *class, unsigned int opt_id );
+char           *pclass_key_loop_get_value           ( pclass  *class, unsigned int opt_id, unsigned int index );
 
 /*
 */
@@ -79,6 +77,7 @@ char           *pkey_key_loop_get_value              ( pkey *key, unsigned int i
 // int         pmaster_get_argc            ( int ID );
 // int         pmaster_get_argv            ( int ID );
 // int         pmaster_get_id              ( pmaster *master_init );
+// int         pmaster_get_name            ( pmaster *master_init );
 // void        pmaster_free                ( pmaster **master_init );
 
 /*

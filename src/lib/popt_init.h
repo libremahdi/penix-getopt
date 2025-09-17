@@ -34,4 +34,29 @@ static enum PKEY_TYPE get_key_type ( pclass *class, int opt_id )
         if ( class->alw_tree[i]->opt_id == opt_id ) return class->alw_tree[i]->key_type;
 }
 
+static void _phead_flag ( pinit **init, unsigned int class_index, unsigned int opt_id )
+{
+    (*init)->classes[class_index]->avl_tree = ( struct avl_branch **) realloc ( ((*init)->classes[class_index]->avl_tree), ( sizeof (struct avl_branch *) * ( (*init)->classes[class_index]->avl_size + 1 )) );
+    (*init)->classes[class_index]->avl_tree[(*init)->classes[class_index]->avl_size] = ( struct avl_branch * ) malloc ( sizeof ( struct avl_branch ) );
+    (*init)->classes[class_index]->avl_tree[(*init)->classes[class_index]->avl_size]->opt_id        = opt_id;
+    (*init)->classes[class_index]->avl_tree[(*init)->classes[class_index]->avl_size]->values_size   = 0;
+    (*init)->classes[class_index]->avl_tree[(*init)->classes[class_index]->avl_size]->values        = NULL;
+    ++(*init)->classes[class_index]->avl_size;
+}
+
+static void _phead_key ( pinit **init, unsigned int class_index, unsigned int opt_id, char *value )
+{
+    (*init)->classes[class_index]->avl_tree = ( struct avl_branch **) realloc ( ((*init)->classes[class_index]->avl_tree), ( sizeof (struct avl_branch *) * ( (*init)->classes[class_index]->avl_size + 1 )) );
+    (*init)->classes[class_index]->avl_tree[(*init)->classes[class_index]->avl_size] = ( struct avl_branch * ) malloc ( sizeof ( struct avl_branch ) );
+    (*init)->classes[class_index]->avl_tree[(*init)->classes[class_index]->avl_size]->opt_id        = opt_id;
+    (*init)->classes[class_index]->avl_tree[(*init)->classes[class_index]->avl_size]->values_size   = 1;
+    (*init)->classes[class_index]->avl_tree[(*init)->classes[class_index]->avl_size]->values        = ( char ** ) malloc ( sizeof (char *) );
+    (*init)->classes[class_index]->avl_tree[(*init)->classes[class_index]->avl_size]->values[0]     = value;
+    ++(*init)->classes[class_index]->avl_size;
+}
+
+static void _phead_repetitive_key ( pinit **init, unsigned int class_index, char *value )
+{
+    
+}
 #endif

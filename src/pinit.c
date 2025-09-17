@@ -14,6 +14,8 @@ pinit* pinit_create ()
     return init;
 }
 
+
+
 pgoerr pinit_parser ( pinit **init, int argc, char **argv )
 
 {
@@ -39,17 +41,17 @@ pgoerr pinit_parser ( pinit **init, int argc, char **argv )
             {
                 case VOID:
                     if ( is_avl_tree_repetitive_id ( (*init)->classes[0], opt_id ) == -1 ) // -1 means no
-                    {
-                        (*init)->classes[0]->avl_tree = ( struct avl_branch **) realloc ( ((*init)->classes[0]->avl_tree), ( sizeof (struct avl_branch *) * ( (*init)->classes[0]->avl_size + 1 )) );
-                        (*init)->classes[0]->avl_tree[(*init)->classes[0]->avl_size] = ( struct avl_branch * ) malloc ( sizeof ( struct avl_branch ) );
-                        (*init)->classes[0]->avl_tree[(*init)->classes[0]->avl_size]->opt_id        = opt_id;
-                        (*init)->classes[0]->avl_tree[(*init)->classes[0]->avl_size]->values_size   = 0;
-                        (*init)->classes[0]->avl_tree[(*init)->classes[0]->avl_size]->values        = NULL;
-                        ++(*init)->classes[0]->avl_size;
-                    }
+                        _phead_flag ( init, 0, opt_id);
                     break;
                 default:
-                    // key
+                    if ( is_avl_tree_repetitive_id ( (*init)->classes[0], opt_id ) == -1 ) // -1 means no
+                    {
+                        _phead_key ( init, 0, opt_id, argv[i+1] );
+                        ++i;
+                        continue;
+                    }
+                    _phead_repetitive_key ( init, 0, argv[i+1] );
+                    ++i;
                     break;
             }
         }
@@ -69,14 +71,7 @@ pgoerr pinit_parser ( pinit **init, int argc, char **argv )
                 }
                 
                 if ( is_avl_tree_repetitive_id ( (*init)->classes[0], opt_id ) == -1 ) // -1 means no
-                {
-                    (*init)->classes[0]->avl_tree = ( struct avl_branch **) realloc ( ((*init)->classes[0]->avl_tree), ( sizeof (struct avl_branch *) * ( (*init)->classes[0]->avl_size + 1 )) );
-                    (*init)->classes[0]->avl_tree[(*init)->classes[0]->avl_size] = ( struct avl_branch * ) malloc ( sizeof ( struct avl_branch ) );
-                    (*init)->classes[0]->avl_tree[(*init)->classes[0]->avl_size]->opt_id        = opt_id;
-                    (*init)->classes[0]->avl_tree[(*init)->classes[0]->avl_size]->values_size   = 0;
-                    (*init)->classes[0]->avl_tree[(*init)->classes[0]->avl_size]->values        = NULL;
-                    ++(*init)->classes[0]->avl_size;
-                }
+                    _phead_flag ( init, 0, opt_id);
 
             }
 
@@ -93,14 +88,7 @@ pgoerr pinit_parser ( pinit **init, int argc, char **argv )
             {
                 case VOID:
                     if ( is_avl_tree_repetitive_id ( (*init)->classes[0], opt_id ) == -1 ) // -1 means no
-                    {
-                        (*init)->classes[0]->avl_tree = ( struct avl_branch **) realloc ( ((*init)->classes[0]->avl_tree), ( sizeof (struct avl_branch *) * ( (*init)->classes[0]->avl_size + 1 )) );
-                        (*init)->classes[0]->avl_tree[(*init)->classes[0]->avl_size] = ( struct avl_branch * ) malloc ( sizeof ( struct avl_branch ) );
-                        (*init)->classes[0]->avl_tree[(*init)->classes[0]->avl_size]->opt_id        = opt_id;
-                        (*init)->classes[0]->avl_tree[(*init)->classes[0]->avl_size]->values_size   = 0;
-                        (*init)->classes[0]->avl_tree[(*init)->classes[0]->avl_size]->values        = NULL;
-                        ++(*init)->classes[0]->avl_size;
-                    }
+                        _phead_flag ( init, 0, opt_id);
                     break;
                 default:
                     // key
@@ -141,14 +129,7 @@ pgoerr pinit_parser ( pinit **init, int argc, char **argv )
             {
                 case VOID:
                     if ( is_avl_tree_repetitive_id ( (*init)->classes[class_index], opt_id ) == -1 ) // -1 means no
-                    {
-                        (*init)->classes[class_index]->avl_tree = ( struct avl_branch **) realloc ( ((*init)->classes[class_index]->avl_tree), ( sizeof (struct avl_branch *) * ( (*init)->classes[class_index]->avl_size + 1 )) );
-                        (*init)->classes[class_index]->avl_tree[(*init)->classes[class_index]->avl_size] = ( struct avl_branch * ) malloc ( sizeof ( struct avl_branch ) );
-                        (*init)->classes[class_index]->avl_tree[(*init)->classes[class_index]->avl_size]->opt_id        = opt_id;
-                        (*init)->classes[class_index]->avl_tree[(*init)->classes[class_index]->avl_size]->values_size   = 0;
-                        (*init)->classes[class_index]->avl_tree[(*init)->classes[class_index]->avl_size]->values        = NULL;
-                        ++(*init)->classes[class_index]->avl_size;
-                    }
+                        _phead_flag ( init, class_index, opt_id);
                     break;
                 default:
                     // key

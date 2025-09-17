@@ -15,7 +15,7 @@ int main ( int argc, char **argv )
     };
     pclass_set_allowed_options ( &main, main_allowed_options );
 
-    // pkey *Hi_key = pclass_set_key (&main, 100, NONE);
+    pkey *Hi_key = pclass_set_key (&main, 100, NONE);
     // pkey_set_custom_value ( &Hi_key, "First" );
     // pkey_set_custom_value ( &Hi_key, "Last" );
     // printf ("%s\n", pkey_key_loop_get_value ( Hi_key, 0 )) ;
@@ -41,7 +41,10 @@ int main ( int argc, char **argv )
         switch ( opt_id )
         {
             case (100):
-                printf ("Class=main : flag=m\n");
+                for ( int i = 0 ; i < pclass_get_key_size (main, 100) ; ++i )
+                {
+                    printf ("Class=main ; key ; Value = %s\n", pclass_key_loop_get_value (main, 100, i));
+                }
                 break;
             case (101):
                 printf ("Class=main : flag=Hi or f\n");
