@@ -34,6 +34,15 @@ int main ( int argc, char **argv )
 
 
 
+    palw master_avl [] = {
+        { 1 , "create"    },
+        { 2 , "remove"    },
+        EOL
+    };
+    pinit_set_allowed_masters ( &init, master_avl );
+
+    // printf ("%s\n", init->alw_masters[1]->name);
+
     pinit_parser ( &init, argc, argv );
 
 

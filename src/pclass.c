@@ -7,9 +7,9 @@
 
 pclass *pclass_create ( pinit **init, char *name )
 {    
-    (*init)->classes = (struct object **) realloc ( (*init)->classes, ( sizeof (struct object *) * ((*init)->classes_size+1) ) );
+    (*init)->classes = (struct class **) realloc ( (*init)->classes, ( sizeof (struct class *) * ((*init)->classes_size+1) ) );
 
-    (*init)->classes[(*init)->classes_size]  = (struct object *) malloc (sizeof (struct object));
+    (*init)->classes[(*init)->classes_size]  = (struct class *) malloc (sizeof (struct class));
     (*init)->classes[(*init)->classes_size]->name = name;
     
     (*init)->classes[(*init)->classes_size]->alw_size = 0;

@@ -9,8 +9,13 @@ pinit* pinit_create ()
 {   pinit *init         = (pinit *) malloc (sizeof (pinit));
     init->classes_size  = 1;
 
-    init->classes       = (struct object **) malloc ( ( sizeof (struct object *) ) );
+    init->classes       = (struct class **) malloc ( ( sizeof (struct class *) ) );
     init->classes[0]    = NULL; // this is the main class
+
+    init->alw_masters_size = 0;
+    init->avl_master    = NULL;
+    init->alw_masters   = NULL;
+
     return init;
 }
 
@@ -145,13 +150,30 @@ pgoerr pinit_parser ( pinit **init, int argc, char **argv )
 
 }
 
-
 void pinit_set_main_class ( pinit **init, pclass *class )
 {   (*init)->classes[0] = class;
 }
 
+void pinit_set_allowed_masters ( pinit **init, palw *allowed_names )
+{
+    unsigned long int i = 0;
+    while ( allowed_names[i].option_name != NULL )
+    {
+        (*init)->alw_masters = ( struct master ** ) realloc ( (*init)->alw_masters , ( sizeof ( struct master * ) * ((*init)->alw_masters_size+1) ) );
+        (*init)->alw_masters [ (*init)->alw_masters_size ] = ( struct master * ) malloc ( sizeof ( struct master ) );
+        (*init)->alw_masters [ (*init)->alw_masters_size ] -> name = ( char * ) malloc ( sizeof (char *) );
+        (*init)->alw_masters [ (*init)->alw_masters_size ] -> name = allowed_names[i].option_name;
+        (*init)->alw_masters [ (*init)->alw_masters_size ] -> master_id = allowed_names[i].option_id;
+        ++i;
+        ++(*init)->alw_masters_size;
+    }
+}
+
 
 void pinit_free ( pinit **init )
-{   free ( (*init)->classes );
+{   
+    free ( (*init)->classes );
+    free ( (*init)->avl_master );
+    free ( (*init)->alw_masters );
     free ( (*init) );
 }

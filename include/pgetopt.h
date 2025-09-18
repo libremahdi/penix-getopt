@@ -24,14 +24,12 @@ struct alw_branch {
     char **names;
     enum PKEY_TYPE key_type;
 };
-
 struct avl_branch {
     unsigned int opt_id;
     unsigned int values_size;
     char **values;
 };
-
-struct object {
+struct class {
     char *name;
     unsigned int alw_size;
     struct alw_branch **alw_tree;
@@ -39,41 +37,50 @@ struct object {
     struct avl_branch **avl_tree;
 };
 
+struct master {
+    char *name;
+    unsigned int master_id;
+};
+
 
 struct init {
     unsigned int classes_size;
-    struct object **classes;
+    struct class **classes;
+
+    struct master **avl_master;
+
+    unsigned int alw_masters_size;
+    struct master **alw_masters;
+
 };
 
 
 
 
 typedef struct init pinit;
-typedef struct object pclass;
+typedef struct class pclass;
 typedef struct alw_branch pkey;
-
 
 pinit          *pinit_create                        ();
 void            pinit_free                          ( pinit **init );
 void            pinit_set_main_class                ( pinit **init, pclass *class );
 pgoerr          pinit_parser                        ( pinit **init, int argc, char **argv );
+void            pinit_set_allowed_masters           ( pinit **init, palw *allowed_names );
 
 
 pclass         *pclass_create                       ( pinit **init, char *name );
 void            pclass_free                         ( pclass **class );
 void            pclass_set_allowed_options          ( pclass **class, palw *allowed_options );
 int             pclass_loop_get_id                  ( pclass  *class, unsigned int index );
+
 pkey            *pclass_set_key                     ( pclass **class, unsigned int opt_id, enum PKEY_TYPE key_type );
 void            pkey_set_custom_value               ( pkey **key, char *value );
-
 unsigned int    pclass_get_key_size                 ( pclass  *class, unsigned int opt_id );
 char           *pclass_key_loop_get_value           ( pclass  *class, unsigned int opt_id, unsigned int index );
 
-/*
-*/
 
-// pmaster    *pmaster_create_init         ();
-// void        pmaster_set_allowed_names   ( pmaster **mater_init, palw *allowed_names );
+
+
 // int         pmaster_get_argc            ( int ID );
 // int         pmaster_get_argv            ( int ID );
 // int         pmaster_get_id              ( pmaster *master_init );
