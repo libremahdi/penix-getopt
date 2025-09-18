@@ -31,11 +31,7 @@ pgoerr pinit_parser ( pinit **init, int argc, char **argv )
     {
         if ( (argv[i][0] == '-') && (argv[i][1] != '-') && (strlen (argv[i]) == 2) ) // it's either a single short flag or a key
         {
-            if ( (opt_id = get_id ( (*init)->classes[0], argv[i]+1 )) == -1 ) 
-            { 
-                printf ("Error %d\n", __LINE__); 
-                abort ();
-            }
+            ( (opt_id = get_id ( (*init)->classes[0], argv[i]+1 )) == -1 ) && ( printf ("Error %d\n", __LINE__), abort (), 0 );
 
             switch ( get_key_type ( (*init)->classes[0], opt_id ) )
             {
@@ -46,11 +42,11 @@ pgoerr pinit_parser ( pinit **init, int argc, char **argv )
                 default:
                     if ( is_avl_tree_repetitive_id ( (*init)->classes[0], opt_id ) == -1 ) // -1 means no
                     {
-                        _phead_key ( init, 0, opt_id, argv[i+1] );
+                        ( _phead_key ( init, 0, opt_id, argv[i+1] ) == -1 ) && ( printf ("Error %d\n", __LINE__), abort (), 0 );
                         ++i;
                         continue;
                     }
-                    _phead_repetitive_key ( init, 0, argv[i+1] );
+                    ( _phead_repetitive_key ( init, 0, opt_id, argv[i+1] ) == -1 ) && ( printf ("Error %d\n", __LINE__), abort (), 0 );
                     ++i;
                     break;
             }
@@ -63,12 +59,7 @@ pgoerr pinit_parser ( pinit **init, int argc, char **argv )
                 char2strv[0] = argv[i][j]; 
                 char2strv[1]='\0';
                 
-                if ( (opt_id = get_id ( (*init)->classes[0], char2strv )) == -1 ) 
-                { 
-                    printf ("Error %d\n", __LINE__); 
-                    free (char2strv);
-                    abort ();
-                }
+                ( (opt_id = get_id ( (*init)->classes[0], char2strv )) == -1 ) && ( printf ("Error %d\n", __LINE__), free (char2strv), abort (), 0 );
                 
                 if ( is_avl_tree_repetitive_id ( (*init)->classes[0], opt_id ) == -1 ) // -1 means no
                     _phead_flag ( init, 0, opt_id);
@@ -78,11 +69,7 @@ pgoerr pinit_parser ( pinit **init, int argc, char **argv )
         }
         else if ( argv[i][0] == '-' && argv[i][1] == '-' ) // long options
         {
-            if ( (opt_id = get_id ( (*init)->classes[0], argv[i] + 2 )) == -1 ) 
-            { 
-                printf ("Error %d\n", __LINE__); 
-                abort ();
-            }
+            ( (opt_id = get_id ( (*init)->classes[0], argv[i] + 2 )) == -1 ) && ( printf ("Error %d\n", __LINE__), abort (), 0 );
 
             switch ( get_key_type ( (*init)->classes[0], opt_id ) )
             {
@@ -91,7 +78,14 @@ pgoerr pinit_parser ( pinit **init, int argc, char **argv )
                         _phead_flag ( init, 0, opt_id);
                     break;
                 default:
-                    // key
+                    if ( is_avl_tree_repetitive_id ( (*init)->classes[0], opt_id ) == -1 ) // -1 means no
+                    {
+                        ( _phead_key ( init, 0, opt_id, argv[i+1] ) == -1 ) && ( printf ("Error %d\n", __LINE__), abort (), 0 );
+                        ++i;
+                        continue;
+                    }
+                    ( _phead_repetitive_key ( init, 0, opt_id, argv[i+1] ) == -1 ) && ( printf ("Error %d\n", __LINE__), abort (), 0 );
+                    ++i;
                     break;
             }
         }
@@ -118,11 +112,8 @@ pgoerr pinit_parser ( pinit **init, int argc, char **argv )
             free (class_name);
             free (char2strv);
 
-            if ( (opt_id = get_id ( (*init)->classes[class_index], class_value )) == -1 ) 
-            { 
-                printf ("Error %d\n", __LINE__); 
-                abort ();
-            }
+
+            ( (opt_id = get_id ( (*init)->classes[class_index], class_value )) == -1 ) && ( printf ("Error %d\n", __LINE__) , abort (), 0 );
             free (class_value);
 
             switch ( get_key_type ( (*init)->classes[class_index], opt_id ) )
@@ -132,7 +123,14 @@ pgoerr pinit_parser ( pinit **init, int argc, char **argv )
                         _phead_flag ( init, class_index, opt_id);
                     break;
                 default:
-                    // key
+                    if ( is_avl_tree_repetitive_id ( (*init)->classes[class_index], opt_id ) == -1 ) // -1 means no
+                    {
+                        ( _phead_key ( init, class_index, opt_id, argv[i+1] ) == -1 ) && ( printf ("Error %d\n", __LINE__), abort (), 0 );
+                        ++i;
+                        continue;
+                    }
+                    ( _phead_repetitive_key ( init, class_index, opt_id, argv[i+1] ) == -1 ) && ( printf ("Error %d\n", __LINE__), abort (), 0 );
+                    ++i;
                     break;
             }
         }

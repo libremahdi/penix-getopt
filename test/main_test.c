@@ -29,6 +29,10 @@ int main ( int argc, char **argv )
         EOL
     };
     pclass_set_allowed_options ( &user, user_allowed_options );
+    pkey *Hi_key1 = pclass_set_key (&user, 1, DENY_CUSTOM);
+    pkey_set_custom_value ( &Hi_key1, "First" );
+
+
 
     pinit_parser ( &init, argc, argv );
 
@@ -60,7 +64,10 @@ int main ( int argc, char **argv )
         switch ( opt_id )
         {
             case (1):
-                printf ("Class=user : flag=m\n");
+                for ( int i = 0 ; i < pclass_get_key_size (user, 1) ; ++i )
+                {
+                    printf ("Class=user ; key ; Value = %s\n", pclass_key_loop_get_value (user, 1, i));
+                }
                 break;
             case (2):
                 printf ("Class=user : flag=Hi or f\n");
