@@ -37,20 +37,26 @@ struct class {
     struct avl_branch **avl_tree;
 };
 
-struct master {
+struct master_alw {
     char *name;
     unsigned int master_id;
 };
 
+struct master_avl {
+    char *name;
+    unsigned int master_id;
+    unsigned int options_size;
+    char **options;
+};
 
 struct init {
     unsigned int classes_size;
     struct class **classes;
 
-    struct master **avl_master;
+    struct master_avl *avl_master;
 
     unsigned int alw_masters_size;
-    struct master **alw_masters;
+    struct master_alw **alw_masters;
 
 };
 
@@ -67,11 +73,17 @@ void            pinit_set_main_class                ( pinit **init, pclass *clas
 pgoerr          pinit_parser                        ( pinit **init, int argc, char **argv );
 void            pinit_set_allowed_masters           ( pinit **init, palw *allowed_names );
 
+int             pinit_get_master_argc               ( pinit  *init );
+char          **pinit_get_master_argv               ( pinit  *init );
+char           *pinit_get_master_name               ( pinit  *init );
+int             pinit_get_master_id                 ( pinit  *init );
+
+
 
 pclass         *pclass_create                       ( pinit **init, char *name );
 void            pclass_free                         ( pclass **class );
 void            pclass_set_allowed_options          ( pclass **class, palw *allowed_options );
-int             pclass_loop_get_id                  ( pclass  *class, unsigned int index );
+int             pclass_loop_get_opt_id                  ( pclass  *class, unsigned int index );
 
 pkey            *pclass_set_key                     ( pclass **class, unsigned int opt_id, enum PKEY_TYPE key_type );
 void            pkey_set_custom_value               ( pkey **key, char *value );
@@ -83,7 +95,7 @@ char           *pclass_key_loop_get_value           ( pclass  *class, unsigned i
 
 // int         pmaster_get_argc            ( int ID );
 // int         pmaster_get_argv            ( int ID );
-// int         pmaster_get_id              ( pmaster *master_init );
+// int         pmaster_get_opt_id              ( pmaster *master_init );
 // int         pmaster_get_name            ( pmaster *master_init );
 // void        pmaster_free                ( pmaster **master_init );
 
@@ -95,7 +107,7 @@ char           *pclass_key_loop_get_value           ( pclass  *class, unsigned i
         EOL
     };
     pmaster_set_allowed_names ( &masters, masters_list );
-    switch ( pmaster_get_id ( masters ) )
+    switch ( pmaster_get_opt_id ( masters ) )
     {
         case 0:
             _remove_exec ( pmaster_get_argc (0), pmaster_get_argv (0) );

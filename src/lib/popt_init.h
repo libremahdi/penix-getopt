@@ -13,7 +13,7 @@ static unsigned int is_avl_tree_repetitive_id ( pclass *class, unsigned int opt_
     return -1;
 }
 
-static int get_id ( pclass *class, char *option )
+static int get_opt_id ( pclass *class, char *option )
 {
     for ( int classI=0 ; classI < class->alw_size ; ++classI )
     {
@@ -28,11 +28,37 @@ static int get_id ( pclass *class, char *option )
     return -1;
 }
 
+static int get_master_id ( pinit *init, char *name )
+{
+    for ( int i = 0 ; i < init->alw_masters_size ; ++i )
+    {
+        if ( strcmp ( init->alw_masters[i]->name, name ) == 0 )
+        {
+            return init->alw_masters[i]->master_id;
+        }
+    }
+    return -1;
+}
+
+static char **get_master_options ( unsigned int _argc, char **_argv, unsigned int index )
+{
+    char **argv = ( char ** ) malloc ( sizeof ( char * ) * (_argc - index ) );
+    for ( int i = index, j = 0 ; i < _argc ; ++i, ++j )
+    {
+        argv[j] = _argv[i];
+    }
+    return argv;
+}
+
+
 static enum PKEY_TYPE get_key_type ( pclass *class, int opt_id )
 {
     for ( int i = 0 ; i < class->alw_size ; ++i )
         if ( class->alw_tree[i]->opt_id == opt_id ) return class->alw_tree[i]->key_type;
 }
+
+
+
 
 static void _phead_flag ( pinit **init, unsigned int class_index, unsigned int opt_id )
 {

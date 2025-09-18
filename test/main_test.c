@@ -41,15 +41,30 @@ int main ( int argc, char **argv )
     };
     pinit_set_allowed_masters ( &init, master_avl );
 
-    // printf ("%s\n", init->alw_masters[1]->name);
 
     pinit_parser ( &init, argc, argv );
 
+    switch ( pinit_get_master_id ( init ) )
+    {
+        case 1:
+            printf ("Create\n");
+            break;
+        case 2:
+            printf ("Remove\n");
+            char **_argv = pinit_get_master_argv(init);
+            for ( int i = 0 ; i < pinit_get_master_argc (init) ; ++i )
+            {
+                printf ("%s ", _argv[i]);
+            }
+            break;
+        default:
+            printf ("Nothing\n");
+    }
 
     int opt_id, i;
 
     i=0;
-    while ( ( opt_id = pclass_loop_get_id ( main, i ) ) != -1 )
+    while ( ( opt_id = pclass_loop_get_opt_id ( main, i ) ) != -1 )
     {
         switch ( opt_id )
         {
@@ -68,7 +83,7 @@ int main ( int argc, char **argv )
     }
 
     i=0;
-    while ( ( opt_id = pclass_loop_get_id ( user, i ) ) != -1 )
+    while ( ( opt_id = pclass_loop_get_opt_id ( user, i ) ) != -1 )
     {
         switch ( opt_id )
         {
