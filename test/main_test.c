@@ -56,6 +56,7 @@ int main ( int argc, char **argv )
             {
                 printf ("%s ", _argv[i]);
             }
+            printf ("\n");
             break;
         default:
             printf ("Nothing\n");

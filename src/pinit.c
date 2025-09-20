@@ -200,10 +200,7 @@ char *pinit_get_master_name ( pinit  *init )
 int pinit_get_master_id ( pinit  *init )
 {
     if ( init -> avl_master == NULL)    
-    {
-        printf ("Error %d\n", __LINE__); 
-        abort ();
-    }
+    return -1;
     return init->avl_master->master_id;
 }
 
@@ -219,7 +216,7 @@ void pinit_free ( pinit **init )
 
     free ( (*init)->alw_masters );
 
-    free ( (*init)->avl_master->options );
+    if ((*init)->avl_master != NULL) free ( (*init)->avl_master->options );
     free ( (*init)->avl_master );
     free ( (*init) );
 }
