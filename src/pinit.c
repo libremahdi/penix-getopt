@@ -47,6 +47,8 @@ pgoerr pinit_parser ( pinit **init, int argc, char **argv )
                         _phead_flag ( init, 0, opt_id);
                     break;
                 default:
+                    if ( (i+1 >= argc) || (!IsValueReallyAValue (argv[i+1])) )  abort();
+
                     if ( is_avl_tree_repetitive_id ( (*init)->classes[0], opt_id ) == -1 ) // -1 means no
                     {
                         ( _phead_key ( init, 0, opt_id, argv[i+1] ) == -1 ) && ( printf ("Error %d\n", __LINE__), abort (), 0 );
@@ -85,6 +87,8 @@ pgoerr pinit_parser ( pinit **init, int argc, char **argv )
                         _phead_flag ( init, 0, opt_id);
                     break;
                 default:
+                    if ( (i+1 >= argc) || (!IsValueReallyAValue (argv[i+1])) )  abort();
+
                     if ( is_avl_tree_repetitive_id ( (*init)->classes[0], opt_id ) == -1 ) // -1 means no
                     {
                         ( _phead_key ( init, 0, opt_id, argv[i+1] ) == -1 ) && ( printf ("Error %d\n", __LINE__), abort (), 0 );
@@ -130,6 +134,8 @@ pgoerr pinit_parser ( pinit **init, int argc, char **argv )
                         _phead_flag ( init, glob_index.class_id, opt_id);
                     break;
                 default:
+                    if ( (i+1 >= argc) || (!IsValueReallyAValue (argv[i+1])) )  abort();
+
                     if ( is_avl_tree_repetitive_id ( (*init)->classes[glob_index.class_id], opt_id ) == -1 ) // -1 means no
                     {
                         ( _phead_key ( init, glob_index.class_id, opt_id, argv[i+1] ) == -1 ) && ( printf ("Error %d\n", __LINE__), abort (), 0 );

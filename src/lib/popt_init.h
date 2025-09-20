@@ -13,6 +13,16 @@ static unsigned int is_avl_tree_repetitive_id ( pclass *class, unsigned int opt_
     return -1;
 }
 
+static int IsValueReallyAValue ( char *value )
+{
+    switch ( value[0] )
+    {
+        case '-':   return 0;
+        case '@':   return 0;
+    }
+    return 1;
+}
+
 static int get_opt_id ( pclass *class, char *option )
 {
     for ( int classI=0 ; classI < class->alw_size ; ++classI )
