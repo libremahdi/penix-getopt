@@ -78,6 +78,8 @@ char          **pinit_get_master_argv               ( pinit  *init );
 char           *pinit_get_master_name               ( pinit  *init );
 int             pinit_get_master_id                 ( pinit  *init );
 
+int             pgoerror_parser ( pgoerr _error, char **argv );
+
 
 
 pclass         *pclass_create                       ( pinit **init, char *name );

@@ -3,6 +3,17 @@
 
 int main ( int argc, char **argv )
 {
+
+
+    // pgoerr return_err;
+
+    // return_err.error=1;
+    // return_err.index=1;
+
+    // int a=pgoerror_parser (return_err, argv);
+    // printf ("%d\n", a);
+    // return 0;
+
     pinit *init = pinit_create ();
 
     pclass *main = pclass_create ( &init, "main" );
