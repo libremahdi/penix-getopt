@@ -69,7 +69,7 @@ pgoerr pinit_parser ( pinit **init, int argc, char **argv )
                 char2strv[1]='\0';
                 
                 ( (opt_id = get_opt_id ( (*init)->classes[0], char2strv )) == -1 ) && ( printf ("Error %d\n", __LINE__), free (char2strv), abort (), 0 );
-                
+                ( (*get_alw_point ( (*init)->classes[0], opt_id ))->key_type != VOID ) && ( printf ("Error %d\n", __LINE__), free (char2strv), abort (), 0 ); // if M is a key and F is a flag, they cannot be written in compressed (-MF or -FM)
                 if ( is_avl_tree_repetitive_id ( (*init)->classes[0], opt_id ) == -1 ) // -1 means no
                     _phead_flag ( init, 0, opt_id);
 
