@@ -7,5 +7,7 @@
 #define _value_syntax_error 3
 #define _lack_of_class 4
 #define _class_syntax_error 5
+#define _invalid_value 6
+#define _lack_of_master 7
 
 #endif

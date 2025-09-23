@@ -12,16 +12,19 @@ static void printerr ( char *err, char *opt )
 
 int pgoerror_parser ( pgoerr _error, char **argv )
 {
-    // ( _error.error == 0 ) ? ((printf ("Hello\n"), 0) : NULL);
-    return  (_error.error == _invalid_option      )
+    return   ( _error.error == _invalid_option      )
     ?   ( printerr ("invalid option.", argv[_error.index]), 1 ) :
-            (_error.error == _key_without_value   )  
+             ( _error.error == _key_without_value   )  
     ?   ( printerr ("cant find value for the key.", argv[_error.index]), 1 ) : 
-            (_error.error == _value_syntax_error  )  
+             ( _error.error == _value_syntax_error  )  
     ?   ( printerr ("your value's syntax is not correcy.", argv[_error.index]), 1 ) : 
-             (_error.error == _lack_of_class      )   
+             ( _error.error == _lack_of_class      )   
     ?   ( printerr ("invalid option", argv[_error.index]), 1 ) : 
-             (_error.error == _class_syntax_error )  
+             ( _error.error == _class_syntax_error )  
     ?   ( printerr ("invalid option", argv[_error.index]), 1 ) : 
+             ( _error.error == _invalid_value )
+    ?   ( printerr ("The value is invalid. This value cannot be used.", argv[_error.index]), 1 ) :
+             ( _error.error == _lack_of_master )
+    ?   ( printerr ("No master was found under this name.", argv[_error.index]), 1 ) :
             0;
 }

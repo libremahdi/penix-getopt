@@ -19,30 +19,24 @@ int main ( int argc, char **argv )
     pclass *main = pclass_create ( &init, "main" );
     pinit_set_main_class ( &init, main );
     palw main_allowed_options [] = {
-        { 100 , "m"    },
-        { 101 ,   "Hi"      },
-        { 101 , "f"       },
+		{ 1, "long_flag" },
+		{ 2, "key" },
         EOL
     };
     pclass_set_allowed_options ( &main, main_allowed_options );
 
-    pkey *Hi_key = pclass_set_key (&main, 100, NONE);
-    // pkey_set_custom_value ( &Hi_key, "First" );
-    // pkey_set_custom_value ( &Hi_key, "Last" );
-    // printf ("%s\n", pkey_key_loop_get_value ( Hi_key, 0 )) ;
+    pclass_set_key ( &main, 2, NONE );
 
     
     pclass *user = pclass_create ( &init, "user" );
     palw user_allowed_options [] = {
-        { 1 , "m"    },
-        { 2 ,   "Hi"      },
-        { 2 , "f"       },
+		{ 1, "name" },
+		{ 2, "ID" },
         EOL
     };
     pclass_set_allowed_options ( &user, user_allowed_options );
-    pkey *Hi_key1 = pclass_set_key (&user, 1, DENY_CUSTOM);
-    pkey_set_custom_value ( &Hi_key1, "First" );
-
+    pclass_set_key (&user, 1, NONE);
+    pclass_set_key (&user, 2, NONE);
 
 
     palw master_avl [] = {
@@ -52,25 +46,30 @@ int main ( int argc, char **argv )
     };
     pinit_set_allowed_masters ( &init, master_avl );
 
+    pgoerr _error = pinit_parser ( &init, argc, argv );
+    if ( pgoerror_parser ( _error, argv ) ) return -1;
 
-    pinit_parser ( &init, argc, argv );
-
+    char **_argv;
     switch ( pinit_get_master_id ( init ) )
     {
         case 1:
-            printf ("Create\n");
-            break;
-        case 2:
-            printf ("Remove\n");
-            char **_argv = pinit_get_master_argv(init);
+            printf ("Create Master\n");
+            _argv = pinit_get_master_argv(init);
             for ( int i = 0 ; i < pinit_get_master_argc (init) ; ++i )
             {
-                printf ("%s ", _argv[i]);
+                printf ("i=%d:%s\n", i, _argv[i]);
             }
             printf ("\n");
             break;
-        default:
-            printf ("Nothing\n");
+        case 2:
+            printf ("Remove Master\n");
+            _argv = pinit_get_master_argv(init);
+            for ( int i = 0 ; i < pinit_get_master_argc (init) ; ++i )
+            {
+                printf ("i=%d:%s\n", i, _argv[i]);
+            }
+            printf ("\n");
+            break;
     }
 
     int opt_id, i;
@@ -80,14 +79,14 @@ int main ( int argc, char **argv )
     {
         switch ( opt_id )
         {
-            case (100):
-                for ( int i = 0 ; i < pclass_get_key_size (main, 100) ; ++i )
-                {
-                    printf ("Class=main ; key ; Value = %s\n", pclass_key_loop_get_value (main, 100, i));
-                }
+            case (1):
+                printf ("long_flag\n");
                 break;
-            case (101):
-                printf ("Class=main : flag=Hi or f\n");
+            case (2):
+                for ( int vi=0 ; vi < pclass_get_key_size ( main, 2 ) ; ++vi )
+                {
+                    printf ( "key = %s\n", pclass_key_loop_get_value ( main, 2, vi ) );
+                }
                 break;
 
         }
@@ -100,15 +99,17 @@ int main ( int argc, char **argv )
         switch ( opt_id )
         {
             case (1):
-                for ( int i = 0 ; i < pclass_get_key_size (user, 1) ; ++i )
+                for ( int vi=0 ; vi < pclass_get_key_size ( user, 1 ) ; ++vi )
                 {
-                    printf ("Class=user ; key ; Value = %s\n", pclass_key_loop_get_value (user, 1, i));
+                    printf ( "name = %s\n", pclass_key_loop_get_value ( user, 1, vi ) );
                 }
                 break;
             case (2):
-                printf ("Class=user : flag=Hi or f\n");
+                for ( int vi=0 ; vi < pclass_get_key_size ( user, 2 ) ; ++vi )
+                {
+                    printf ( "ID = %s\n", pclass_key_loop_get_value ( user, 2, vi ) );
+                }
                 break;
-
         }
         ++i;
     }
