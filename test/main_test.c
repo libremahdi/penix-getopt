@@ -25,7 +25,8 @@ int main ( int argc, char **argv )
     };
     pclass_set_allowed_options ( &main, main_allowed_options );
 
-    pclass_set_key ( &main, 2, NONE );
+    pkey *a=pclass_set_key ( &main, 2, ALW_CUSTOM );
+    pkey_set_custom_value (&a, "v");
 
     
     pclass *user = pclass_create ( &init, "user" );

@@ -6,6 +6,8 @@
 #include "lib/popt_error.h"
 
 
+
+
 int pgoerror_parser ( pgoerr _error, char **argv )
 {
     return   ( _error.error == _invalid_option      )
@@ -15,9 +17,9 @@ int pgoerror_parser ( pgoerr _error, char **argv )
              ( _error.error == _value_syntax_error  )  
     ?   ( _printerr_user ("your value's syntax is not correcy.", argv[_error.index]), 1 ) : 
              ( _error.error == _lack_of_class      )   
-    ?   ( _printerr_user ("invalid option", argv[_error.index]), 1 ) : 
+    ?   ( _printerr_user ("There is no class under this name", argv[_error.index]), 1 ) : 
              ( _error.error == _class_syntax_error )  
-    ?   ( _printerr_user ("invalid option", argv[_error.index]), 1 ) : 
+    ?   ( _printerr_user ("invalid class. Pay attention to the structure of the class.\nit should be like that: @[Class_name].[option]", argv[_error.index]), 1 ) : 
              ( _error.error == _invalid_value )
     ?   ( _printerr_user ("The value is invalid. This value cannot be used.", argv[_error.index]), 1 ) :
              ( _error.error == _lack_of_master )
