@@ -8,14 +8,12 @@
 
 
 
-int pgoerror_parser ( pgoerr _error, char **argv )
+int usererror_parser ( usrerr _error, char **argv )
 {
     return   ( _error.error == _invalid_option      )
     ?   ( _printerr_user ("invalid option.", argv[_error.index]), 1 ) :
              ( _error.error == _key_without_value   )  
     ?   ( _printerr_user ("cant find value for the key.", argv[_error.index]), 1 ) : 
-             ( _error.error == _value_syntax_error  )  
-    ?   ( _printerr_user ("your value's syntax is not correcy.", argv[_error.index]), 1 ) : 
              ( _error.error == _lack_of_class      )   
     ?   ( _printerr_user ("There is no class under this name", argv[_error.index]), 1 ) : 
              ( _error.error == _class_syntax_error )  

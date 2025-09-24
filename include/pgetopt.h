@@ -8,7 +8,7 @@
 #define PGETOPT_MACRO
 
 typedef struct  { unsigned int option_id; char *option_name; } palw;
-typedef struct  { unsigned int error; unsigned int index; } pgoerr;
+typedef struct  { unsigned int error; unsigned int index; } usrerr;
 #define EOL     { 0, NULL } // Indicates the end of the list of allowed options.
 
 
@@ -70,7 +70,7 @@ typedef struct alw_branch pkey;
 pinit          *pinit_create                        ();
 void            pinit_free                          ( pinit **init );
 void            pinit_set_main_class                ( pinit **init, pclass *class );
-pgoerr          pinit_parser                        ( pinit **init, int argc, char **argv );
+usrerr          pinit_parser                        ( pinit **init, int argc, char **argv );
 void            pinit_set_allowed_masters           ( pinit **init, palw *allowed_names );
 
 int             pinit_get_master_argc               ( pinit  *init );
@@ -78,7 +78,7 @@ char          **pinit_get_master_argv               ( pinit  *init );
 char           *pinit_get_master_name               ( pinit  *init );
 int             pinit_get_master_id                 ( pinit  *init );
 
-int             pgoerror_parser ( pgoerr _error, char **argv );
+int             usererror_parser ( usrerr _error, char **argv );
 
 
 

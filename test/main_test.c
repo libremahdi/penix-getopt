@@ -3,17 +3,6 @@
 
 int main ( int argc, char **argv )
 {
-
-
-    // pgoerr return_err;
-
-    // return_err.error=1;
-    // return_err.index=1;
-
-    // int a=pgoerror_parser (return_err, argv);
-    // printf ("%d\n", a);
-    // return 0;
-
     pinit *init = pinit_create ();
 
     pclass *main = pclass_create ( &init, "main" );
@@ -26,7 +15,7 @@ int main ( int argc, char **argv )
     pclass_set_allowed_options ( &main, main_allowed_options );
 
     pkey *a=pclass_set_key ( &main, 2, ALW_CUSTOM );
-    pkey_set_custom_value (&a, "v");
+    pkey_set_custom_value (&a, "Value1");
 
     
     pclass *user = pclass_create ( &init, "user" );
@@ -47,31 +36,62 @@ int main ( int argc, char **argv )
     };
     pinit_set_allowed_masters ( &init, master_avl );
 
-    pgoerr _error = pinit_parser ( &init, argc, argv );
-    if ( pgoerror_parser ( _error, argv ) ) return -1;
+    usrerr _error = pinit_parser ( &init, argc, argv );
+    if ( usererror_parser ( _error, argv ) ) return -1;
 
     char **_argv;
     switch ( pinit_get_master_id ( init ) )
     {
         case 1:
-            printf ("Create Master\n");
-            _argv = pinit_get_master_argv(init);
-            for ( int i = 0 ; i < pinit_get_master_argc (init) ; ++i )
+            // Create Class
+            pinit *cr_init = pinit_create ();
+
+            pclass *cr_main = pclass_create ( &cr_init, "main" );
+            pinit_set_main_class ( &cr_init, cr_main );
+            palw main_allowed_options [] = {
+                { 1, "long_flag" },
+                EOL
+            };
+            pclass_set_allowed_options ( &cr_main, main_allowed_options );
+
+            palw cr_master_avl [] = {
+                { 1 , "file"    },
+                EOL
+            };
+            pinit_set_allowed_masters ( &cr_init, cr_master_avl );
+
+            char **_argv = pinit_get_master_argv (init);
+            int _argc = pinit_get_master_argc (init);
+
+            usrerr cr_error = pinit_parser ( &cr_init, _argc, _argv );
+            if ( usererror_parser ( cr_error, _argv ) ) return -1;
+
+            char **cr_argv;
+            switch ( pinit_get_master_id ( cr_init ) )
             {
-                printf ("i=%d:%s\n", i, _argv[i]);
+                case 1:
+                    printf ("Create File\n");
+                    break;
             }
-            printf ("\n");
-            break;
-        case 2:
-            printf ("Remove Master\n");
-            _argv = pinit_get_master_argv(init);
-            for ( int i = 0 ; i < pinit_get_master_argc (init) ; ++i )
+
+            int i=0, opt_id;
+            while ( ( opt_id = pclass_loop_get_opt_id ( cr_main, i ) ) != -1 )
             {
-                printf ("i=%d:%s\n", i, _argv[i]);
+                switch ( opt_id )
+                {
+                    case (1):
+                        printf ("\nCreate: long_flag\n\n");
+                        break;
+                }
+                ++i;
             }
-            printf ("\n");
+
+            pclass_free ( &cr_main );
+            pinit_free ( &cr_init );
             break;
     }
+
+
 
     int opt_id, i;
 

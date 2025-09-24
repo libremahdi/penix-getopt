@@ -4,11 +4,10 @@
 #define _without_error 0
 #define _invalid_option  1
 #define _key_without_value 2
-#define _value_syntax_error 3
-#define _lack_of_class 4
-#define _class_syntax_error 5
-#define _invalid_value 6
-#define _lack_of_master 7
+#define _lack_of_class 3
+#define _class_syntax_error 4
+#define _invalid_value 5
+#define _lack_of_master 6
 
 
 static void _printerr_pgetopt ( char *err, int _LINE_, char* _FILE_ )
