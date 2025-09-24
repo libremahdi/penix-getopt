@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <string.h>
 
 #include "pgetopt.h"
 #include "lib/popt_init.h"

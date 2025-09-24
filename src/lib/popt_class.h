@@ -1,5 +1,3 @@
-#include <stdio.h>
-
 #ifndef POPT_CLASS
 #define POPT_CLASS
 
