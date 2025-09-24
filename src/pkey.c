@@ -4,6 +4,7 @@
 
 #include "pgetopt.h"
 #include "lib/popt_class.h"
+#include "lib/popt_error.h"
 
 pkey *pclass_set_key ( pclass **class, unsigned int opt_id, enum PKEY_TYPE key_type )
 {
@@ -15,8 +16,10 @@ pkey *pclass_set_key ( pclass **class, unsigned int opt_id, enum PKEY_TYPE key_t
             return (*class)->alw_tree[classI];
         }
     }
-    printf ( "pclass_set_key ERROR:\nCant find Class with ID %d\n", opt_id );
-    abort ();
+    char *err; sprintf (err, "No opt_id with number %d was found to convert it to kay", opt_id); 
+    /* This error is issued when you want to set an option to key but such an opt_id is not found.
+    */
+    _printerr_pgetopt ( err, __LINE__, __FILE__ );
 }
 
 void pkey_set_custom_value ( pkey **key, char *value )

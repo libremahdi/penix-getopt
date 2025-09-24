@@ -10,4 +10,17 @@
 #define _invalid_value 6
 #define _lack_of_master 7
 
+
+static void _printerr_pgetopt ( char *err, int _LINE_, char* _FILE_ )
+{
+    printf ( "Pgetopt Error: File:%s Line:%d\n%s\n", _FILE_, _LINE_, err );
+    abort ();
+}
+
+static void _printerr_user ( char *err, char *opt )
+{
+    printf ("Error: %s\n%s\n", opt, err);
+}
+
+
 #endif

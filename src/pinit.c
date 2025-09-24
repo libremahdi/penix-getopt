@@ -222,11 +222,9 @@ char **pinit_get_master_argv ( pinit  *init )
 
 char *pinit_get_master_name ( pinit  *init )
 {
-    if ( init -> avl_master == NULL)    
-    {
-        printf ("Pgetopt Error ( %s : %d )\navl_master is NULL", __FILE__, __LINE__); 
-        abort ();
-    }
+    if ( init -> avl_master == NULL)
+        _printerr_pgetopt ( "The user has not used any Master, but you want to get the name of the available master!", __LINE__, __FILE__ );
+
     return init->avl_master->name;
 }
 

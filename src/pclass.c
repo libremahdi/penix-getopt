@@ -4,6 +4,7 @@
 
 #include "pgetopt.h"
 #include "lib/popt_class.h"
+#include "lib/popt_error.h"
 
 pclass *pclass_create ( pinit **init, char *name )
 {    
@@ -94,8 +95,10 @@ unsigned int pclass_get_key_size ( pclass  *class, unsigned int opt_id )
             return (class)->avl_tree[classI]->values_size;
         }
     }
-    printf ("ERROR: cant find `%d` key in avl options\n", opt_id);
-    abort ();
+    char *err; sprintf (err, "No available key found under this opt_id: %d", opt_id); 
+    /* The user may not have used any key, but you want to get the number of values of that key!
+    */
+    _printerr_pgetopt ( err, __LINE__, __FILE__ );
 }
 
 
@@ -108,6 +111,8 @@ char *pclass_key_loop_get_value ( pclass  *class, unsigned int opt_id, unsigned 
             return (class)->avl_tree[classI]->values[index];
         }
     }
-    printf ("ERROR: cant find `%d` key in avl options\n", opt_id);
-    abort ();
+    char *err; sprintf (err, "No available key found under this opt_id: %d", opt_id); 
+    /* The user may not have used any key, but you want to get the values of that key!
+    */
+    _printerr_pgetopt ( err, __LINE__, __FILE__ );
 }

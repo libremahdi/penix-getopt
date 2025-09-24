@@ -85,43 +85,12 @@ int             pgoerror_parser ( pgoerr _error, char **argv );
 pclass         *pclass_create                       ( pinit **init, char *name );
 void            pclass_free                         ( pclass **class );
 void            pclass_set_allowed_options          ( pclass **class, palw *allowed_options );
-int             pclass_loop_get_opt_id                  ( pclass  *class, unsigned int index );
+int             pclass_loop_get_opt_id              ( pclass  *class, unsigned int index );
 
 pkey            *pclass_set_key                     ( pclass **class, unsigned int opt_id, enum PKEY_TYPE key_type );
 void            pkey_set_custom_value               ( pkey **key, char *value );
 unsigned int    pclass_get_key_size                 ( pclass  *class, unsigned int opt_id );
 char           *pclass_key_loop_get_value           ( pclass  *class, unsigned int opt_id, unsigned int index );
-
-
-
-
-// int         pmaster_get_argc            ( int ID );
-// int         pmaster_get_argv            ( int ID );
-// int         pmaster_get_opt_id              ( pmaster *master_init );
-// int         pmaster_get_name            ( pmaster *master_init );
-// void        pmaster_free                ( pmaster **master_init );
-
-/*
-    pmaster *masters = pmaster_create        ();
-    palw masters_list [] = {
-        {0, "remove"},
-        {1, "create"},
-        EOL
-    };
-    pmaster_set_allowed_names ( &masters, masters_list );
-    switch ( pmaster_get_opt_id ( masters ) )
-    {
-        case 0:
-            _remove_exec ( pmaster_get_argc (0), pmaster_get_argv (0) );
-            break;
-        case 1:
-            int a = 1;
-            int b = 2;
-            ... your code's flow
-            break;
-    }
-            pamster_free (&masters);
-*/
 
 
 #endif
