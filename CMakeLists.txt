@@ -8,6 +8,7 @@ set(SOURCES
     src/pclass.c
     src/pinit.c
     src/pkey.c
+    src/perror.c
 )
 
 add_library(pgetopt_static STATIC ${SOURCES})
