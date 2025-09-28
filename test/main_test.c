@@ -1,4 +1,4 @@
-#include <pgetopt-ver4.2/pgetopt.h>
+#include <pgetopt-4.2/pgetopt.h>
 #include <stdio.h>
 
 int main ( int argc, char **argv )
@@ -31,6 +31,7 @@ int main ( int argc, char **argv )
 
     palw master_avl [] = {
         { 1 , "create"    },
+        { 1 , "krate"     }, // clone master
         { 2 , "remove"    },
         EOL
     };
@@ -88,6 +89,9 @@ int main ( int argc, char **argv )
 
             pclass_free ( &cr_main );
             pinit_free ( &cr_init );
+            break;
+        case 2:
+            printf ("Remove\n");
             break;
     }
 

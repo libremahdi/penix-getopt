@@ -1,0 +1,5 @@
+0-init:
+        gcc -g -O0 ./0-init.c -o ./build/0-init -L/usr/local/lib -lpgetopt -Wl,-rpath,/usr/local/lib
+
+1-class:
+		gcc -g -O0 ./1-class.c -o ./build/1-class -L/usr/local/lib -lpgetopt -Wl,-rpath,/usr/local/lib

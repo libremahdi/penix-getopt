@@ -22,11 +22,11 @@ install(TARGETS pgetopt_shared pgetopt_static
         LIBRARY DESTINATION lib
         RUNTIME DESTINATION bin)
 
-install(DIRECTORY include/ DESTINATION include/pgetopt-ver${PROJECT_VERSION})
+install(DIRECTORY include/ DESTINATION include/pgetopt-${PROJECT_VERSION})
 
 add_custom_target(uninstall
     COMMAND ${CMAKE_COMMAND} -E rm -f ${CMAKE_INSTALL_PREFIX}/lib/libpgetopt.a
     COMMAND ${CMAKE_COMMAND} -E rm -f ${CMAKE_INSTALL_PREFIX}/lib/libpgetopt.so
-    COMMAND ${CMAKE_COMMAND} -E rm -rf ${CMAKE_INSTALL_PREFIX}/include/pgetopt-ver${PROJECT_VERSION}
+    COMMAND ${CMAKE_COMMAND} -E rm -rf ${CMAKE_INSTALL_PREFIX}/include/pgetopt-${PROJECT_VERSION}
 )
 
