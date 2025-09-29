@@ -6,5 +6,5 @@ int main ( int argc, char **argv )
     pclass *class = pclass_create ( &init, "main" ); // This function constructs a class instance. The first argument specifies the `init` address, while the second defines the `class` name.
 
     pclass (&class); // Ensure `pclass` is freed after use to prevent memory leaks.
-    pfree (&init); // Ensure `pinit` is freed after use to prevent memory leaks.
+    pinit_free (&init); // Ensure `pinit` is freed after use to prevent memory leaks.
 }
