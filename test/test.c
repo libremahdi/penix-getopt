@@ -1,4 +1,4 @@
-#include <pgetopt-4.2/pgetopt.h>
+#include "pgetopt.h"
 #include <stdio.h>
 
 int main ( int argc, char **argv )
@@ -81,7 +81,7 @@ int main ( int argc, char **argv )
                 switch ( opt_id )
                 {
                     case (1):
-                        printf ("\nCreate: long_flag\n\n");
+                        printf ("Create: long_flag\n\n");
                         break;
                 }
                 ++i;
@@ -94,7 +94,6 @@ int main ( int argc, char **argv )
             printf ("Remove\n");
             break;
     }
-
 
 
     int opt_id, i;

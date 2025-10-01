@@ -1,3 +1,0 @@
-main_test:
-        gcc -g -O0 ./main_test.c -o ./build/main_test -L/usr/local/lib -lpgetopt -Wl,-rpath,/usr/local/lib
-
