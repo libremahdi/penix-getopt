@@ -5,25 +5,30 @@
 #ifndef POPT_INIT
 #define POPT_INIT
 
-static unsigned int is_avl_tree_repetitive_id ( pclass *class, unsigned int opt_id )
-{
+static int is_avl_tree_repetitive_id ( pclass *class, unsigned int opt_id )
+/* This function searches for opt_id among avl_tree ( user options ).
+ * if it exists, it returns its index in the pclass structure. And if
+ * it is not, it returns the number -1!
+*/{
     for ( int i = 0 ; i < class->avl_size ; ++i )
         if ( class->avl_tree[i]->opt_id == opt_id ) return i;
     return -1;
 }
 
-static int IsValueReallyAValue ( char *value )
-{
+static int IsValueReallyAValue ( char *value ) 
+/* in pgetopt, Values cannot start with '@'. This section is separated
+ * in the form of a function so that a certain restriction can be applied
+ * in the future!
+*/ {
     switch ( value[0] )
     {
-        case '-':   return 0;
         case '@':   return 0;
+    //  case '#':   return 0;    
     }
     return 1;
 }
 
-static int get_opt_id ( pclass *class, char *option )
-{
+static int get_opt_id ( pclass *class, char *option ) {
     for ( int classI=0 ; classI < class->alw_size ; ++classI )
     {
         for ( int valueI=0 ; valueI < class->alw_tree[classI]->names_size ; ++valueI )
@@ -37,8 +42,7 @@ static int get_opt_id ( pclass *class, char *option )
     return -1;
 }
 
-static int get_master_id ( pinit *init, char *name )
-{
+static int get_master_id ( pinit *init, char *name ) {
     for ( int i = 0 ; i < init->alw_masters_size ; ++i )
     {
         if ( strcmp ( init->alw_masters[i]->name, name ) == 0 )
@@ -58,7 +62,6 @@ static char **get_master_options ( unsigned int _argc, char **_argv, unsigned in
     }
     return argv;
 }
-
 
 static enum PKEY_TYPE get_key_type ( pclass *class, int opt_id )
 {
