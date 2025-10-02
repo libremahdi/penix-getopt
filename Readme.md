@@ -1,4 +1,7 @@
 # Parabyte Penix getopt
+[![Version](assets/version.svg)]()
+[![Project Mode](assets/Mode.svg)]()
+[![Project Owner](assets/Owner.svg)]()
 
 ## Introduction
 
