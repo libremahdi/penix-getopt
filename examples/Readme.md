@@ -22,17 +22,3 @@ The **examples** folder contains examples of implementation and usage of the `pg
 If you encounter any issues anywhere in this project, please let us know in any language and style you prefer!
 
 However, we would really appreciate it if you take a little time to explain the bugs and problems more clearly!
-
----
-
-### Contact Us
-
-You can find us on the following pages.****
-
-- **IRC :** irc.parabyte.com/#pgetopt
-  
-- **EMAIL :** support@parabyte.com
-  
-- **CALIX :** https://calix.parabyte.com/pgetopt
-  
-- **Themis :** tms://parabyte/pgetopt
