@@ -37,132 +37,37 @@ Options are divided into several categories:
 
 
 
-## Features
+## Installation
+There are several ways to install this library. Based on your requirements, you can proceed with one of the following methods to install the library:
 
-- ✨ **Clean structure:** Uses headings, lists, and separators effectively
-  
-- 🖋️ **Consistent typography:** Emphasis with bold & italics
-  
-- 💻 **Code blocks:** Proper syntax highlighting and inline code
-  
-- 🔗 **Links and references:** Clear navigation within the document
-  
-- 📌 **Notes and warnings:** Highlight important info with blockquotes
-  
+- **Using the Pack Store :** 
+    In the **pack store**'s search section, you can select the library option, search for the term pgetopt, and then proceed to download and install it.
 
----
+- **Using pkg :** 
+    You can install it by using the command `pkg` install `pgetopt-4` in your operating system's command line.
 
-## Usage
+- **From Source Code :** 
+    To compile directly from the source code, navigate to the source code folder and follow these commands:
+    
+    ```bash
+    mkdir -p build && cd build
+    cmake ..
+    make
+    make install
+    ```
 
-1. Clone the repository
-  
-2. Customize the content sections
-  
-3. Add your code snippets or documentation
-  
-4. Share or publish with confidence
-  
+    To uninstall the library, in the same folder, after the `make` command, use `make uninstall`.
 
 ---
+### Contact Us
 
-## Code Example
+You can find us on the following pages.
 
-```python
-def greet(name: str) -> str:
-
-"""
-
-Returns a greeting message.
-
-"""
-
-return f"Hello, {name}! Welcome to the professional Markdown template."
-
-
-
-print(greet("User"))
-```
-
-How to compile your application via Gcc and Pgetopt:
-
-gcc -g -O0 <source.c> -o -L/usr/local/lib -lpgetopt -Wl,-rpath,/usr/local/lib# Parabyte Penix getopt
-
-## Introduction
-
-Every console utility used in Unix-like operating systems employs various methods for user interaction. Consequently, there is a clear need for a comprehensive and consistent standard that helps users predict and understand how to interact with all command-line tools.
-
-Pgetopt is a C language library designed to address this need by providing robust management and parsing of command-line arguments and options. Its structure and syntax strictly adhere to the PENIX Standard.
-
-> Pgetopt is an acronym for PENIX Getopt.
+- **IRC :** [irc.parabyte.com/#pgetopt]()
+- **EMAIL :** [support@parabyte.com]()
+- **CALIX :** [https://calix.parabyte.com/pgetopt]()
+- **Themis :** [tms://parabyte/pgetopt]()
 
 ---
-
-## Basic Concepts
-
-The library uses several basic concepts to parse user inputs. Here, any form of input that is not a key-value pair is called an option. All options in pgetopt have an opt_id.
-
-You can assign the same opt_id to multiple options, which we call clone options.
-
-Options are divided into several categories:
-
-- **Flags :**
-
-These are options that do not take any input but inform the software of a specific state. For example, the flag -c or --create indicates that the goal is to create, and the flag -d or --delete indicates that the goal is to delete.
-
-```c
-dfsdf
-```
-
-- **Keys :**
-
-Keys are options that always require an input. The input for keys is called a Value. Values must be valid, and whether a value is valid or not is determined by the developer (you).
-
-## Features
-
-- ✨ **Clean structure:** Uses headings, lists, and separators effectively
-  
-- 🖋️ **Consistent typography:** Emphasis with bold & italics
-  
-- 💻 **Code blocks:** Proper syntax highlighting and inline code
-  
-- 🔗 **Links and references:** Clear navigation within the document
-  
-- 📌 **Notes and warnings:** Highlight important info with blockquotes
-  
-
----
-
-## Usage
-
-1. Clone the repository
-  
-2. Customize the content sections
-  
-3. Add your code snippets or documentation
-  
-4. Share or publish with confidence
-  
-
----
-
-## Code Example
-
-```python
-def greet(name: str) -> str:
-
-"""
-
-Returns a greeting message.
-
-"""
-
-return f"Hello, {name}! Welcome to the professional Markdown template."
-
-
-
-print(greet("User"))
-```
-
-How to compile your application via Gcc and Pgetopt:
-
-gcc -g -O0 <source.c> -o -L/usr/local/lib -lpgetopt -Wl,-rpath,/usr/local/lib
+### License
+This software is distributed under the proprietary open-source license POSEL (Parabyte Open Source Exclusive License). For more information about the terms of this license, please check the LICENSE file or visit the [website](https://license.parabyte.com/posel)
