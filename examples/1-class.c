@@ -8,3 +8,7 @@ int main ( int argc, char **argv )
     pclass_free (&class); // Ensure `pclass` is freed after use to prevent memory leaks.
     pinit_free (&init); // Ensure `pinit` is freed after use to prevent memory leaks.
 }
+
+/* Example Export :
+ * The execution of the software should not produce any output.
+*/
