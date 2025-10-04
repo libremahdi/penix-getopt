@@ -92,7 +92,11 @@ int main ( int argc, char **argv )
 /* Example Export :
  * If you provide no arguments to the software, you should see no output.
 
- $ ./example -f --long_flag
+ $ ./example -f --long_flag --long_key value1 -k value2
  this is f
  this is long_flag
+ long_key = value1
+ k = value2
+
+ * The current example does not perform any error handling, so no user errors are issued.
 */

@@ -14,7 +14,7 @@ int main ( int argc, char **argv )
     };
     pclass_set_allowed_options ( &main, main_allowed_options );
 
-    pkey *a=pclass_set_key ( &main, 2, ALW_CUSTOM );
+    pkey *a=pclass_set_key ( &main, 2, DENY_CUSTOM );
     pkey_set_custom_value (&a, "Value1");
 
     
