@@ -104,10 +104,10 @@ int main ( int argc, char **argv )
 /* Example Export :
  * If you provide no arguments to the software, you should see no output.
 
- $ ./example -f --long_flag --long_key "cant use 'Value 1'"
+ $ ./example -f --long_flag --long_key "Value 3" --long_key "Value 1"
  this is f
  this is long_flag
- long_key = Value 1
+ long_key = Value 3
 
- * The current example does not perform any error handling, so no user errors are issued.
+ * The reason why Value 1 is not displayed in the output here, despite being invalid, is that no error handling has been implemented.
 */
