@@ -55,7 +55,6 @@ int main ( int argc, char **argv )
 
     if ( usererror_parser ( _error, argv ) ) return -1; // This function will issue the appropriate error type based on the value of the usrerr variable you defined.
 
-    char **_argv;
     switch ( pinit_get_master_id ( init ) ) // This function returns the opt_id of the single, first master that the user used. There is no need for a loop because no processing is performed on the masters.
     /* Because `Pgetopt` always processes a single master of the user's data and returns all the subsequent data, a check is always performed in 
        the code's flow. That is, there is no need for a loop.
