@@ -19,6 +19,7 @@ The `pinit_create` function creates an init and initializes it. Finally, it retu
 pinit *my_init = pinit_create ();
 ```
 
+---
 ### Memory release
 
 The `pinit` function reserves space on the heap. Therefore, we shouldn't forget to `free` it."
