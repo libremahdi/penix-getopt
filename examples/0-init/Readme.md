@@ -20,7 +20,7 @@ pinit *my_init = pinit_create ();
 ```
 
 ---
-### Memory release
+### Memory Deallocation
 
 The `pinit` function reserves space on the heap. Therefore, we shouldn't forget to `free` it."
 
