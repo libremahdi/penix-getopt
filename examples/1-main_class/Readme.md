@@ -24,9 +24,12 @@ Before all this, we need to have a `main class`. The main class is for all those
 
 Although you must define a main class, it is not necessary to create any option inside it (an empty class).
 
+### Functions
 
 The function `pclass_create` creates an empty class where the first parameter is init and the second parameter is the name of the `class` you want to create.
 
 The function `pinit_set_main_class` sets any desired class as the main class.
+
+#### Memory Deallocation
 
 Classes also need to be freed. But not just any kind of freeing! The function `pclass_free` makes this possible!
