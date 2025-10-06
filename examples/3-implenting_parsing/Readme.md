@@ -26,3 +26,29 @@ The `pinit_parser` function compares the data entered by the user **(pavl)** wit
 However, this isn't enough! We still don't know what data the user has actually entered!
 
 The function `pclass_loop_get_opt_id` helps us figure out which data the user has passed as arguments to the software. This function returns the `opt_id` for every option the user has utilized. This function should be reused for each `class`, but since we have only defined one class so far, we won't concern ourselves with that issue yet.
+
+The function `pclass_loop_get_opt_id` must be used within a `while` loop, and if the list of user options reaches its end, this function returns the value `-1`. Since an `opt_id` cannot be a negative number, we can be confident in this approach!
+
+It's better to control the scope (lifetime) of variables dependent on `pclass_loop_get_opt_id` using curly braces {} to prevent potential issues. Note the following code (or concept):
+
+```C
+// The upper codes!
+    {
+        int opt_id, i=0;
+        
+        while ( ( opt_id = pclass_loop_get_opt_id ( class, i ) ) != -1 )
+        {
+            switch ( opt_id )
+            {
+                case (1): // The number 1 is merely a simple identifier of option! (opt_id).
+                    printf ("this is long_flag\n");
+                    break;
+                case (2):
+                    printf ("this is f\n");
+                    break;
+            }
+            ++i;
+        }
+    }
+// The lower codes!
+```
