@@ -15,6 +15,16 @@ static int is_avl_tree_repetitive_id ( pclass *class, unsigned int opt_id )
     return -1;
 }
 
+static usrerr _setup_return_usrerr ( int ERR_DEFINE, int index, int _LINE__, char* _FILE__)
+{
+    /* Dont remove this printf function. uncomment it only when you want to debug.
+    */ // printf ("%d, %s\n", _LINE__, _FILE__); // enable to debung
+    usrerr return_err;
+    return_err.error=ERR_DEFINE; 
+    return_err.index=index;
+    return return_err;
+}
+
 static int IsValueReallyAValue ( char *value ) 
 /* in pgetopt, Values cannot start with '@'. This section is separated
  * in the form of a function so that a certain restriction can be applied
@@ -23,7 +33,7 @@ static int IsValueReallyAValue ( char *value )
     switch ( value[0] )
     {
         case '@':   return 0;
-    //  case '#':   return 0;    
+        case '-':   return 0;    
     }
     return 1;
 }

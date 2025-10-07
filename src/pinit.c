@@ -19,30 +19,15 @@ pinit* pinit_create ()
     return init;
 }
 
-static usrerr _setup_return_usrerr ( int ERR_DEFINE, int index, int _LINE__, char* _FILE__)
-{
-    /* Dont remove this printf function. uncomment it only when you want to debug.
-    */ // printf ("%d, %s\n", _LINE__, _FILE__); // enable to debung
-    usrerr return_err;
-    return_err.error=ERR_DEFINE; 
-    return_err.index=index;
-    return return_err;
-}
-
 usrerr pinit_parser ( pinit **init, int argc, char **argv )
 {
-    char *char2strv = NULL;
-
     int opt_id;
 
     union _INDEX { int class_id; int master_id; } glob_index;
 
-    char *class_name = NULL;
-    char *class_value = NULL;
-
     for ( int i = 1 ; i < argc ; ++i )
     {
-        if ( (argv[i][0] == '-') && (argv[i][1] != '-') && (strlen (argv[i]) == 2) ) // it's either a single short flag or a key
+        if ( (strlen (argv[i]) == 2) && (argv[i][0] == '-') && (argv[i][1] != '-') ) // it's either a single short flag or a key
         {
             if ( ( opt_id = get_opt_id ( (*init)->classes[0], argv[i]+1 ) ) == -1 ) // When an undefined option is used by the user.
                 /* When the user has used an option as a software parameter that has not been defined by the software developer, 
@@ -82,7 +67,7 @@ usrerr pinit_parser ( pinit **init, int argc, char **argv )
         {
             for ( int j = 1 ; j <= strlen (argv[i])-1 ; ++j )
             {
-                char2strv = ( char * ) malloc ( sizeof (char) * 2 );
+                char *char2strv = ( char * ) malloc ( sizeof (char) * 2 );
                 char2strv[0] = argv[i][j]; 
                 char2strv[1]='\0';
                 
@@ -139,7 +124,10 @@ usrerr pinit_parser ( pinit **init, int argc, char **argv )
         }
         else if ( argv[i][0] == '@' ) // Must be a class
         {
-            char2strv   = strdup (argv[i]+1);
+            char *class_name = NULL;
+            char *class_value = NULL;
+
+            char *char2strv = strdup (argv[i]+1);
             if ( !is_class_syntax_correct (char2strv) )
             {
                 free (char2strv);
