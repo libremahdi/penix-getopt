@@ -9,7 +9,6 @@ int _create_func ( int, char ** );
 int main ( int argc, char **argv )
 {
     pinit *init = pinit_create (); // Creating a basic init structure for building the library tree.
-    
     pclass *class = pclass_create ( &init, "main" ); // This function constructs a class instance. The first argument specifies the `init` address, while the second defines the `class` name.
     
     pinit_set_main_class ( &init, class ); // This function sets a class as the main class.
