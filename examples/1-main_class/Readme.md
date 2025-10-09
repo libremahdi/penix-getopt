@@ -18,9 +18,9 @@ In `pgetopt`, options such as `flags` or `keys` can also be grouped inside a `cl
 
 - **Example:**
 
-    There is an option named `create`. But what does it create? That’s exactly what classes are for! If you set create in a class named `user`, the user understands that this option creates a `user`. If you implement it in a class named    `group`, the user realizes that the goal is to create a `group`.
+    There is an option named `create`. But what does it create? That's exactly what classes are for! If you set create in a class named `user`, the user understands that this option creates a `user`. If you implement it in a class named    `group`, the user realizes that the goal is to create a `group`.
 
-Before all this, we need to have a `main class`. The main class is for all those options that don’t fit into any specific category or that the programmer does not intend to categorize! For example, options like help and version don’t belong to any particular class.
+Before all this, we need to have a `main class`. The main class is for all those options that don't fit into any specific category or that the programmer does not intend to categorize! For example, options like help and version don't belong to any particular class.
 
 Although you must define a main class, it is not necessary to create any option inside it (an empty class).
 

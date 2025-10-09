@@ -75,7 +75,7 @@ int main ( int argc, char **argv )
          * Its first argument is the corresponding class, and the second argument is an index 
            that helps with the PAVl traversal
          
-         * If there is no data to traverse, the function returns a value of −1.
+         * If there is no data to traverse, the function returns a value of -1.
            ( Option IDs are always a positive number. )
          */ {
             switch ( opt_id )

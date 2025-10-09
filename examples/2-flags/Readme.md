@@ -35,7 +35,7 @@ The programmer must send the flags they want to be available to this function in
 
 - The second part is called opt_name, which is the name of the option you want to define. You are not allowed to use spaces, but if you do, no error will be raised unless you compile your software with the PDEBUG flag.
 
-- Don’t forget EOL. This is a macro that indicates the end of your list. If you forget it, who knows what might happen!
+- Don't forget EOL. This is a macro that indicates the end of your list. If you forget it, who knows what might happen!
 
 
-> Here, we have only defined a series of options. Don’t expect anything to happen or for your software to produce any specific output!
+> Here, we have only defined a series of options. Don't expect anything to happen or for your software to produce any specific output!

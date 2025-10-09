@@ -10,7 +10,7 @@ The **examples** folder contains examples of implementation and usage of the `pg
   
 2. **Documents :** Please read the documents. We've tried to explain things as clearly as possible within the limits of natural language. It's not our fault; the project manager is in a hurry!
   
-3. **Compiling :** Try to compile the projects to see the output. Before compiling, try to guess what the output will be. To compile, follow the steps below. But you’re still free to choose! You can use any compiler you like—even Microsoft compilers!!! lol :)
+3. **Compiling :** Try to compile the projects to see the output. Before compiling, try to guess what the output will be. To compile, follow the steps below. But you're still free to choose! You can use any compiler you like—even Microsoft compilers!!! lol :)
   
 
 `gcc <source.c> -o <binary> -L/usr/local/lib -lpgetopt -Wl,-rpath,/usr/local/lib`
