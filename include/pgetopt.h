@@ -2,7 +2,9 @@
  *  -Mark Twain
 */
 
+#include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #ifndef PGETOPT_MACRO
 #define PGETOPT_MACRO
@@ -13,8 +15,6 @@ typedef struct  { unsigned int error; unsigned int index; } usrerr;
 
 
 enum PKEY_TYPE { ALW_CUSTOM, DENY_CUSTOM, NONE, VOID };
-
-
 
 struct alw_branch {
     unsigned int opt_id;

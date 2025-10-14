@@ -1,6 +1,3 @@
-#include <stdio.h>
-#include <string.h>
-
 #include "pgetopt.h"
 #include "lib/popt_class.h"
 #include "lib/popt_error.h"

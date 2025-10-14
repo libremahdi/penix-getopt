@@ -37,12 +37,16 @@ static char *pstr_get_class_name ( char *str )
     ret_value[find_char_index (str, '.', 1)]='\0';
     return ret_value;
 }
+
+
 static char *pstr_get_class_value ( char *str )
 /* when you insert the 'class.flag' string, this function must return 'flag' from the string.
 */ {
     char *ret_value = strdup ( str + find_char_index (str, '.', 1) + 1 );
     return ret_value;
 }
+
+
 static bool is_class_syntax_correct ( char *str ) {
     unsigned int strln = strlen (str);
     for ( unsigned int i = 0 ; i < strln ; ++i )

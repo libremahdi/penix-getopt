@@ -1,5 +1,3 @@
-#include <string.h>
-
 #include "pgetopt.h"
 
 #ifndef POPT_INIT
