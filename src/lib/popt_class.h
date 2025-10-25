@@ -1,6 +1,8 @@
 #ifndef POPT_CLASS
 #define POPT_CLASS
 
+#define ___FIND_CHAR_INDEX___(STRING, CHAR_P) (strstr(STRING, CHAR_P)-STRING)
+
 static int is_alw_tree_repetitive_id ( pclass *class, unsigned int opt_id )
 /* if opt_id already exists, this function returns
  * its index in the pclass structure. Otherwise, return the number -1.
@@ -10,31 +12,12 @@ static int is_alw_tree_repetitive_id ( pclass *class, unsigned int opt_id )
     return -1;
 }
 
-
-static int find_char_index ( char *str, char ch, unsigned int chnum )
-/* This function finds the index of (chnum)th `ch` character in the string. 
- * example: find_char_index ("Hello.man.man", '.', 1) -> 5
- * example: find_char_index ("Hello.man.man", '.', 2) -> 9
-*/ {
-    int i=0, n=0;
-    while ( str[i] != '\0' )
-    {
-        if ( str[i] == ch )
-        {
-            if ( ++n == chnum ) return i;
-        }
-        ++i;
-    }
-    return -1;
-}
-
-
 static char *pstr_get_class_name ( char *str )
 /* when you insert the 'class.flag' string, this function must return 'class' from the string
 */ {
     char *ret_value = (char *) malloc (sizeof (char) * (strlen (str)+1)); // one character for \0
     strcpy (ret_value, str);
-    ret_value[find_char_index (str, '.', 1)]='\0';
+    ret_value[ ___FIND_CHAR_INDEX___ ( str, "." ) ]='\0';
     return ret_value;
 }
 
@@ -42,7 +25,7 @@ static char *pstr_get_class_name ( char *str )
 static char *pstr_get_class_value ( char *str )
 /* when you insert the 'class.flag' string, this function must return 'flag' from the string.
 */ {
-    char *ret_value = strdup ( str + find_char_index (str, '.', 1) + 1 );
+    char *ret_value = strdup ( str + ___FIND_CHAR_INDEX___ ( str, "." ) + 1 );
     return ret_value;
 }
 
