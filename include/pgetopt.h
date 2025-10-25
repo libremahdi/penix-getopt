@@ -6,8 +6,8 @@
 #include <stdlib.h>
 #include <string.h>
 
-#ifndef PGETOPT_MACRO
-#define PGETOPT_MACRO
+#ifndef __PARABYTE_PGETOPT__
+#define __PARABYTE_PGETOPT__
 
 typedef struct  { unsigned int option_id; char *option_name; } palw;
 typedef struct  { unsigned int error; unsigned int index; } usrerr;
@@ -93,4 +93,4 @@ unsigned int    pclass_get_key_size                 ( pclass  *class, unsigned i
 char           *pclass_key_loop_get_value           ( pclass  *class, unsigned int opt_id, unsigned int index );
 
 
-#endif
+#endif // __PARABYTE_PGETOPT__
