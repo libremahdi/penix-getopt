@@ -133,16 +133,16 @@ usrerr pinit_parser ( pinit **init, int argc, char **argv )
             }
             class_name  = pstr_get_class_name (char2strv);
             class_value = pstr_get_class_value (char2strv);
+            free (char2strv);
 
             if ( (glob_index.class_id = get_class_index ((*init), class_name)) == -1 ) 
             {
                 free (class_name);
                 free (class_value);
-                free (char2strv);
                 return _setup_return_usrerr ( _lack_of_class, i, __LINE__, __FILE__ );
             }
             free (class_name);
-            free (char2strv);
+            
 
 
             if ( (opt_id = get_opt_id ( (*init)->classes[glob_index.class_id], class_value )) == -1 )

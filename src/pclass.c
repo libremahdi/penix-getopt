@@ -18,6 +18,7 @@ pclass *pclass_create ( pinit **init, char *name )
     return (*init)->classes[(*init)->classes_size++];
 }
 
+
 void pclass_set_allowed_options ( pclass **class, palw *allowed_options )
 
 {   unsigned long int i = 0;
