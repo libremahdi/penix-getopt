@@ -3,12 +3,14 @@ project(pgetopt VERSION 4.2 LANGUAGES C)
 
 include_directories(${PROJECT_SOURCE_DIR}/include)
 include_directories(${PROJECT_SOURCE_DIR}/src/lib)
+include_directories(${PROJECT_SOURCE_DIR}/src/lib/mem_manage)
 
 set(SOURCES
     src/pclass.c
     src/pinit.c
     src/pkey.c
     src/perror.c
+    src/lib/mem_manage/salloc.c
 )
 
 add_library(pgetopt_static STATIC ${SOURCES})
@@ -29,4 +31,3 @@ add_custom_target(uninstall
     COMMAND ${CMAKE_COMMAND} -E rm -f ${CMAKE_INSTALL_PREFIX}/lib/libpgetopt.so
     COMMAND ${CMAKE_COMMAND} -E rm -rf ${CMAKE_INSTALL_PREFIX}/include/pgetopt-${PROJECT_VERSION}
 )
-
