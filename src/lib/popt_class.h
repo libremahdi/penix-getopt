@@ -3,6 +3,8 @@
 
 #define ___FIND_CHAR_INDEX___(STRING, CHAR_P) (strstr(STRING, CHAR_P)-STRING)
 
+#include "salloc.h"
+
 static int is_alw_tree_repetitive_id ( pclass *class, unsigned int opt_id )
 /* if opt_id already exists, this function returns
  * its index in the pclass structure. Otherwise, return the number -1.
@@ -15,7 +17,7 @@ static int is_alw_tree_repetitive_id ( pclass *class, unsigned int opt_id )
 static char *pstr_get_class_name ( char *str )
 /* when you insert the 'class.flag' string, this function must return 'class' from the string
 */ {
-    char *ret_value = (char *) malloc (sizeof (char) * (strlen (str)+1)); // one character for \0
+    char *ret_value = salloc (sizeof (char) * (strlen (str)+1)); // one character for \0
     strcpy (ret_value, str);
     ret_value[ ___FIND_CHAR_INDEX___ ( str, "." ) ]='\0';
     return ret_value;

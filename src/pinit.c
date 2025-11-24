@@ -2,13 +2,14 @@
 #include "lib/popt_init.h"
 #include "lib/popt_class.h"
 #include "lib/popt_error.h"
+#include "salloc.h"
 
 pinit* pinit_create ()
 {
-    pinit *init         = (pinit *) malloc (sizeof (pinit));
+    pinit *init         = (pinit *) salloc (sizeof (pinit));
     init->classes_size  = 1;
 
-    init->classes       = (struct class **) malloc ( ( sizeof (struct class *) ) );
+    init->classes       = (struct class **) salloc ( ( sizeof (struct class *) ) );
     init->classes[0]    = NULL; // this is the main class
 
     init->alw_masters_size = 0;
@@ -66,7 +67,7 @@ usrerr pinit_parser ( pinit **init, int argc, char **argv )
         {
             for ( int j = 1 ; j <= strlen (argv[i])-1 ; ++j )
             {
-                char *char2strv = ( char * ) malloc ( sizeof (char) * 2 );
+                char *char2strv = ( char * ) salloc ( sizeof (char) * 2 );
                 char2strv[0] = argv[i][j]; 
                 char2strv[1]='\0';
                 
@@ -184,7 +185,7 @@ usrerr pinit_parser ( pinit **init, int argc, char **argv )
                 /* When the user uses a master that is not defined!
                 */ return _setup_return_usrerr ( _lack_of_master, i, __LINE__, __FILE__ ); 
     
-            (*init)->avl_master = ( struct master_avl * ) malloc ( sizeof (struct master_avl) );
+            (*init)->avl_master = salloc ( sizeof (struct master_avl) );
             (*init)->avl_master -> name = argv[i];
             (*init)->avl_master -> master_id = glob_index.master_id;
             (*init)->avl_master -> options_size = argc - i;
@@ -207,7 +208,7 @@ void pinit_set_allowed_masters ( pinit **init, palw *allowed_names )
     while ( allowed_names[i].option_name != NULL )
     {
         (*init)->alw_masters = ( struct master_alw ** ) realloc ( (*init)->alw_masters , ( sizeof ( struct master_alw * ) * ((*init)->alw_masters_size+1) ) );
-        (*init)->alw_masters [ (*init)->alw_masters_size ] = ( struct master_alw * ) malloc ( sizeof ( struct master_alw ) );
+        (*init)->alw_masters [ (*init)->alw_masters_size ] = salloc ( sizeof ( struct master_alw ) );
         (*init)->alw_masters [ (*init)->alw_masters_size ] -> name = allowed_names[i].option_name;
         (*init)->alw_masters [ (*init)->alw_masters_size ] -> master_id = allowed_names[i].option_id;
         ++i;

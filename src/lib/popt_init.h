@@ -1,7 +1,8 @@
-#include "pgetopt.h"
-
 #ifndef POPT_INIT
 #define POPT_INIT
+
+#include "salloc.h"
+#include "pgetopt.h"
 
 static int is_avl_tree_repetitive_id ( pclass *class, unsigned int opt_id )
 /* This function searches for opt_id among avl_tree ( user options ).
@@ -63,7 +64,7 @@ static int get_master_id ( pinit *init, char *name ) {
 
 static char **get_master_options ( unsigned int _argc, char **_argv, unsigned int index )
 {
-    char **argv = ( char ** ) malloc ( sizeof ( char * ) * (_argc - index ) );
+    char **argv = salloc ( sizeof ( char * ) * (_argc - index ) );
     for ( int i = index, j = 0 ; i < _argc ; ++i, ++j )
     {
         argv[j] = _argv[i];
@@ -83,7 +84,7 @@ static enum PKEY_TYPE get_key_type ( pclass *class, int opt_id )
 static void _phead_flag ( pinit **init, unsigned int class_index, unsigned int opt_id )
 {
     (*init)->classes[class_index]->avl_tree = ( struct avl_branch **) realloc ( ((*init)->classes[class_index]->avl_tree), ( sizeof (struct avl_branch *) * ( (*init)->classes[class_index]->avl_size + 1 )) );
-    (*init)->classes[class_index]->avl_tree[(*init)->classes[class_index]->avl_size] = ( struct avl_branch * ) malloc ( sizeof ( struct avl_branch ) );
+    (*init)->classes[class_index]->avl_tree[(*init)->classes[class_index]->avl_size] = salloc ( sizeof ( struct avl_branch ) );
     (*init)->classes[class_index]->avl_tree[(*init)->classes[class_index]->avl_size]->opt_id        = opt_id;
     (*init)->classes[class_index]->avl_tree[(*init)->classes[class_index]->avl_size]->values_size   = 0;
     (*init)->classes[class_index]->avl_tree[(*init)->classes[class_index]->avl_size]->values        = NULL;
@@ -126,10 +127,10 @@ static int _phead_key ( pinit **init, unsigned int class_index, unsigned int opt
         return -1;
 
     (*init)->classes[class_index]->avl_tree = ( struct avl_branch **) realloc ( ((*init)->classes[class_index]->avl_tree), ( sizeof (struct avl_branch *) * ( (*init)->classes[class_index]->avl_size + 1 )) );
-    (*init)->classes[class_index]->avl_tree[(*init)->classes[class_index]->avl_size] = ( struct avl_branch * ) malloc ( sizeof ( struct avl_branch ) );
+    (*init)->classes[class_index]->avl_tree[(*init)->classes[class_index]->avl_size] = salloc ( sizeof ( struct avl_branch ) );
     (*init)->classes[class_index]->avl_tree[(*init)->classes[class_index]->avl_size]->opt_id        = opt_id;
     (*init)->classes[class_index]->avl_tree[(*init)->classes[class_index]->avl_size]->values_size   = 1;
-    (*init)->classes[class_index]->avl_tree[(*init)->classes[class_index]->avl_size]->values        = ( char ** ) malloc ( sizeof (char *) );
+    (*init)->classes[class_index]->avl_tree[(*init)->classes[class_index]->avl_size]->values        = salloc ( sizeof (char *) );
     (*init)->classes[class_index]->avl_tree[(*init)->classes[class_index]->avl_size]->values[0]     = value;
     ++(*init)->classes[class_index]->avl_size;
 }

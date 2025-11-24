@@ -1,12 +1,13 @@
 #include "pgetopt.h"
 #include "lib/popt_class.h"
 #include "lib/popt_error.h"
+#include "salloc.h"
 
 pclass *pclass_create ( pinit **init, char *name )
 {    
     (*init)->classes = (struct class **) realloc ( (*init)->classes, ( sizeof (struct class *) * ((*init)->classes_size+1) ) );
 
-    (*init)->classes[(*init)->classes_size]  = (struct class *) malloc (sizeof (struct class));
+    (*init)->classes[(*init)->classes_size]  = salloc (sizeof (struct class));
     (*init)->classes[(*init)->classes_size]->name = name;
     
     (*init)->classes[(*init)->classes_size]->alw_size = 0;
@@ -35,9 +36,9 @@ void pclass_set_allowed_options ( pclass **class, palw *allowed_options )
             continue;
         }
         (*class)->alw_tree = (struct alw_branch **) realloc ( (*class)->alw_tree, ( sizeof (struct alw_branch *) * ((*class)->alw_size + 1) ) );
-        (*class)->alw_tree[(*class)->alw_size] = (struct alw_branch *) malloc ( sizeof (struct alw_branch));
+        (*class)->alw_tree[(*class)->alw_size] = salloc ( sizeof (struct alw_branch));
 
-        (*class)->alw_tree[(*class)->alw_size]->names = ( char ** ) malloc ( sizeof (char *) );
+        (*class)->alw_tree[(*class)->alw_size]->names = salloc ( sizeof (char *) );
         (*class)->alw_tree[(*class)->alw_size]->names[0] = allowed_options[i].option_name;
         (*class)->alw_tree[(*class)->alw_size]->names_size = 1;
 

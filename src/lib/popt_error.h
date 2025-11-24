@@ -21,5 +21,10 @@ static void _printerr_user ( char *err, char *opt )
     printf ("Error: %s\n%s\n", opt, err);
 }
 
+static void _mem_alloc_fail ( int _LINE_, char* _FILE_) {
+    printf ("Memory Allocation Failure: File:%s Line:%d\npgetopt could not reserve memory. \
+    The problem might be due to the RAM being full, or due to a bug or error in the operating \
+    system.\nhint: Close some heavy software programs that are occupying a lot of memory and try again.\n", _FILE_, _LINE_);
+}
 
 #endif
