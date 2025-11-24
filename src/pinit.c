@@ -4,7 +4,8 @@
 #include "lib/popt_error.h"
 
 pinit* pinit_create ()
-{   pinit *init         = (pinit *) malloc (sizeof (pinit));
+{
+    pinit *init         = (pinit *) malloc (sizeof (pinit));
     init->classes_size  = 1;
 
     init->classes       = (struct class **) malloc ( ( sizeof (struct class *) ) );
