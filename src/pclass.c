@@ -3,13 +3,6 @@
 #include "lib/popt_error.h"
 #include "salloc.h"
 
-int pclass_loop_get_opt_id ( pclass  *class, unsigned int index )
-{
-    if ( index >= (class->avl_size) )    return -1;
-    return class->avl_tree[index]->opt_id;
-}
-
-
 unsigned int pclass_get_key_size ( pclass  *class, unsigned int opt_id )
 {
     for ( int classI=0 ; classI <  (class)->avl_size ; ++classI )
