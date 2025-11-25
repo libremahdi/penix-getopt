@@ -7,6 +7,7 @@ include_directories(${PROJECT_SOURCE_DIR}/src/lib/mem_manage)
 
 set(SOURCES
     src/pclass/pclass_create.c
+    src/pclass/pclass_set_allowed_options.c
     src/pclass.c
     src/pinit.c
     src/pkey.c
