@@ -19,9 +19,6 @@ pinit* pinit_create ()
     return init;
 }
 
-void pinit_set_main_class ( pinit **init, pclass *class )
-{   (*init)->classes[0] = class;
-}
 
 void pinit_set_allowed_masters ( pinit **init, palw *allowed_names )
 {

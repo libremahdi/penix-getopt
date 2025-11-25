@@ -17,6 +17,7 @@ clean:
 	../src/pinit_parser.c \
 	../src/pkey.c \
 	../src/pclass/* \
+	../src/pinit/* \
 	../src/lib/mem_manage/salloc.c -o $(output)/$@; \
 	else \
 		printf "Makefile Error:\n$@.c does not exist.\n"; \
