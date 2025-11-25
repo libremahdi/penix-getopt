@@ -14,7 +14,6 @@ clean:
 	../src/pclass.c \
 	../src/perror.c \
 	../src/pinit.c \
-	../src/pkey.c \
 	../src/pclass/* \
 	../src/pinit/* \
 	../src/lib/mem_manage/salloc.c -o $(output)/$@; \
