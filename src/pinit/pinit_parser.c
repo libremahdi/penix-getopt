@@ -1,7 +1,7 @@
 #include "pgetopt.h"
-#include "lib/popt_init.h"
-#include "lib/popt_class.h"
-#include "lib/popt_error.h"
+#include "../lib/popt_init.h"
+#include "../lib/popt_class.h"
+#include "../lib/popt_error.h"
 #include "salloc.h"
 
 
