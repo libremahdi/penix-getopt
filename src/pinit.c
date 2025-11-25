@@ -19,37 +19,6 @@ pinit* pinit_create ()
     return init;
 }
 
-
-
-
-
-
-int pinit_get_master_argc ( pinit  *init )
-{
-    return init->avl_master->options_size;
-}
-
-char **pinit_get_master_argv ( pinit  *init )
-{
-    return init->avl_master->options;
-}
-
-char *pinit_get_master_name ( pinit  *init )
-{
-    if ( init -> avl_master == NULL)
-        _printerr_pgetopt ( "The user has not used any Master, but you want to get the name of the available master!", __LINE__, __FILE__ );
-
-    return init->avl_master->name;
-}
-
-int pinit_get_master_id ( pinit  *init )
-{
-    if ( init -> avl_master == NULL)    
-    return -1;
-    return init->avl_master->master_id;
-}
-
-
 void pinit_free ( pinit **init )
 {   
     free ( (*init)->classes );
