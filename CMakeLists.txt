@@ -6,15 +6,15 @@ include_directories(${PROJECT_SOURCE_DIR}/src/lib)
 include_directories(${PROJECT_SOURCE_DIR}/src/lib/mem_manage)
 
 set(SOURCES
-    src/pclass/pclass_create.c
-    src/pclass/pclass_set_allowed_options.c
-    src/pclass/pclass_free.c
-    src/pclass/pclass_loop_get_opt_id.c
     src/pclass.c
+    src/pclass/pclass_key.c
+    src/pclass/pclass_loop_get_opt_id.c
+    src/pclass/pclass_set_allowed_options.c
     src/pinit.c
-    src/pkey.c
+    src/pinit/pinit_master.c 
+    src/pinit/pinit_parser.c  
+    src/pinit/pinit_set_main_class.c
     src/perror.c
-    src/pinit_parser.c
     src/lib/mem_manage/salloc.c
 )
 
