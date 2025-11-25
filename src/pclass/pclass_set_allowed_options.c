@@ -1,6 +1,5 @@
 #include "pgetopt.h"
 #include "../lib/popt_class.h"
-#include "../lib/popt_error.h"
 #include "salloc.h"
 
 void pclass_set_allowed_options ( pclass **class, palw *allowed_options )
