@@ -1,19 +1,39 @@
 #include "pgetopt.h"
-#include "lib/popt_class.h"
-#include "lib/popt_error.h"
 #include "salloc.h"
 
-char *pclass_key_loop_get_value ( pclass  *class, unsigned int opt_id, unsigned int index )
+pclass *pclass_create ( pinit **init, char *name )
+{    
+    (*init)->classes = (struct class **) realloc ( (*init)->classes, ( sizeof (struct class *) * ((*init)->classes_size+1) ) );
+
+    (*init)->classes[(*init)->classes_size]  = salloc (sizeof (struct class));
+    (*init)->classes[(*init)->classes_size]->name = name;
+    
+    (*init)->classes[(*init)->classes_size]->alw_size = 0;
+    (*init)->classes[(*init)->classes_size]->avl_size = 0;
+
+    (*init)->classes[(*init)->classes_size]->alw_tree = NULL;
+    (*init)->classes[(*init)->classes_size]->avl_tree = NULL;
+
+    return (*init)->classes[(*init)->classes_size++];
+}
+
+void pclass_free ( pclass **class )
 {
-    for ( int classI=0 ; classI <  (class)->avl_size ; ++classI )
+    // ALW Frees
+    for ( int i = 0 ; i < (*class)->alw_size ; ++i )
     {
-        if ( (class)->avl_tree[classI]->opt_id == opt_id )
-        {
-            return (class)->avl_tree[classI]->values[index];
-        }
+        free ((*class)->alw_tree[i]->names);
+        free ((*class)->alw_tree[i]->values);
+        free ((*class)->alw_tree[i]);
     }
-    char *err; sprintf (err, "No available key found under this opt_id: %d", opt_id); 
-    /* The user may not have used any key, but you want to get the values of that key!
-    */
-    _printerr_pgetopt ( err, __LINE__, __FILE__ );
+    free ( (*class)->alw_tree );
+
+    // AVL Frees
+    for ( int i = 0 ; i < (*class)->avl_size ; ++i )
+    {
+        free ((*class)->avl_tree[i]->values);
+        free ((*class)->avl_tree[i]);
+    }
+    free ( (*class)->avl_tree );
+    free ((*class));
 }
