@@ -1,6 +1,4 @@
 #include "pgetopt.h"
-#include "../lib/popt_class.h"
-#include "../lib/popt_error.h"
 #include "salloc.h"
 
 pclass *pclass_create ( pinit **init, char *name )
