@@ -88,7 +88,7 @@ int main ( int argc, char **argv )
             }
 
             pclass_free ( &cr_main );
-            pinit_free ( &cr_init );
+            pinit_free ( cr_init );
             break;
         case 2:
             printf ("Remove\n");
@@ -139,5 +139,5 @@ int main ( int argc, char **argv )
     }
     pclass_free ( &user );
     pclass_free ( &main );
-    pinit_free ( &init );
+    pinit_free ( init );
 }

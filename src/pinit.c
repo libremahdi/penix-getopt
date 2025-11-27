@@ -19,18 +19,18 @@ pinit* pinit_create ()
     return init;
 }
 
-void pinit_free ( pinit **init )
+void pinit_free ( pinit *init )
 {   
-    free ( (*init)->classes );
+    free ( init->classes );
 
-    for ( int i = 0 ; i < (*init)->alw_masters_size ; ++i )
+    for ( int i = 0 ; i < init->alw_masters_size ; ++i )
     {
-        free ( (*init)->alw_masters[i] );
+        free ( init->alw_masters[i] );
     }
 
-    free ( (*init)->alw_masters );
+    free ( init->alw_masters );
 
-    if ((*init)->avl_master != NULL) free ( (*init)->avl_master->options );
-    free ( (*init)->avl_master );
-    free ( (*init) );
+    if (init->avl_master != NULL) free ( init->avl_master->options );
+    free ( init->avl_master );
+    free ( init );
 }
