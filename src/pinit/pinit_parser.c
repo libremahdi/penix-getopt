@@ -5,7 +5,7 @@
 #include "salloc.h"
 
 
-usrerr pinit_parser ( pinit **init, int argc, char **argv )
+usrerr pinit_parser ( pinit *init, int argc, char **argv )
 {
     int opt_id;
 
@@ -15,17 +15,17 @@ usrerr pinit_parser ( pinit **init, int argc, char **argv )
     {
         if ( (strlen (argv[i]) == 2) && (argv[i][0] == '-') && (argv[i][1] != '-') ) // it's either a single short flag or a key
         {
-            if ( ( opt_id = get_opt_id ( (*init)->classes[0], argv[i]+1 ) ) == -1 ) // When an undefined option is used by the user.
+            if ( ( opt_id = get_opt_id ( init->classes[0], argv[i]+1 ) ) == -1 ) // When an undefined option is used by the user.
                 /* When the user has used an option as a software parameter that has not been defined by the software developer, 
                  * get_opt_id returns the value -1 and this condition is executed.
                 */
                 return _setup_return_usrerr ( _invalid_option, i, __LINE__, __FILE__ );
 
-            switch ( get_key_type ( (*init)->classes[0], opt_id ) )
+            switch ( get_key_type ( init->classes[0], opt_id ) )
             {
                 case VOID:
-                    if ( is_avl_tree_repetitive_id ( (*init)->classes[0], opt_id ) == -1 ) // -1 means no
-                        _phead_flag ( init, 0, opt_id);
+                    if ( is_avl_tree_repetitive_id ( init->classes[0], opt_id ) == -1 ) // -1 means no
+                        _phead_flag ( &init, 0, opt_id);
                     break;
                 default:
                     if ( (i+1 >= argc) || (!IsValueReallyAValue (argv[i+1])) ) 
@@ -35,15 +35,15 @@ usrerr pinit_parser ( pinit **init, int argc, char **argv )
                          * where is the value after --key?? i dont know (lol)!
                         */ return _setup_return_usrerr ( _key_without_value, i, __LINE__, __FILE__ );
 
-                    if ( is_avl_tree_repetitive_id ( (*init)->classes[0], opt_id ) == -1 ) // -1 means no
+                    if ( is_avl_tree_repetitive_id ( init->classes[0], opt_id ) == -1 ) // -1 means no
                     {
-                        if ( _phead_key ( init, 0, opt_id, argv[i+1] ) == -1 )
+                        if ( _phead_key ( &init, 0, opt_id, argv[i+1] ) == -1 )
                             /* When the user uses a value that is not defined by the programmer
                             */ return _setup_return_usrerr ( _invalid_value, i, __LINE__, __FILE__ );
                         ++i;
                         continue;
                     }
-                    if ( _phead_repetitive_key ( init, 0, opt_id, argv[i+1] ) == -1 )
+                    if ( _phead_repetitive_key ( &init, 0, opt_id, argv[i+1] ) == -1 )
                             return _setup_return_usrerr ( _invalid_option, i, __LINE__, __FILE__ );
                     ++i;
                     break;
@@ -57,33 +57,33 @@ usrerr pinit_parser ( pinit **init, int argc, char **argv )
                 char2strv[0] = argv[i][j]; 
                 char2strv[1]='\0';
                 
-                if ( (opt_id = get_opt_id ( (*init)->classes[0], char2strv )) == -1 )
+                if ( (opt_id = get_opt_id ( init->classes[0], char2strv )) == -1 )
                 {
                     free (char2strv);
                     return _setup_return_usrerr ( _invalid_option, i, __LINE__, __FILE__ );
                 }
-                if ( (*get_alw_point ( (*init)->classes[0], opt_id ))->key_type != VOID ) // if M is a key and F is a flag, they cannot be written in compressed (-MF or -FM)
+                if ( (*get_alw_point ( init->classes[0], opt_id ))->key_type != VOID ) // if M is a key and F is a flag, they cannot be written in compressed (-MF or -FM)
                 {
                     free (char2strv);
                     return _setup_return_usrerr ( _key_without_value, i, __LINE__, __FILE__ );
                 }
 
-                if ( is_avl_tree_repetitive_id ( (*init)->classes[0], opt_id ) == -1 ) // -1 means no
-                    _phead_flag ( init, 0, opt_id);
+                if ( is_avl_tree_repetitive_id ( init->classes[0], opt_id ) == -1 ) // -1 means no
+                    _phead_flag ( &init, 0, opt_id);
 
             }
 
         }
         else if ( argv[i][0] == '-' && argv[i][1] == '-' ) // long options
         {
-            if ( (opt_id = get_opt_id ( (*init)->classes[0], argv[i] + 2 )) == -1 )
+            if ( (opt_id = get_opt_id ( init->classes[0], argv[i] + 2 )) == -1 )
                 return _setup_return_usrerr ( _invalid_option, i, __LINE__, __FILE__ );
 
-            switch ( get_key_type ( (*init)->classes[0], opt_id ) )
+            switch ( get_key_type ( init->classes[0], opt_id ) )
             {
                 case VOID:
-                    if ( is_avl_tree_repetitive_id ( (*init)->classes[0], opt_id ) == -1 ) // -1 means no
-                        _phead_flag ( init, 0, opt_id);
+                    if ( is_avl_tree_repetitive_id ( init->classes[0], opt_id ) == -1 ) // -1 means no
+                        _phead_flag ( &init, 0, opt_id);
                     break;
                 default:
                     if ( (i+1 >= argc) || (!IsValueReallyAValue (argv[i+1])) )
@@ -93,15 +93,15 @@ usrerr pinit_parser ( pinit **init, int argc, char **argv )
                          * where is the value after --key?? i dont know (lol)!
                         */ return _setup_return_usrerr ( _key_without_value, i, __LINE__, __FILE__ );
 
-                    if ( is_avl_tree_repetitive_id ( (*init)->classes[0], opt_id ) == -1 ) // -1 means no
+                    if ( is_avl_tree_repetitive_id ( init->classes[0], opt_id ) == -1 ) // -1 means no
                     {
-                        if ( _phead_key ( init, 0, opt_id, argv[i+1] ) == -1 )
+                        if ( _phead_key ( &init, 0, opt_id, argv[i+1] ) == -1 )
                             /* When the user uses a value that is not defined by the programmer
                             */ return _setup_return_usrerr ( _invalid_value, i, __LINE__, __FILE__ );
                         ++i;
                         continue;
                     }
-                    if ( _phead_repetitive_key ( init, 0, opt_id, argv[i+1] ) == -1 )
+                    if ( _phead_repetitive_key ( &init, 0, opt_id, argv[i+1] ) == -1 )
                         /* When the user uses a value that is not defined by the programmer
                         */ return _setup_return_usrerr ( _invalid_value, i, __LINE__, __FILE__ );
                     ++i;
@@ -123,7 +123,7 @@ usrerr pinit_parser ( pinit **init, int argc, char **argv )
             class_value = pstr_get_class_value (char2strv);
             free (char2strv);
 
-            if ( (glob_index.class_id = get_class_index ((*init), class_name)) == -1 ) 
+            if ( (glob_index.class_id = get_class_index (init, class_name)) == -1 ) 
             {
                 free (class_name);
                 free (class_value);
@@ -133,15 +133,15 @@ usrerr pinit_parser ( pinit **init, int argc, char **argv )
             
 
 
-            if ( (opt_id = get_opt_id ( (*init)->classes[glob_index.class_id], class_value )) == -1 )
+            if ( (opt_id = get_opt_id ( init->classes[glob_index.class_id], class_value )) == -1 )
                 return _setup_return_usrerr ( _invalid_option, i, __LINE__, __FILE__ );
             free (class_value);
 
-            switch ( get_key_type ( (*init)->classes[glob_index.class_id], opt_id ) )
+            switch ( get_key_type ( init->classes[glob_index.class_id], opt_id ) )
             {
                 case VOID:
-                    if ( is_avl_tree_repetitive_id ( (*init)->classes[glob_index.class_id], opt_id ) == -1 ) // -1 means no
-                        _phead_flag ( init, glob_index.class_id, opt_id);
+                    if ( is_avl_tree_repetitive_id ( init->classes[glob_index.class_id], opt_id ) == -1 ) // -1 means no
+                        _phead_flag ( &init, glob_index.class_id, opt_id);
                     break;
                 default:
                     if ( (i+1 >= argc) || (!IsValueReallyAValue (argv[i+1])) )
@@ -151,15 +151,15 @@ usrerr pinit_parser ( pinit **init, int argc, char **argv )
                          * where is the value after --key?? i dont know (lol)!
                         */ return _setup_return_usrerr ( _key_without_value, i, __LINE__, __FILE__ );
 
-                    if ( is_avl_tree_repetitive_id ( (*init)->classes[glob_index.class_id], opt_id ) == -1 ) // -1 means no
+                    if ( is_avl_tree_repetitive_id ( init->classes[glob_index.class_id], opt_id ) == -1 ) // -1 means no
                     {
-                        if ( _phead_key ( init, glob_index.class_id, opt_id, argv[i+1] ) == -1 )
+                        if ( _phead_key ( &init, glob_index.class_id, opt_id, argv[i+1] ) == -1 )
                             /* When the user uses a value that is not defined by the programmer
                             */ return _setup_return_usrerr ( _invalid_value, i, __LINE__, __FILE__ );
                         ++i;
                         continue;
                     }
-                    if ( _phead_repetitive_key ( init, glob_index.class_id, opt_id, argv[i+1] ) == -1 )
+                    if ( _phead_repetitive_key ( &init, glob_index.class_id, opt_id, argv[i+1] ) == -1 )
                     /* When the user uses a value that is not defined by the programmer
                     */ return _setup_return_usrerr ( _invalid_value, i, __LINE__, __FILE__ );
                     ++i;
@@ -167,15 +167,15 @@ usrerr pinit_parser ( pinit **init, int argc, char **argv )
             }
         }
         else {
-            if ( (glob_index.master_id = get_master_id ( (*init), argv[i] )) == -1 ) 
+            if ( (glob_index.master_id = get_master_id ( init, argv[i] )) == -1 ) 
                 /* When the user uses a master that is not defined!
                 */ return _setup_return_usrerr ( _lack_of_master, i, __LINE__, __FILE__ ); 
     
-            (*init)->avl_master = salloc ( sizeof (struct master_avl) );
-            (*init)->avl_master -> name = argv[i];
-            (*init)->avl_master -> master_id = glob_index.master_id;
-            (*init)->avl_master -> options_size = argc - i;
-            (*init)->avl_master -> options = get_master_options ( argc, argv, i );
+            init->avl_master = salloc ( sizeof (struct master_avl) );
+            init->avl_master -> name = argv[i];
+            init->avl_master -> master_id = glob_index.master_id;
+            init->avl_master -> options_size = argc - i;
+            init->avl_master -> options = get_master_options ( argc, argv, i );
             break;
         }
         

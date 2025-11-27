@@ -69,16 +69,16 @@ typedef struct alw_branch pkey;
 
 pinit          *pinit_create                        ();
 void            pinit_free                          ( pinit **init );
-void            pinit_set_main_class                ( pinit **init, pclass *class );
-usrerr          pinit_parser                        ( pinit **init, int argc, char **argv );
-void            pinit_set_allowed_masters           ( pinit **init, palw *allowed_names );
+void            pinit_set_main_class                ( pinit *init, pclass *class );
+usrerr          pinit_parser                        ( pinit *init, int argc, char **argv );
+void            pinit_set_allowed_masters           ( pinit *init, palw *allowed_names );
 
 int             pinit_get_master_argc               ( pinit  *init );
 char          **pinit_get_master_argv               ( pinit  *init );
 char           *pinit_get_master_name               ( pinit  *init );
 int             pinit_get_master_id                 ( pinit  *init );
 
-int             usererror_parser ( usrerr _error, char **argv );
+int             usererror_parser                    ( usrerr _error, char **argv );
 
 
 

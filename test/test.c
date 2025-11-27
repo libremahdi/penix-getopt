@@ -6,7 +6,7 @@ int main ( int argc, char **argv )
     pinit *init = pinit_create ();
 
     pclass *main = pclass_create ( &init, "main" );
-    pinit_set_main_class ( &init, main );
+    pinit_set_main_class ( init, main );
     palw main_allowed_options [] = {
 		{ 1, "long_flag" },
 		{ 2, "key" },
@@ -35,9 +35,9 @@ int main ( int argc, char **argv )
         { 2 , "remove"    },
         EOL
     };
-    pinit_set_allowed_masters ( &init, master_avl );
+    pinit_set_allowed_masters ( init, master_avl );
 
-    usrerr _error = pinit_parser ( &init, argc, argv );
+    usrerr _error = pinit_parser ( init, argc, argv );
     if ( usererror_parser ( _error, argv ) ) return -1;
 
     char **_argv;
@@ -48,7 +48,7 @@ int main ( int argc, char **argv )
             pinit *cr_init = pinit_create ();
 
             pclass *cr_main = pclass_create ( &cr_init, "main" );
-            pinit_set_main_class ( &cr_init, cr_main );
+            pinit_set_main_class ( cr_init, cr_main );
             palw main_allowed_options [] = {
                 { 1, "long_flag" },
                 EOL
@@ -59,12 +59,12 @@ int main ( int argc, char **argv )
                 { 1 , "file"    },
                 EOL
             };
-            pinit_set_allowed_masters ( &cr_init, cr_master_avl );
+            pinit_set_allowed_masters ( cr_init, cr_master_avl );
 
             char **_argv = pinit_get_master_argv (init);
             int _argc = pinit_get_master_argc (init);
 
-            usrerr cr_error = pinit_parser ( &cr_init, _argc, _argv );
+            usrerr cr_error = pinit_parser ( cr_init, _argc, _argv );
             if ( usererror_parser ( cr_error, _argv ) ) return -1;
 
             char **cr_argv;
