@@ -1,39 +1,39 @@
 #include "pgetopt.h"
 #include "salloc.h"
 
-pclass *pclass_create ( pinit **init, char *name )
+pclass *pclass_create ( pinit *init, char *name )
 {    
-    (*init)->classes = (struct class **) realloc ( (*init)->classes, ( sizeof (struct class *) * ((*init)->classes_size+1) ) );
+    init->classes = (struct class **) realloc ( init->classes, ( sizeof (struct class *) * (init->classes_size+1) ) );
 
-    (*init)->classes[(*init)->classes_size]  = salloc (sizeof (struct class));
-    (*init)->classes[(*init)->classes_size]->name = name;
+    init->classes[init->classes_size]  = salloc (sizeof (struct class));
+    init->classes[init->classes_size]->name = name;
     
-    (*init)->classes[(*init)->classes_size]->alw_size = 0;
-    (*init)->classes[(*init)->classes_size]->avl_size = 0;
+    init->classes[init->classes_size]->alw_size = 0;
+    init->classes[init->classes_size]->avl_size = 0;
 
-    (*init)->classes[(*init)->classes_size]->alw_tree = NULL;
-    (*init)->classes[(*init)->classes_size]->avl_tree = NULL;
+    init->classes[init->classes_size]->alw_tree = NULL;
+    init->classes[init->classes_size]->avl_tree = NULL;
 
-    return (*init)->classes[(*init)->classes_size++];
+    return init->classes[init->classes_size++];
 }
 
-void pclass_free ( pclass **class )
+void pclass_free ( pclass *class )
 {
     // ALW Frees
-    for ( int i = 0 ; i < (*class)->alw_size ; ++i )
+    for ( int i = 0 ; i < class->alw_size ; ++i )
     {
-        free ((*class)->alw_tree[i]->names);
-        free ((*class)->alw_tree[i]->values);
-        free ((*class)->alw_tree[i]);
+        free (class->alw_tree[i]->names);
+        free (class->alw_tree[i]->values);
+        free (class->alw_tree[i]);
     }
-    free ( (*class)->alw_tree );
+    free ( class->alw_tree );
 
     // AVL Frees
-    for ( int i = 0 ; i < (*class)->avl_size ; ++i )
+    for ( int i = 0 ; i < class->avl_size ; ++i )
     {
-        free ((*class)->avl_tree[i]->values);
-        free ((*class)->avl_tree[i]);
+        free (class->avl_tree[i]->values);
+        free (class->avl_tree[i]);
     }
-    free ( (*class)->avl_tree );
-    free ((*class));
+    free ( class->avl_tree );
+    free (class);
 }

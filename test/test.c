@@ -5,28 +5,28 @@ int main ( int argc, char **argv )
 {
     pinit *init = pinit_create ();
 
-    pclass *main = pclass_create ( &init, "main" );
+    pclass *main = pclass_create ( init, "main" );
     pinit_set_main_class ( init, main );
     palw main_allowed_options [] = {
 		{ 1, "long_flag" },
 		{ 2, "key" },
         EOL
     };
-    pclass_set_allowed_options ( &main, main_allowed_options );
+    pclass_set_allowed_options ( main, main_allowed_options );
 
-    pkey *a=pclass_set_key ( &main, 2, DENY_CUSTOM );
-    pkey_set_custom_value (&a, "Value1");
+    pkey *a=pclass_set_key ( main, 2, DENY_CUSTOM );
+    pkey_set_custom_value ( a, "Value1");
 
     
-    pclass *user = pclass_create ( &init, "user" );
+    pclass *user = pclass_create ( init, "user" );
     palw user_allowed_options [] = {
 		{ 1, "name" },
 		{ 2, "ID" },
         EOL
     };
-    pclass_set_allowed_options ( &user, user_allowed_options );
-    pclass_set_key (&user, 1, NONE);
-    pclass_set_key (&user, 2, NONE);
+    pclass_set_allowed_options ( user, user_allowed_options );
+    pclass_set_key (user, 1, NONE);
+    pclass_set_key (user, 2, NONE);
 
 
     palw master_avl [] = {
@@ -47,13 +47,13 @@ int main ( int argc, char **argv )
             // Create Class
             pinit *cr_init = pinit_create ();
 
-            pclass *cr_main = pclass_create ( &cr_init, "main" );
+            pclass *cr_main = pclass_create ( cr_init, "main" );
             pinit_set_main_class ( cr_init, cr_main );
             palw main_allowed_options [] = {
                 { 1, "long_flag" },
                 EOL
             };
-            pclass_set_allowed_options ( &cr_main, main_allowed_options );
+            pclass_set_allowed_options ( cr_main, main_allowed_options );
 
             palw cr_master_avl [] = {
                 { 1 , "file"    },
@@ -87,7 +87,7 @@ int main ( int argc, char **argv )
                 ++i;
             }
 
-            pclass_free ( &cr_main );
+            pclass_free ( cr_main );
             pinit_free ( cr_init );
             break;
         case 2:
@@ -137,7 +137,7 @@ int main ( int argc, char **argv )
         }
         ++i;
     }
-    pclass_free ( &user );
-    pclass_free ( &main );
+    pclass_free ( user );
+    pclass_free ( main );
     pinit_free ( init );
 }

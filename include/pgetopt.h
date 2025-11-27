@@ -82,13 +82,13 @@ int             usererror_parser                    ( usrerr _error, char **argv
 
 
 
-pclass         *pclass_create                       ( pinit **init, char *name );
-void            pclass_free                         ( pclass **class );
-void            pclass_set_allowed_options          ( pclass **class, palw *allowed_options );
-int             pclass_loop_get_opt_id              ( pclass  *class, unsigned int index );
+pclass         *pclass_create                       ( pinit *init, char *name );
+void            pclass_free                         ( pclass *class );
+void            pclass_set_allowed_options          ( pclass *class, palw *allowed_options );
+int             pclass_loop_get_opt_id              ( pclass *class, unsigned int index );
 
-pkey            *pclass_set_key                     ( pclass **class, unsigned int opt_id, enum PKEY_TYPE key_type );
-void            pkey_set_custom_value               ( pkey **key, char *value );
+pkey            *pclass_set_key                     ( pclass *class, unsigned int opt_id, enum PKEY_TYPE key_type );
+void            pkey_set_custom_value               ( pkey *key, char *value );
 unsigned int    pclass_get_key_size                 ( pclass  *class, unsigned int opt_id );
 char           *pclass_key_loop_get_value           ( pclass  *class, unsigned int opt_id, unsigned int index );
 
