@@ -1,20 +1,10 @@
-# Pgetopt Examples
-
-Here, we'll examine examples related to the pgetopt library.
-
-- Pay attention to the documentation!
-  
-- don't forget to compile!
-  
-- Perform the exercises sequentially because each example depends on the preceding examples.
-
 ## Pgetopt E3: implementing parsing
 
 Thus far, we've managed to create a `main class` and generate a series of options referred to as `flags`. However, we still haven't been able to process the user's **arguments**. We will achieve that in this example!
 
 The first step after defining the flags and passing them to the target class via the `pclass_set_allowed_options` function is to also send the user's arguments to `pgetopt`. This enables it to recognize which option the user is currently employing. The function `pinit_parser` is responsible for performing exactly this task for us.
 
-As mentioned before, `init` is a `typedef` to a tree structure within pgetopt. This tree has several branches. Two of them are named `palw` and `pavl`. `palw` stores the allowed options—information provided by the programmer during the software's construction. `pavl` stores the options that the user has entered.
+As mentioned before, `pinit` is a `typedef` to a tree structure within pgetopt. This tree has several branches. Two of them are named `palw` and `pavl`. `palw` stores the allowed options—information provided by the programmer during the software's construction. `pavl` stores the options that the user has entered.
 
 The function `pinit_parser` initializes the **pavl** structure.
 
@@ -22,6 +12,11 @@ The function `pinit_parser` initializes the **pavl** structure.
 ### Parsing Arguments!
 
 The `pinit_parser` function compares the data entered by the user **(pavl)** with the allowed data **(palw)**. If a discrepancy exists, it returns an error structure, which we won't focus on for now.
+
+We don't have to deal with the error structure right now
+But keep in mind that if the pinit_parser returns an error structure, we must stop the program's execution because the user has used the options incorrectly.
+
+It's like they wrote the option hesp instead of help. This spelling mistake will cause the program's execution flow to fail.
 
 However, this isn't enough! We still don't know what data the user has actually entered!
 
