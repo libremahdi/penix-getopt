@@ -1,14 +1,3 @@
-# Pgetopt Examples
-
-Here, we'll examine examples related to the pgetopt library.
-
-- Pay attention to the documentation!
-  
-- don't forget to compile!
-  
-- Perform the exercises sequentially because each example depends on the preceding examples.
-  
-
 ## Pgetopt E5: Clone Options
 We've reached the interesting and simple section of **pgetopt**! The entire concept is summarized as follows:
 
