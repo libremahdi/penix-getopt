@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.10)
-project(pgetopt VERSION 4.2 LANGUAGES C)
+project(pgetopt VERSION 4.3 LANGUAGES C)
 
 include_directories(${PROJECT_SOURCE_DIR}/include)
 include_directories(${PROJECT_SOURCE_DIR}/src/lib)
