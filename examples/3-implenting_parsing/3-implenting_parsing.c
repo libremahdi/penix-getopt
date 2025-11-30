@@ -1,4 +1,4 @@
-#include <pgetopt-4.3/pgetopt.h>
+#include <pgetopt-4.2/pgetopt.h>
 
 #include <stdio.h> // just for printf :)
 
@@ -56,6 +56,12 @@ int main ( int argc, char **argv )
 
 /* Example Export :
  * If you provide no arguments to the software, you should see no output.
+
+ $ ./example -f
+ this is f
+
+ $ ./example -f
+ this is long_flag
 
  $ ./example -f --long_flag
  this is f

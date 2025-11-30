@@ -1,4 +1,4 @@
-#include <pgetopt-4.3/pgetopt.h>
+#include <pgetopt-4.2/pgetopt.h>
 
 #include <stdio.h> // just for printf :)
 

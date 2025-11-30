@@ -1,18 +1,7 @@
-# Pgetopt Examples
-
-Here, we'll examine examples related to the pgetopt library.
-
-- Pay attention to the documentation!
-  
-- don't forget to compile!
-  
-- Perform the exercises sequentially because each example depends on the preceding examples.
-  
-
 ## Pgetopt E7: Error Management
 Error management has always been, and continues to be, one of the most crucial parts of the computing world. In **pgetopt**, errors are divided into two categories: **`user_error`** and **`pgetopt_error`**.
 
-The **`pgetopt_error`** is related to mistakes made by the project's **programmer** (and they should be executed!).
+The **`pgetopt_error`** is related to mistakes made by the project's **programmer** (and the software should not be executed!).
 This means that when this error occurs, the software **aborts** and the error message is printed.
 
 However, the **`user_error`** is related to mistakes made by the **user**, and its management is entirely up to the programmer.

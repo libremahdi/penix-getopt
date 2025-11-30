@@ -1,4 +1,4 @@
-#include <pgetopt-4.3/pgetopt.h>
+#include <pgetopt-4.2/pgetopt.h>
 
 #include <stdio.h> // just for printf :)
 
@@ -92,5 +92,5 @@ int main ( int argc, char **argv )
  this is long_flag
  long_key = Value 3
 
- * The reason why Value 1 is not displayed in the output here, despite being invalid, is that no error handling has been implemented.
+ * The reason why `Value 1` is not displayed in the output here, despite being invalid, is that no error handling has been implemented.
 */

@@ -1,4 +1,4 @@
-#include <pgetopt-4.3/pgetopt.h>
+#include <pgetopt-4.2/pgetopt.h>
 
 #include <stdio.h> // just for printf :)
 
@@ -74,6 +74,15 @@ int main ( int argc, char **argv )
 
 /* Example Export :
  * If you provide no arguments to the software, you should see no output.
+
+ $ ./example -f --long_flag -f -ff
+ this is f
+ this is long_flag
+
+ $ ./example -k "First value" --long_key "Second" -f
+ k = First value
+ long_key = Second
+ this is f
 
  $ ./example -f --long_flag --long_key value1 -k value2
  this is f
