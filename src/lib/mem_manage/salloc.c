@@ -15,4 +15,13 @@ void* safe_alloc (size_t size) {
     return ret_value;
 }
 
+void *safe_realloc (void *ptr, size_t size) {
+    void *ret_value = realloc (ptr, size);
+    if (ret_value == NULL) {
+        _mem_alloc_fail (__LINE__, __FILE__);
+        abort();
+    }
+    return ret_value;
+}
+
 #endif /* SALLOC__HEADER__ */

@@ -8,13 +8,13 @@ void pclass_set_allowed_options (pclass *class, palw *allowed_options) {
 
     while (allowed_options[i].option_name != NULL) {
         if ((repetitive_opt_id = is_alw_tree_repetitive_id (class, allowed_options[i].option_id)) != -1) {
-            class->alw_tree[repetitive_opt_id]->names = (char **) realloc ((class->alw_tree[repetitive_opt_id]->names), (sizeof (char *)*(class->alw_tree[repetitive_opt_id]->names_size+1)));
+            class->alw_tree[repetitive_opt_id]->names = (char **) safe_realloc ((class->alw_tree[repetitive_opt_id]->names), (sizeof (char *)*(class->alw_tree[repetitive_opt_id]->names_size+1)));
             class->alw_tree[repetitive_opt_id]->names[class->alw_tree[repetitive_opt_id]->names_size] = allowed_options[i].option_name;
             ++class->alw_tree[repetitive_opt_id]->names_size;
             ++i;
             continue;
         }
-        class->alw_tree = (struct alw_branch **) realloc (class->alw_tree, (sizeof (struct alw_branch *) * (class->alw_size+1)));
+        class->alw_tree = (struct alw_branch **) safe_realloc (class->alw_tree, (sizeof (struct alw_branch *) * (class->alw_size+1)));
         class->alw_tree[class->alw_size] = safe_alloc (sizeof (struct alw_branch));
 
         class->alw_tree[class->alw_size]->names = safe_alloc (sizeof (char *));

@@ -2,5 +2,6 @@
 #define SALLOC__HEADER__
 
 void* safe_alloc (size_t size);
+void *safe_realloc (void *ptr, size_t size);
 
 #endif /* SALLOC__HEADER__ */

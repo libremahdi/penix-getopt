@@ -2,7 +2,7 @@
 #include "salloc.h"
 
 pclass *pclass_create (pinit *init, char *name) {    
-    init->classes = (struct class **) realloc (init->classes,(sizeof(struct class *)*(init->classes_size+1)));
+    init->classes = safe_realloc (init->classes,(sizeof(struct class *)*(init->classes_size+1)));
 
     init->classes[init->classes_size] = safe_alloc (sizeof (struct class));
     init->classes[init->classes_size]->name = name;

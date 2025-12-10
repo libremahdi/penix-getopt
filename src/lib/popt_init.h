@@ -72,7 +72,7 @@ static enum PKEY_TYPE get_key_type (pclass *class, int opt_id) {
 
 
 static void _phead_flag (pinit **init, unsigned int class_index, unsigned int opt_id) {
-    (*init)->classes[class_index]->avl_tree = (struct avl_branch **) realloc (((*init)->classes[class_index]->avl_tree), (sizeof (struct avl_branch *) * ((*init)->classes[class_index]->avl_size + 1)));
+    (*init)->classes[class_index]->avl_tree = (struct avl_branch **) safe_realloc (((*init)->classes[class_index]->avl_tree), (sizeof (struct avl_branch *) * ((*init)->classes[class_index]->avl_size + 1)));
     (*init)->classes[class_index]->avl_tree[(*init)->classes[class_index]->avl_size] = safe_alloc (sizeof (struct avl_branch));
     (*init)->classes[class_index]->avl_tree[(*init)->classes[class_index]->avl_size]->opt_id      = opt_id;
     (*init)->classes[class_index]->avl_tree[(*init)->classes[class_index]->avl_size]->values_size = 0;
@@ -110,7 +110,7 @@ static int _phead_key (pinit **init, unsigned int class_index, unsigned int opt_
     if (((*alw_key_point)->key_type == DENY_CUSTOM) && (is_value_allowed ((*alw_key_point), value) == 1))
         return -1;
 
-    (*init)->classes[class_index]->avl_tree = (struct avl_branch **) realloc (((*init)->classes[class_index]->avl_tree), (sizeof(struct avl_branch *)*((*init)->classes[class_index]->avl_size+1)));
+    (*init)->classes[class_index]->avl_tree = (struct avl_branch **) safe_realloc (((*init)->classes[class_index]->avl_tree), (sizeof(struct avl_branch *)*((*init)->classes[class_index]->avl_size+1)));
     (*init)->classes[class_index]->avl_tree[(*init)->classes[class_index]->avl_size] = safe_alloc (sizeof (struct avl_branch));
     (*init)->classes[class_index]->avl_tree[(*init)->classes[class_index]->avl_size]->opt_id      = opt_id;
     (*init)->classes[class_index]->avl_tree[(*init)->classes[class_index]->avl_size]->values_size = 1;
@@ -129,7 +129,7 @@ static int _phead_repetitive_key (pinit **init, unsigned int class_index, unsign
     if (((*alw_key_point)->key_type == DENY_CUSTOM) && (is_value_allowed ((*alw_key_point), value) == 1))
         return -1;   
 
-    (*key_point)->values   = (char **) realloc ((*key_point)->values, (sizeof (char *)*((*key_point)->values_size+1)));
+    (*key_point)->values   = (char **) safe_realloc ((*key_point)->values, (sizeof (char *)*((*key_point)->values_size+1)));
     (*key_point)->values [(*key_point) -> values_size] = value;
     ++(*key_point)->values_size;
 }
