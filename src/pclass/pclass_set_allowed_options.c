@@ -2,25 +2,22 @@
 #include "../lib/popt_class.h"
 #include "salloc.h"
 
-void pclass_set_allowed_options ( pclass *class, palw *allowed_options )
-
-{   unsigned long int i = 0;
+void pclass_set_allowed_options (pclass *class, palw *allowed_options) {   
+    unsigned long int i = 0;
     unsigned int repetitive_opt_id = 0;
 
-    while (allowed_options[i].option_name != NULL)
-    {
-        if ( ( repetitive_opt_id = is_alw_tree_repetitive_id ( class, allowed_options[i].option_id ) ) != -1 )
-        {
-            class->alw_tree[repetitive_opt_id]->names = ( char ** ) realloc ( ( class->alw_tree[repetitive_opt_id]->names ) , ( sizeof (char *) * ( class->alw_tree[repetitive_opt_id]->names_size + 1) ) );
+    while (allowed_options[i].option_name != NULL) {
+        if ((repetitive_opt_id = is_alw_tree_repetitive_id (class, allowed_options[i].option_id)) != -1) {
+            class->alw_tree[repetitive_opt_id]->names = (char **) realloc ((class->alw_tree[repetitive_opt_id]->names), (sizeof (char *)*(class->alw_tree[repetitive_opt_id]->names_size+1)));
             class->alw_tree[repetitive_opt_id]->names[class->alw_tree[repetitive_opt_id]->names_size] = allowed_options[i].option_name;
             ++class->alw_tree[repetitive_opt_id]->names_size;
             ++i;
             continue;
         }
-        class->alw_tree = (struct alw_branch **) realloc ( class->alw_tree, ( sizeof (struct alw_branch *) * (class->alw_size + 1) ) );
-        class->alw_tree[class->alw_size] = salloc ( sizeof (struct alw_branch));
+        class->alw_tree = (struct alw_branch **) realloc (class->alw_tree, (sizeof (struct alw_branch *) * (class->alw_size+1)));
+        class->alw_tree[class->alw_size] = safe_alloc (sizeof (struct alw_branch));
 
-        class->alw_tree[class->alw_size]->names = salloc ( sizeof (char *) );
+        class->alw_tree[class->alw_size]->names = safe_alloc (sizeof (char *));
         class->alw_tree[class->alw_size]->names[0] = allowed_options[i].option_name;
         class->alw_tree[class->alw_size]->names_size = 1;
 

@@ -4,12 +4,11 @@
 #include "lib/popt_error.h"
 #include "salloc.h"
 
-pinit* pinit_create ()
-{
-    pinit *init         = (pinit *) salloc (sizeof (pinit));
+pinit* pinit_create () {
+    pinit *init         = (pinit *) safe_alloc (sizeof (pinit));
     init->classes_size  = 1;
 
-    init->classes       = (struct class **) salloc ( ( sizeof (struct class *) ) );
+    init->classes       = (struct class **) safe_alloc ((sizeof (struct class *)));
     init->classes[0]    = NULL; // this is the main class
 
     init->alw_masters_size = 0;
@@ -19,18 +18,16 @@ pinit* pinit_create ()
     return init;
 }
 
-void pinit_free ( pinit *init )
-{   
-    free ( init->classes );
+void pinit_free (pinit *init) {   
+    free (init->classes);
 
-    for ( int i = 0 ; i < init->alw_masters_size ; ++i )
-    {
-        free ( init->alw_masters[i] );
+    for (int i = 0 ; i < init->alw_masters_size ; ++i) {
+        free (init->alw_masters[i]);
     }
 
-    free ( init->alw_masters );
+    free (init->alw_masters);
 
-    if (init->avl_master != NULL) free ( init->avl_master->options );
-    free ( init->avl_master );
-    free ( init );
+    if (init->avl_master != NULL) free (init->avl_master->options);
+    free (init->avl_master);
+    free (init);
 }
