@@ -25,7 +25,12 @@ int main ( int argc, char **argv )
        the usererror_parser function, but you can do this manually. For more information, see the document manual.
     */
 
-    if ( usererror_parser ( _error, argv ) ) return -1; // This function will issue the appropriate error type based on the value of the usrerr variable you defined.
+    if ( usererror_parser ( _error, argv ) ) { // This function will issue the appropriate error type based on the value of the usrerr variable you defined.
+        pclass_free (class);
+        pinit_free (init);
+        return -1;
+    }
+
 
     {
         int opt_id, i=0;
