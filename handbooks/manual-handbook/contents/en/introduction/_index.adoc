@@ -5,51 +5,11 @@ In this section, we will delve into the history of argument parsers and the reas
 emergence of pgetopt in detail.. Subsequently, 
 we will take a brief look at the project structure and examine a few simple examples.
 
-=== history
-With the emergence of the Unix operating system and its early versions, 
-at a time when computers were still massive and costly giants, 
-programmers and developers of command-line tools processed input strings directly 
-from the argv variable. No standard existed, and every programmer devised their own method. 
-Beyond the lack of consistency among tools, a significant portion of the development time for 
-each utility was wasted on the repetitive task of "argument parsing.
+include::./_1.adoc[]
 
-The methods devised by programmers were error-prone, repetitive, and unmaintainable. 
-If a program had ten flags, ten different conditions had to be written,
-and there was no way to validate or manage the arguments effectively.
+include::./_2.adoc[]
 
+include::./_3.adoc[]
 
-{nbsp}{nbsp}{nbsp}{nbsp}In 1979, with the release of Unix Version 7, a function named getopt was introduced. This function was included in the C standard library with a simple goal: 
-to manage all Unix tool arguments in a unified manner.
-Later, in the 1980s, the GNU project decided to create a more advanced version of getopt. 
-This version supported not only single-character flags but also introduced long flags. 
-While GNU could have taken a better path, their approach, compared to pgetopt, 
-was arguably a failure!
+include::./_4.adoc[]
 
-Many of the ideas introduced and implemented during these decades suffered from similar flaws,
-including unnecessary complexity, incomplete feature coverage (where much of the logic still had 
-to be handled manually by the programmer!), and multithreading issues.
-
-Due to these inherent flaws in argument parsing systems, 
-Parabyte Systems decided to redesign an argument parser with a simple structure and advanced 
-capabilities. Consequently, the initial version of pgetopt was created, but it soon met with 
-failure. These successive setbacks continued until the third version; however, starting from 
-version 4.0, pgetopt reached a stable and reliable architecture (and versions 5.0 and beyond may 
-already be on the way!)
-
-The Pgetopt library complies with the PENIX{nbsp}standard footnote:[Parabyte Precision Execution Native Interface for eXclusive systems]—a unified standard for all 
-Parabyte{nbsp}Systems tools. For more information, visit https://penix.parabyte.com.
-
-=== What is the Pgetopt?
-Every console tool used in Unix-like operating systems can interact with the user in various ways. 
-In this context, there is a felt need for a comprehensive and principled standard that helps the 
-user predict how to interact with all tools. To this end, and to increase the independence of 
-Parabyte{nbsp}Systems, the pgetopt library has been designed by anticipating all the requirements 
-of a console application.
-
-{nbsp}{nbsp}{nbsp}{nbsp} The structure and usage of the pgetopt library might seem 
-slightly more complex than other similar tools, but it is important to understand 
-that this complexity stems from the library’s high level of transparency. Furthermore, 
-it enhances multithreading security, reusability, and the ability to combine functions 
-to achieve even greater capabilities. For instance, using a simple technique, a user can 
-utilize multiple 'Masters' sequentially within a single application—a feature that is not 
-included by default. We will cover this trick in detail in the upcoming chapters.
