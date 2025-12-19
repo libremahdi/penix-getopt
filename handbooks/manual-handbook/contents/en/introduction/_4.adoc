@@ -1,0 +1,42 @@
+=== General architecture of the library
+
+The library uses general trees to store user settings as well as application inputs. 
+The `init node` is the starting point of this tree. _init_ is a data structure containing
+information such as the permitted and current classes and masters. In later chapters, 
+we will explore the implementation of classes and masters in this library.
+
+For the library to parse user inputs, an entry point for _init_ must be created. 
+The function `pinit_create()` establishes this entry point. The return value of the function 
+is of type pinit.
+
+[source,c]
+----
+pinit *pinit_create();
+----
+
+`pinit‍` itself includes three elements classes array `alw_masters` array and `avl_master` 
+the classes element is an array for storing all classes the zeroth element of the classes 
+array is reserved for main main or the zeroth element of the _classes array_ is a pointer to 
+the class defined as main the purpose of this is to allow parsing of non class options.
+
+{nbsp}{nbsp}{nbsp}{nbsp}For example, in `command -lm @type.flag`, the option flag belongs to the 
+class `type`, while the options `l` and `m` belong to the arbitrary class defined as `main`. If, for 
+instance, the name of that class is `hi`, the command can be written in two different forms:
+
+[source,bash]
+----
+$ command -lm @type.flag
+----
+
+[source,bash]
+----
+$ command -lm @type.flag
+----
+
+_Classes_ do not support _flag_ compression. That means `-lm`, which represents 
+two separate flags `-m` and `-l`, must be passed to the classes individually: `@hi.l` and `@hi.m`.
+
+---
+[[image_1-0]]
+.Figure 1-0: You can see the structure of the library in the form of a graph.
+image::./images/1-4.png[]

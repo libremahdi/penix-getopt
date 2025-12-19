@@ -1,0 +1,26 @@
+=== Master and their difference from keys and flags
+
+`Masters` are among the most widely used features of _pgetopt_, distinguishing 
+it from many other parsers. _Masters_ are similar to classes but are broader and more general. 
+The implementation of masters is entirely the responsibility of the developer, and _pgetopt_ itself 
+is not involved (except for collecting and passing command-line arguments).
+
+For implementing a _master_, just like _flags_, no variable named `pmaster` is defined, 
+and according to <<image_1-0,Figure 1-0>> *everything* is handled by _init_. Note that 
+the developer can define multiple masters as permitted, but on the user side, the parser 
+always analyzes *only the first master used by the user* and leaves the parsing of all 
+options related to that _master_ to the developer.
+
+For example, the developer may declare _masters_ such as create and remove as permitted. 
+If the user provides such input to the software, the `pgetopt parser` will only parse create 
+and then collect everything after it, making it available to the developer in the form of
+new `argc` and `argv`. (In later chapters, we will discuss this in detail.)
+
+[source,bash]
+----
+$ user -l create @user.name mahdi
+----
+
+Now, if the user provides such an incorrect input to the parser, 
+it is up to the developer to handle the error (which we will examine 
+through tricks in the next chapters).

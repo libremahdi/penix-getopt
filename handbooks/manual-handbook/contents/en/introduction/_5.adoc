@@ -1,0 +1,29 @@
+=== A Simple Practice
+
+Next, we will look at the simplest program that can be written with _pgetopt_.
+Pay attention to how the library is included. In the future, 
+the _pgetopt library_ may undergo fundamental changes that could result in older software 
+no longer being supported, in which case its major version will be incremented. We must 
+therefore be careful to check the version of _pgetopt_ when including and using it.
+
+[source,c]
+----
+#include <pgetopt-4.3/pgetopt.h>
+int main ( int argc , char **argv )
+{
+	pinit *init;
+	init = pinit_create ();
+	pinit_free (init);
+	return 0;
+}
+----
+
+_Memory management_ in the C language is performed manually. 
+Therefore, at the end, after creating init, *we must free it*. To free _pinit_, 
+we use the function `pinit_free()`. The same principle applies to classes as well, 
+which we will see in later chapters.
+
+[source,c]
+----
+void pinit_free ( pinit **init );
+----

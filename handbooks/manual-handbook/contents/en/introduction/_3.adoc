@@ -1,0 +1,38 @@
+=== Basic Concepts
+The _pgetopt_ library utilizes several basic concepts to parse an input. 
+In this library, any form of input passed by the user to the software**—excluding 
+values—**is referred to as an **Option**.
+For Example, `cr`, `user`, `name` and `premission` in `change -r @user.name "Mahdi" 
+--premission root` are all *Options*, and the rest are *Values*!
+
+Options in _pgetopt_ have a natural number (unsigned int), called *opt_id*, 
+so that the parser can analyze them more quickly and enable the _clone{nbsp}option_
+capability (which we will examine later).
+
+{nbsp}{nbsp}{nbsp}{nbsp}Options that take no input are called *flags*. Flags inform the software 
+of a specific state. For example, in the `change` command, the option `r` is a flag that tells
+change the goal is not to `create (c)` a user, but rather to `revise (r)` an *existing* user.
+Flags can be either _single-character_ or _multi-character_:
+
+* A single-character option is called a *short option*.
+* A multi-character option is called a *long option*.
+
+Short options may begin with either - or --, while long options must always begin with --.
+
+
+Unlike flags, which take no input, a *key* must have a *value*. If a key is left without a value, 
+_pgetopt_ will raise an _usererror_. Error handling can be performed either automatically or by the user.
+We will address this topic in later chapters.
+
+{nbsp}{nbsp}{nbsp}{nbsp}All of these options must be gathered in a construct called a *class*. 
+Classes are entities that group options under a single name. All _options_ within a _class_ must 
+be semantically consistent with the _class name_.
+
+For example, in the `change` command, the _key_ name was assigned the _value_ `"mahdi"`. 
+We know that `mahdi` is the value of name, but what does name refer to? What entity’s 
+name are we changing? This is exactly the concept that a _class_ implements.
+
+In the example above, we changed the _value_ of the _key name_ within the _user class_. 
+Alternatively, we could have used the group class to change the name of a group instead.
+
+Congratulations! You have managed to master almost all of the fundamental concepts of the _pgetopt_ library.

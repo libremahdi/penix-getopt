@@ -9,7 +9,6 @@
 :source-highlighter: rouge
 :experimental:
 :lang: en
-:imagesdir: ./images
 :chapters-path: contents/{lang}
 
 :sectnums!:
@@ -19,4 +18,6 @@ toc::[]
 <<<
 
 :sectnums:
+include::{chapters-path}/introduction/_index.adoc[]
+
 include::{chapters-path}/introduction/_index.adoc[]

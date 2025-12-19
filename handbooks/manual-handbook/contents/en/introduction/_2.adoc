@@ -1,0 +1,14 @@
+=== What is the Pgetopt?
+Every console tool used in Unix-like operating systems can interact with the user in various ways. 
+In this context, there is a felt need for a comprehensive and principled standard that helps the 
+user predict how to interact with all tools. To this end, and to increase the independence of 
+Parabyte{nbsp}Systems, the pgetopt library has been designed by anticipating all the requirements 
+of a console application.
+
+{nbsp}{nbsp}{nbsp}{nbsp}The structure and usage of the pgetopt library might seem 
+slightly more complex than other similar tools, but it is important to understand 
+that this complexity stems from the library’s high level of transparency. Furthermore, 
+it enhances multithreading security, reusability, and the ability to combine functions 
+to achieve even greater capabilities. For instance, using a simple technique, a user can 
+utilize multiple 'Masters' sequentially within a single application—a feature that is not 
+included by default. We will cover this trick in detail in the upcoming chapters.

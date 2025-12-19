@@ -12,4 +12,7 @@ include::./_2.adoc[]
 include::./_3.adoc[]
 
 include::./_4.adoc[]
+<<<
+include::./_5.adoc[]
 
+include::./_6.adoc[]

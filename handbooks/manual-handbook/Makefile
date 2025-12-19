@@ -9,7 +9,7 @@ all: publish
 publish:
 	@echo "Generating PDF..."
 	@mkdir -p $(BUILD_DIR)
-	$(ASCIIDOCTOR_PDF) $(SOURCE) -o $(BUILD_DIR)/manual-handbook.pdf
+	$(ASCIIDOCTOR_PDF) $(SOURCE) -a pdf-theme=theme.yml -o $(BUILD_DIR)/manual-handbook.pdf
 	@echo "PDF created in $(BUILD_DIR)/"
 
 clean:
