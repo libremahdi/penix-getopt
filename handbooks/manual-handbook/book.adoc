@@ -1,15 +1,22 @@
-= Pgetopt Handbook
+:version-label: Version 4.3
+= Pgetopt Handbook: {version-label}
 :doctype: book
-:toclevels: 2
+:toc: macro
+:toclevels: 3
 :icons: font
 :sectnums:
-:sectnumlevels: 2
+:sectnumlevels: 3
 :source-highlighter: rouge
 :experimental:
 :lang: en
-
 :imagesdir: ./images
 :chapters-path: contents/{lang}
 
-include::{chapters-path}/preface/_index.adoc[leveloffset=+1]
-'''
+:sectnums!:
+include::{chapters-path}/preface/_index.adoc[leveloffset=+3]
+
+toc::[]
+<<<
+
+:sectnums:
+include::{chapters-path}/introduction/_index.adoc[leveloffset=+1]
