@@ -9,3 +9,5 @@ Parabyte Open Source Community and https://core.parabyte.com/about[Parabyte Core
 Although minor inaccuracies or outdated information might exist, they are rare. +
 If you would like to help update or further develop this document, 
 please send an email to the mailto:core-team@parabyte.com[Parabyte Core development team].
+
+Published on _Parabyte Public Documention License (PDL-ver1.0)_.
