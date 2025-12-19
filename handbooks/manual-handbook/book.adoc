@@ -13,10 +13,10 @@
 :chapters-path: contents/{lang}
 
 :sectnums!:
-include::{chapters-path}/preface/_index.adoc[leveloffset=+3]
+include::{chapters-path}/preface/_index.adoc[]
 
 toc::[]
 <<<
 
 :sectnums:
-include::{chapters-path}/introduction/_index.adoc[leveloffset=+1]
+include::{chapters-path}/introduction/_index.adoc[]
