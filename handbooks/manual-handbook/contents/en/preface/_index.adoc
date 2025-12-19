@@ -1,0 +1,11 @@
+[preface]
+[[book-preface]]
+
+= Preface
+
+Welcome to Pgetopt! This document provides a comprehensive guide on how to install and use 
+_Pgetopt{nbsp}4.3-RELEASE_. This official reference guide is the result of hard work by the
+Parabyte Open Source Community and 
+Parabyte Core team. Although minor inaccuracies or outdated information might exist, they are rare.
+
+If you would like to help update or further develop this document, please send an email to the mailto:core-team@parabyte.com[Parabyte Core development team].

@@ -1,4 +1,3 @@
-# تنظیمات
 ASCIIDOCTOR_PDF = asciidoctor-pdf
 SOURCE = book.adoc
 BUILD_DIR = build

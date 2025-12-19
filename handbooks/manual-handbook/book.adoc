@@ -1,0 +1,15 @@
+= Pgetopt Handbook
+:doctype: book
+:toclevels: 2
+:icons: font
+:sectnums:
+:sectnumlevels: 2
+:source-highlighter: rouge
+:experimental:
+:lang: en
+
+:imagesdir: ./images
+:chapters-path: contents/{lang}
+
+include::{chapters-path}/preface/_index.adoc[leveloffset=+1]
+'''
