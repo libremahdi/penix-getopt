@@ -1,0 +1,10 @@
+[[book-classes-keys-flags]]
+
+== Classes, Keys and Flags
+In this chapter, we want to learn the first practical use of the library. 
+We assume that you have studied <<book-introduction, Chapter Zero>>. As explained earlier, in order to implement 
+`flags` and `keys`, we need to implement a `class`, which will later be introduced as main.
+
+As we know, the first step is to create an _init_ for the library. 
+Then the function `pclass_create` will handle the initialization of a class for us. 
+Every class that is created must be freed. For this purpose, the function `pclass_free` is provided.
