@@ -23,3 +23,5 @@ include::{chapters-path}/introduction/_index.adoc[]
 include::{chapters-path}/Classes, Flags and Keys/_index.adoc[]
 
 include::{chapters-path}/Parsing User Options/_index.adoc[]
+
+include::{chapters-path}/Masters and Their Implementation/_index.adoc[]

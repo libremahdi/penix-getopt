@@ -1,0 +1,72 @@
+== Masters and Their Implementation
+
+We have arrived at the exciting part of `pgetopt`: *Masters*! 
+In this chapter, we will take a brief look at Masters and learn techniques 
+for better management and parsing. To avoid excessive complexity, the `pgetopt` library has decided 
+not to intervene heavily in Masters.
+
+To develop the right perspective, look at *Masters* just like *Options*. 
+They have a `name`, an `opt_id`, and are implemented via `palw`! 
+To begin working with Masters, the very first thing we do—quickly and directly—is create a 
+structure variable of type `palw`:
+
+[source,c]
+----
+palw masters_struct [] = {
+    { 1, "create"},
+    { 2, "remove"},
+    EOL
+};
+----
+
+This defines the Allowed Masters. But *we must be careful*! The user cannot simply 
+use multiple Masters as input parameters for the software unless techniques are applied—the 
+burden of which will fall on the developer's shoulders.
+
+The function ‍`pinit_set_allowed_masters` will initialize this `init` with these allowed Masters.
+
+[source,c]
+----
+void pinit_set_allowed_masters (pinit *init, palw *allowed_names);
+----
+
+I don't think the usage of this function requires any additional explanation!
+
+During Master parsing, all data is placed in the developer's hands in its raw form, 
+as `argc` and `argv`. Now, the developer can pass them to various softwares using functions like
+`execve`, or parse them within a separate function by reusing pgetopt!
+
+The functions `pinit_get_master_argc` and `pinit_get_master_argv` are available for this very purpose. 
+In the image below, you can see the prototypes of these functions.
+
+[source,c]
+----
+int pinit_get_master_argc (pinit *init);
+----
+
+[source,c]
+----
+char **pinit_get_master_argv (pinit *init);
+----
+
+You can store the values of these functions in variables, 
+pass them directly to another software via `execve`, 
+or even send them to a function that possesses its own `init` and is responsible 
+for parsing its own data. Now, how do we realize which *Master* the user has utilized? 
+The pair of functions `pinit_get_master_id` and `pinit_get_master_name` perform this task for us.
+
+There is no need for loops like `while`, because *only the first Master is processed*, 
+and all subsequent parameters are stored in the `argv` associated with that Master.
+
+The reason for the existence of the `pinit_get_master_name` function is that sometimes Master names
+are identical to an auxiliary software's name; thus, there is no longer a need to write an 
+extra `if-else` block to find the ID and execute that software.
+
+For example, a Master named `create` might trigger the execution of a binary file also named `create`. 
+In such a case, one can easily use the following structure to reach the goal faster!
+
+
+[source,c]
+----
+execve (pinit_get_master_name (init), pinit_get_master_argv(init), NULL);
+----
