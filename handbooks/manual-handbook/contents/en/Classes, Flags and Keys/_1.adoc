@@ -1,0 +1,49 @@
+=== Implementing a class and setting it as Main.
+
+To create `classes` in pgetopt, we must define a pointer variable of type `pclass`. 
+To initialize the pointer, we will use the `pclass_create` function, which requires 
+the address of the init variable's pointer and the class name as inputs:
+
+[source,c]
+----
+pclass *pclass_create (pinit *init, char *name)
+----
+
+And to release the class we have created, we must use the `pclass_free` function 
+and pass the address of our class pointer variable as the input:
+
+[source,c]
+----
+void pclass_free (pclass *class)
+----
+
+==== Example 1: Implementing a class as Main
+
+In this example, using the above functions, we implement a class and introduce 
+it as main through the function `pinit_set_main_class`.
+
+[source,c]
+----
+#include <pgetopt-4.3/pgetopt.h>
+int main (int argc, char **argv)
+{
+	pinit *init = pinit_create ();
+	pclass *main = pclass_create (init, "main class");
+	pinit_set_main_class (init, main);
+	pclass_free (main);
+	pinit_free (init);
+	return 0;
+}
+----
+
+The function `pinit_set_main_class` takes both init and the desired class as 
+inputs and places its address in the pointer `classes[0]`.
+
+[source,c]
+----
+void pinit_set_main_class (pinit *init, pclass *class);
+----
+
+Now, the user can easily use the options defined for the `simple` class without using the class name. 
+You can define classes such as `group`, `user`, or any other class in the same way. However, 
+you must ensure that you use the `pinit_set_main_class` function for only one class.

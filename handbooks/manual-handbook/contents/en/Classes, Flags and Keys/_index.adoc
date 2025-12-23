@@ -8,3 +8,7 @@ We assume that you have studied <<book-introduction, Chapter Zero>>. As explaine
 As we know, the first step is to create an _init_ for the library. 
 Then the function `pclass_create` will handle the initialization of a class for us. 
 Every class that is created must be freed. For this purpose, the function `pclass_free` is provided.
+
+include::./_1.adoc[]
+
+include::./_2.adoc[]

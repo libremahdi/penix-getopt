@@ -1,0 +1,171 @@
+=== Implementing Flags
+
+To create flags, we must first inform the parser which flags are allowed—that is, 
+which flags the user is permitted to enter. The `pclass_set_allowed_options` function initializes 
+the corresponding class based on an array of allowed options that we pass to it. 
+This enables the parser to recognize the options entered by the user and analyze the inputs 
+according to the `opt_id` of each option.
+
+[source,c]
+----
+void pclass_set_allowed_options (pclass *class, palw *allowed_options);
+----
+
+`palw` is a type cast of a data structure initialized by the developer, which this function uses 
+to set the allowed options in the corresponding class. To create a `palw`, use the following structure:
+
+[source,c]
+----
+palw class_allowed_options [] = {
+	{ opt_id, "opt_name" },
+	{ opt_id, "opt_name" },
+	EOL
+};
+----
+
+`opt_id` is a numeric value that the developer assigns to their option, 
+and `opt_name` is the name that the user will use as the option. `EOL` stands for End Of List 
+and is a *macro* used to define the end of this list. 
+
+[warning]
+----
+The developer must be careful not to forget EOL!
+----
+
+The following figure is a simple example of a `palw` implementation in the `system` command:
+
+[source,c]
+----
+palw system_alw_commands [] = {
+	{1, "poweroff"},
+	{2, "reboot"},
+	EOL,
+};
+----
+
+Finally, for pgetopt to parse the user's inputs, the developer must call the `pinit_parser` 
+function after defining all _allowed_ options and _masters_. The `init` pointer variable along 
+with the `argc` and `argv` arguments from the `main` function must be passed as inputs to this function.
+
+[source,c]
+----
+Usererr pinit_parser (pinit *init, int argc, char **argv);
+----
+
+`usrerr` stands for _User Error_ and is a simple structure for automatic error management within the library. 
+We will explore this topic in its dedicated chapter.
+
+
+==== Practice Implementing Flags
+
+The following example shows the complete structure for implementing `flags`.
+
+[source,c]
+----
+#include <pgetopt-4.3/pgetopt.h>
+
+int main (int argc, char **argv) {
+	pinit *init = pinit_create ();
+	pclass *main = pclass_create (init, "main");
+	pinit_set_main_class (init, main);
+	palw main_allowed_options [] = {
+		{1, "poweroff"},
+		{2, "reboot"},
+		EOL
+	};
+	pclass_set_allowed_options (main, main_allowed_options);
+	pinit_parser (init, argc, argv);
+	pclass_free (main);
+	pinit_free (init);
+	return 0;
+}
+----
+
+If everything is correct, after compiling and running this example, it should not produce any output. (So don't worry!)
+
+==== Implementing Keys
+
+Implementing keys involves learning a few simple functions from the pgetopt library and carries no 
+logical complexity. Note that all options defined in palw are, by default, *flags*. 
+The developer can change their type to a key using the `pclass_set_key` function. The prototype 
+of this function is shown below:
+
+[source,c]
+----
+pkey *pclass_set_key (pclass *class, unsigned int opt_id, enum PKEY_TYPE key_type);
+----
+
+`pkey` is a simple type-casted pointer to the library's internal structure; 
+it is used to define the allowed values for the key and does not require manual deallocation.
+
+As you might guess, for the first parameter, you must pass the *pointer* to the relevant 
+class. For the second parameter, you must pass the *ID* of the option you wish to convert into a key. 
+Finally, the third parameter is an *enum* consisting of `ALW_CUSTOM`, `DENY_CUSTOM`, and `NONE`:
+
+    * *ALW_CUSTOM:* Tells the parser that the values I have defined are "Allowed" types. 
+    This means the user can only use these specific values for the key.
+
+    * *DENY_CUSTOM:* Implements the opposite; the user can use any value for the 
+    key except those defined by the developer.
+
+    * *NONE:* Means the key can accept any value, and there is no need for the developer to 
+    specify any particular values.
+
+[warning]
+----
+Note: The library is case-sensitive regarding allowed and denied values.
+----
+
+To define the values associated with a key, we use the `pkey_set_custom_value` function, 
+which must be called for each individual value.
+
+[source,c]
+----
+void pkey_set_custom_value (pkey *key, char *value);
+----
+
+The first parameter of this function is the output of `pclass_set_key`, 
+which should be stored in a variable of type pkey.
+
+==== Practice Implementing Keys
+
+The following example demonstrates the complete structure for implementing keys.
+
+[source,c]
+----
+#include <pgetopt-4.3/pgetopt.h>
+
+int main (int argc, char **argv) {
+    pinit *init = pinit_create ();
+    pclass *_main = pclass_create(init, "main");
+    pinit_set_main_class (init, _main);
+    palw main_allowed_options [] = {
+		{1, "opt1"},
+		{2, "f"},
+		{3, "opt2"},
+		{4, "k"},
+		EOL
+	};
+	pclass_set_allowed_options (_main, main_allowed_options);
+	pkey *key = pclass_set_key (_main, 3, ALW_CUSTOM);
+	pkey_set_custom_value (key, "First");
+	pkey_set_custom_value (key, "sec");
+	pclass_set_key (_main, 4, NONE);
+
+	pinit_parser (init, argc, argv);
+	pclass_free (_main);
+	pinit_free (init);
+	return 0;
+}
+----
+
+Now, the user is only permitted to use the values `First` and `Sec` for the key `opt2`. 
+However, no restrictions have been defined for the key `k`.
+
+If you compile the example above and provide an invalid input or option, 
+your program will not issue any errors. This is because no error handling has 
+been implemented for the return value of the `pinit_parser` function.
+
+Defining parameters and allowed options is only one part of the story; 
+parsing the user's options is the other! In the following section, 
+we will cover how to parse user-provided options.
