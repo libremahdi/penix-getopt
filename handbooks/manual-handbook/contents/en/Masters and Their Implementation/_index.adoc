@@ -70,3 +70,109 @@ In such a case, one can easily use the following structure to reach the goal fas
 ----
 execve (pinit_get_master_name (init), pinit_get_master_argv(init), NULL);
 ----
+
+=== Practice Implementing Masters
+
+In the example below, we have defined two masters 
+as *Allowed Masters* under the names `create` and `remove`.
+
+
+[source,c]
+----
+#include <pgetopt-4.3/pgetopt.h>
+
+int main (int argc, char**argv) {
+	pinit *init = pinit_create();
+	pclass *main = pclass_create(init, "main");
+	pinit_set_main_class (init, main);
+	palw main_allowed_options[] = {
+		{1, "long_flag"},
+		{2, "key"},
+		EOL
+	};
+	pclass_set_allowed_options (main, main_allowed_options);
+	pclass_set_key (main, 2, NONE);
+	
+	pclass *usr = pclass_create (init, "user");
+	palw user_allowed_options[] = {
+		{1, "name"},
+		{2, "ID"},
+		EOL
+	};
+	pclass_set_allowed_options (usr, user_allowed_options);
+	pclass_set_key (usr, 1, NONE);
+	pclass_set_key (usr, 2, NONE);
+
+	palw master_alw[] = {
+		{1, "create"},
+		{2, "remove"},
+		EOL
+	};
+	pinit_set_allowed_masters (init, master_alw);
+
+	pinit_parser (init, argc, argv);
+
+	char **_argv;
+	switch (pinit_get_master_id(init)) {
+		case 1:
+			printf ("Create Master\n");
+			_argv = pinit_get_master_argv(init);
+			for (int i=0 ; i<pinit_get_master_argc(init) ; ++i)
+				printf("i=%d:%s\n", i, _argv[i]);
+			printf ("\n");
+			break;
+		case 2:
+			printf ("Remove Master\n");
+			break;
+	}
+
+	int opt_id, i=0;
+	while ((opt_id=pclass_loop_get_opt_id(main, i)) != -1) {
+		switch (opt_id) {
+			case 1:
+				printf ("long_flag\n");
+				break;
+			case 2:
+				for (int vi=0 ; vi<pclass_get_key_size(main,2) ; ++vi)
+					printf ("key=%s\n", pclass_key_loop_get_value(main, 2, vi));
+				break;
+		}
+		++i;
+	}
+
+	i=0;
+	while ((opt_id=pclass_loop_get_opt_id(usr, i)) != -1) {
+		switch (opt_id) {
+			case 1:
+					for (int vi=0 ; vi<pclass_get_key_size(usr,1) ; ++vi)
+							printf ("name=%s\n", pclass_key_loop_get_value(usr, 1, vi));
+					break;
+			case 2:
+					for (int vi=0 ; vi<pclass_get_key_size(usr,2) ; ++vi)
+							printf ("ID=%s\n", pclass_key_loop_get_value(usr, 2, vi));
+					break;
+		}
+		++i;
+	}
+
+	pclass_free (usr);
+	pclass_free (main);
+	pinit_free (init);
+	return 0;	
+}
+----
+
+If everything goes as planned (which I hope it does), 
+the output should be similar to the figure below:
+
+[source, bash]
+----
+#command --key 1 @user.name Mahdi @user.ID 0 create k
+Create Master
+i=0:create
+i=1:k
+
+key=1
+name=Mahdi
+ID=0
+----
