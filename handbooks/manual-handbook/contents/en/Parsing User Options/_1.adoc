@@ -1,0 +1,24 @@
+=== Parsing Options for Non-Primary Classes
+
+To parse options for other classes (other than `main`), you simply need to 
+follow the while loop structure shown in the example above and place the pointer variable 
+related to the aforementioned class in `pclass_loop_get_id`.
+
+Of course, you must have previously created the class using `pclass_create` and other related 
+functions, and initialized the palw associated with that class, which is exactly like the main class; 
+we will see examples of this in future exercises.
+
+[source,c]
+----
+while ( ( opt_id = pclass_loop_get_opt_id ( other_class, i ) ) != -1 ) {
+    switch ( opt_id ) {
+        case (1):
+                // do something
+                break;
+        case (2):
+                // do something
+                break;
+    }
+    ++i;
+}
+----

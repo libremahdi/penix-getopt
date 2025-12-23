@@ -1,0 +1,155 @@
+[[book-parsing-user-options]]
+
+== Parsing User Options
+
+We have reached a relatively difficult part of the story; 
+but you will see that it is nothing special! We learned in previous chapters 
+how to create `flags` and how to limit `key values`. Here, we will address user inputs! H
+ow to find out if the user entered a value for a key, or a flag. +
+_Everything starts with a loop!_ 
+A while loop seems suitable for traversing user inputs. Of course, 
+this loop alone is lacks value, and by combining the while loop and the `pclass_loop_get_opt_id` function,
+we will be able to find out what inputs the user has entered. 
+As is evident from the first parameter of this function, 
+we must call this function once for each `Master`!
+
+[source,c]
+----
+int pclass_loop_get_opt_id (pclass *class, unsigned int index);
+----
+
+The return value of the function is the `opt_id`, 
+and `index` is a variable used for traversing the user inputs. Consider the following example:
+
+[source,c]
+----
+int opt_id, i=0;
+while (( opt_id = pclass_loop_get_opt_id (main, i)) != -1 ) {
+	switch (opt_id) {
+		case (1):
+			// do something for opt_id 1
+			break;
+		case (2):
+			// do something for opt_id 2
+			break;
+	}
+	++i;
+}
+----
+
+In the figure above, the variable `int i` is used by `pclass_loop_get_opt_id` for traversing data, 
+and the *developer must be careful not to forget i++*! When there is no more data left to traverse, 
+the `pclass_loop_get_opt_id` function terminates the while loop by returning the `value -1`.
+
+[warning]
+----
+The developer must be careful not to forget `i++`.
+----
+
+Now, if for instance an option with `opt_id` number `2` is a `key`, how do we traverse its values? 
+For this purpose, the pgetopt library provides us with two functions: `pclass_get_key_size` 
+and `pclass_key_loop_get_value`. As expected from their names, the first function 
+returns the number of the key's values, and the second function returns the values themselves.
+
+[source,c]
+----
+unsigned int pclass_get_key_size (pclass *class, unsigned int opt_id);
+----
+
+<<<
+
+For the `opt_id` parameter, you must provide the `opt_id` number of the corresponding key.
+
+[source,c]
+----
+char *pclass_key_loop_get_value 
+(pclass *class, unsigned int opt_id, unsigned int index);
+----
+
+This function also traverses the values of the key based on the `index` variable. 
+The following example can clarify how to use these two functions for you.
+
+=== Practice Parsing User Parameters
+
+In the example below, two flags (one *short option* and one *long option*) and also two keys, 
+defined similarly to the flags:
+
+[source,c]
+----
+#include <pgetopt-4.3/pgetopt.h>
+
+int main (int argc, char **argv)
+{
+    pinit *init = pinit_create ();
+    pclass *main = pclass_create (init, "main");
+    pinit_set_main_class (init, main);
+
+    palw main_allowed_options [] = {
+            { 1, "long_flag" },
+            { 2, "f" },
+            { 3, "long_key" },
+            { 4, "k" },
+            EOL
+    };
+    pclass_set_allowed_options (main, main_allowed_options);
+
+    pkey *key;
+    key = pclass_set_key  ( main, 3, ALW_CUSTOM );
+    pkey_set_custom_value ( key, "value 1" );
+    pkey_set_custom_value ( key, "Value 2" );
+
+    key = pclass_set_key ( main, 4, DENY_CUSTOM );
+    pkey_set_custom_value ( key, "Value 1" );
+    pkey_set_custom_value ( key, "Value 2" );
+
+    pinit_parser (init, argc, argv);
+
+    int opt_id, i;
+    i=0;
+
+    while ( ( opt_id = pclass_loop_get_opt_id ( main, i ) ) != -1 )
+    {
+        switch ( opt_id )
+        {
+            case (1):
+                    printf ("This is long_flag\n");
+                    break;
+            case (2):
+                    printf ("This is f\n");
+                    break;
+            case (3):
+                    for ( int vi=0 ; vi < pclass_get_key_size (main, 3) ; ++vi )
+                    {
+                            printf ("long_key = %s\n", pclass_key_loop_get_value ( main, 3, vi ) );
+                    }
+                    break;
+            case (4):
+                    for ( int vi=0 ; vi < pclass_get_key_size (main, 4) ; ++vi )
+                    {
+                            printf ("long_key = %s\n", pclass_key_loop_get_value ( main, 4, vi ) );
+                    }
+                    break;
+        }
+        ++i;
+    }
+    pclass_free (main);
+    pinit_free (init);
+    return 0;
+}
+----
+
+If everything proceeds correctly, we should expect such an output:
+
+[source,bash]
+----
+$ Command -f --long_flag --long_key "value 1" -k not_value_1
+This is f
+This is long_flag
+long_key = value 1
+long_key = not_value_1
+----
+
+Note that for long_key, we are only allowed to send `value 1` and `value 2`, and for k, we are not allowed to send these options. +
+Since we have not yet taken any action regarding error management, if you send an incorrect argument to the Command, you should not observe any specific output.
+
+include::./_1.adoc[]
