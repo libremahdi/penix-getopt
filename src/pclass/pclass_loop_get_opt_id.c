@@ -1,4 +1,5 @@
 #include "pgetopt.h"
+#include "branch.h"
 
 int pclass_loop_get_opt_id (pclass  *class, unsigned int index) {
     if (index >= (class->avl_size))    return -1;

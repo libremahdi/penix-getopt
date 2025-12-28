@@ -1,10 +1,11 @@
 #include "pgetopt.h"
-#include "salloc.h"
+#include "branch.h"
+#include "pgetopt_alloc.h"
 
 pclass *pclass_create (pinit *init, char *name) {    
-    init->classes = safe_realloc (init->classes,(sizeof(struct class *)*(init->classes_size+1)));
+    init->classes = pgetopt_realloc (init->classes,(sizeof(struct class *)*(init->classes_size+1)));
 
-    init->classes[init->classes_size] = safe_alloc (sizeof (struct class));
+    init->classes[init->classes_size] = pgetopt_alloc (sizeof (struct class));
     init->classes[init->classes_size]->name = name;
     
     init->classes[init->classes_size]->alw_size = 0;

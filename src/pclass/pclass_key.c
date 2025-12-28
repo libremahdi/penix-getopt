@@ -1,6 +1,7 @@
 #include "pgetopt.h"
 #include "../lib/popt_error.h"
-#include "salloc.h"
+#include "branch.h"
+#include "pgetopt_alloc.h"
 
 unsigned int pclass_get_key_size (pclass *class, unsigned int opt_id) {
     for (int classI=0 ; classI < (class)->avl_size ; ++classI) {
@@ -40,7 +41,7 @@ pkey *pclass_set_key (pclass *class, unsigned int opt_id, enum PKEY_TYPE key_typ
 }
 
 void pkey_set_custom_value (pkey *key, char *value) {
-    key->values = safe_realloc (key->values, (sizeof (char *)*(key->values_size+1)));
+    key->values = pgetopt_realloc (key->values, (sizeof (char *)*(key->values_size+1)));
     key->values[(key->values_size)] = value;
     ++key->values_size;
 }

@@ -2,13 +2,15 @@
 #include "lib/popt_init.h"
 #include "lib/popt_class.h"
 #include "lib/popt_error.h"
-#include "salloc.h"
+#include "branch.h"
+#include "master.h"
+#include "pgetopt_alloc.h"
 
 pinit* pinit_create () {
-    pinit *init         = (pinit *) safe_alloc (sizeof (pinit));
+    pinit *init         = (pinit *) pgetopt_alloc (sizeof (pinit));
     init->classes_size  = 1;
 
-    init->classes       = (struct class **) safe_alloc ((sizeof (struct class *)));
+    init->classes       = (struct class **) pgetopt_alloc ((sizeof (struct class *)));
     init->classes[0]    = NULL; // this is the main class
 
     init->alw_masters_size = 0;
