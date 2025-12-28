@@ -10,13 +10,11 @@ clean:
 %:
 	@if [ -f $@.c ]; then \
 		mkdir -p $(output); \
-	gcc -g -O0 -Iinclude -I ../include -I ../src/lib/mem_manage ./$@.c \
-	../src/pclass.c \
-	../src/perror.c \
-	../src/pinit.c \
-	../src/pclass/* \
-	../src/pinit/* \
-	../src/lib/mem_manage/salloc.c -o $(output)/$@; \
+	gcc -g -O0 -I../include -I../src/lib/ ./$@.c \
+	../src/*.c \
+	../src/pclass/*.c \
+	../src/lib/*.c \
+	../src/pinit/*.c -o $(output)/$@; \
 	else \
 		printf "Makefile Error:\n$@.c does not exist.\n"; \
 	fi
