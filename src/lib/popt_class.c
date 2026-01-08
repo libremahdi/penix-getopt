@@ -13,7 +13,7 @@ int is_alw_tree_repetitive_id (pclass *class, unsigned int opt_id) {
 }
 
 char *pstr_get_class_name (char *str) {
-    char *ret_value = pgetopt_alloc (sizeof (char) * (strlen (str)+1)); // one character for \0
+    char *ret_value = pgetopt_alloc (sizeof (char) * (int)(str-strstr(str, "."))); // one character for \0
     strcpy (ret_value, str);
     ret_value [___FIND_CHAR_INDEX___ (str, ".")]='\0';
     return ret_value;
