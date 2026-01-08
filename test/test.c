@@ -37,7 +37,7 @@ int main (int argc, char **argv) {
     pinit_set_allowed_masters (init, master_avl);
 
     usrerr _error = pinit_parser (init, argc, argv);
-    if (usererror_parser (_error, argv)) return -1;
+    if (usererror_parser (_error, argv)) goto EXIT;
 
     char **_argv;
     switch (pinit_get_master_id (init)) {
@@ -63,7 +63,11 @@ int main (int argc, char **argv) {
             int _argc = pinit_get_master_argc (init);
 
             usrerr cr_error = pinit_parser (cr_init, _argc, _argv);
-            if (usererror_parser (cr_error, _argv)) return -1;
+            if (usererror_parser (cr_error, _argv)) {
+                pclass_free (cr_main);
+                pinit_free (cr_init);
+                goto EXIT;
+            }
 
             char **cr_argv;
             switch (pinit_get_master_id (cr_init)) {
@@ -125,7 +129,9 @@ int main (int argc, char **argv) {
             ++i;
         }
     }
+EXIT:
     pclass_free (user);
     pclass_free (main);
     pinit_free  (init);
+    return 0;
 }

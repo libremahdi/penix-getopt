@@ -45,5 +45,4 @@ unsigned
 int     pclass_get_key_size(pclass *class, unsigned int opt_id);
 char   *pclass_key_loop_get_value(pclass *class, unsigned int opt_id, unsigned int index);
 
-
 #endif /* PENIX__PGETOPT */
