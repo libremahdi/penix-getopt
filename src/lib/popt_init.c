@@ -1,3 +1,4 @@
+#include <string.h>
 #include "pgetopt.h"
 #include "branch.h"
 #include "master.h"

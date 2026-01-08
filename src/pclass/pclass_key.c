@@ -1,3 +1,5 @@
+#include <stdio.h>
+
 #include "pgetopt.h"
 #include "../lib/popt_error.h"
 #include "branch.h"

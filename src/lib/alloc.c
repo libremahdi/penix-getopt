@@ -1,9 +1,8 @@
-#ifndef SALLOC__HEADER__
-#define SALLOC__HEADER__
+#ifndef PGETOPT__SALLOC
+#define PGETOPT__SALLOC
 
 #include <stdlib.h>
 #include <stdio.h>
-
 #include "popt_error.h"
 
 void* pgetopt_alloc (size_t size) {
@@ -24,4 +23,4 @@ void *pgetopt_realloc (void *ptr, size_t size) {
     return ret_value;
 }
 
-#endif /* SALLOC__HEADER__ */
+#endif /* PGETOPT__SALLOC */

@@ -1,3 +1,5 @@
+#include <stdlib.h>
+
 #include "pgetopt.h"
 #include "lib/popt_init.h"
 #include "lib/popt_class.h"

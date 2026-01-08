@@ -1,5 +1,5 @@
-#ifndef POPT_INIT
-#define POPT_INIT
+#ifndef PGETOPT__POPT_INIT
+#define PGETOPT__POPT_INIT
 
 #include "pgetopt.h"
 #include <stdbool.h>
@@ -36,4 +36,4 @@ int _phead_key (pinit **, unsigned int, unsigned int, char *);
 
 int _phead_repetitive_key (pinit **, unsigned int, unsigned int, char *);
 
-#endif
+#endif /* PGETOPT__POPT_INIT */

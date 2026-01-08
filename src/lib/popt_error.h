@@ -1,5 +1,5 @@
-#ifndef POPT_ERROR
-#define POPT_ERROR
+#ifndef PGETOPT__POPT_ERROR
+#define PGETOPT__POPT_ERROR
 
 #define _without_error 0
 #define _invalid_option  1
@@ -19,4 +19,4 @@ void _printerr_pgetopt  (char *, int, char*);
 void _printerr_user     (char *, char *);
 void _mem_alloc_fail    (int, char* );
 
-#endif
+#endif /* PGETOPT__POPT_ERROR */

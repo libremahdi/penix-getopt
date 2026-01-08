@@ -1,7 +1,7 @@
 #include <stdbool.h>
 
-#ifndef POPT_CLASS
-#define POPT_CLASS
+#ifndef PGETOPT__POPT_CLASS
+#define PGETOPT__POPT_CLASS
 
 #define ___FIND_CHAR_INDEX___(STRING, CHAR_P) (strstr(STRING, CHAR_P)-STRING)
 
@@ -19,4 +19,4 @@ bool is_class_syntax_correct (char *str);
 
 int get_class_index (pinit *init, char *class_name);
 
-#endif
+#endif /* PGETOPT__POPT_CLASS */

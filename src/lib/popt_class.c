@@ -1,3 +1,5 @@
+#include <string.h>
+
 #include "pgetopt.h"
 #include "popt_class.h"
 #include "branch.h"

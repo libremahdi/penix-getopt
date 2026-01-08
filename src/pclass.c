@@ -1,3 +1,4 @@
+#include <stdlib.h>
 #include "pgetopt.h"
 #include "branch.h"
 #include "pgetopt_alloc.h"
