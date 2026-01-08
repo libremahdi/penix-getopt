@@ -1,16 +1,18 @@
-output ?= "./build"
+output ?= "./output"
 
 
 clean:
-	@if [ -d "./build" ]; then\
-		rm -R ./build; \
-		printf "Build is clean\n"; \
+	@if [ -d "./output" ]; then\
+		rm -R ./output; \
+		printf "'output' is clean\n"; \
 	fi
 
 %:
 	@if [ -f $@.c ]; then \
 		mkdir -p $(output); \
-	gcc -g -O0 -I../include -I../src/lib/ ./$@.c \
+	gcc -g -O0 -I../include -I../src/lib/ \
+	-I../../parabyte-pstring/include -I../../parabyte-pstring/src/lib -I../../parabyte-pstring/src ../../parabyte-pstring/src/*.c \
+	./$@.c \
 	../src/*.c \
 	../src/pclass/*.c \
 	../src/lib/*.c \
