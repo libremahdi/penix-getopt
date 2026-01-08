@@ -10,11 +10,11 @@
 
 pinit* pinit_create () {
     pinit *init         = (pinit *) pgetopt_alloc (sizeof (pinit));
-    init->classes_size  = 1;
 
     init->classes       = (struct class **) pgetopt_alloc ((sizeof (struct class *)));
-    init->classes[0]    = NULL; // this is the main class
-
+    init->classes[0]    = NULL; /* this is the main class */
+    init->classes_size  = 1; /* Each pinit by default includes a main class. */
+    
     init->alw_masters_size = 0;
     init->avl_master    = NULL;
     init->alw_masters   = NULL;
