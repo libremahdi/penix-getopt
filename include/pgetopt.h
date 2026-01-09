@@ -1,3 +1,13 @@
+/*++
+ *  PARABYTE PENIX PGETOPT (PLIBC)
+ *  
+ *  Copyright (C) 2025-2026 Parabyte Company, All rights reserved.
+ *  FILE: pgetopt.h
+ *
+ *  For more information, please read LICENSE file.
+ *--
+*/
+
 #include "pstring.h"
 
 #ifndef PENIX__PGETOPT

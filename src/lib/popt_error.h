@@ -1,3 +1,13 @@
+/*++
+ *  PARABYTE PENIX PGETOPT (PLIBC)
+ *  
+ *  Copyright (C) 2025-2026 Parabyte Company, All rights reserved.
+ *  FILE: popt_error.h
+ *
+ *  For more information, please read LICENSE file.
+ *--
+*/
+
 #ifndef PGETOPT__POPT_ERROR
 #define PGETOPT__POPT_ERROR
 

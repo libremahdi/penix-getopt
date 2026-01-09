@@ -1,3 +1,13 @@
+/*++
+ *  PARABYTE PENIX PGETOPT (PLIBC)
+ *  
+ *  Copyright (C) 2025-2026 Parabyte Company, All rights reserved.
+ *  FILE: branch.h
+ *
+ *  For more information, please read LICENSE file.
+ *--
+*/
+
 #include "pgetopt.h"
 
 struct alw_branch {

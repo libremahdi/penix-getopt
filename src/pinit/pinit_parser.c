@@ -1,5 +1,16 @@
+/*++
+ *  PARABYTE PENIX PGETOPT (PLIBC)
+ *  
+ *  Copyright (C) 2025-2026 Parabyte Company, All rights reserved.
+ *  FILE: pinit_parser.c
+ *
+ *  For more information, please read LICENSE file.
+ *--
+*/
+
 #include <stdlib.h>
 #include <string.h>
+
 #include "pgetopt.h"
 #include "../lib/popt_init.h"
 #include "../lib/popt_class.h"

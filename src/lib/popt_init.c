@@ -1,3 +1,13 @@
+/*++
+ *  PARABYTE PENIX PGETOPT (PLIBC)
+ *  
+ *  Copyright (C) 2025-2026 Parabyte Company, All rights reserved.
+ *  FILE: popt_init.c
+ *
+ *  For more information, please read LICENSE file.
+ *--
+*/
+
 #include <string.h>
 #include "pgetopt.h"
 #include "branch.h"
