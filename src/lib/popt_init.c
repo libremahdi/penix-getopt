@@ -57,7 +57,7 @@ int get_master_id (pinit *init, char *name) {
 }
 
 char **get_master_options (unsigned int _argc, char **_argv, unsigned int index) {
-    char **argv = pgetopt_alloc (sizeof (char *) * (_argc - index));
+    char **argv = pgetopt__alloc (sizeof (char *) * (_argc - index));
     for (int i = index, j = 0 ; i < _argc ; ++i, ++j) {
         argv[j] = _argv[i];
     }
@@ -69,12 +69,9 @@ enum PKEY_TYPE get_key_type (pclass *class, int opt_id) {
         if (class->alw_tree[i]->opt_id == opt_id) return class->alw_tree[i]->key_type;
 }
 
-
-
-
 void _phead_flag (pinit **init, unsigned int class_index, unsigned int opt_id) {
-    (*init)->classes[class_index]->avl_tree = (struct avl_branch **) pgetopt_realloc (((*init)->classes[class_index]->avl_tree), (sizeof (struct avl_branch *) * ((*init)->classes[class_index]->avl_size + 1)));
-    (*init)->classes[class_index]->avl_tree[(*init)->classes[class_index]->avl_size] = pgetopt_alloc (sizeof (struct avl_branch));
+    (*init)->classes[class_index]->avl_tree = (struct avl_branch **) pgetopt__realloc (((*init)->classes[class_index]->avl_tree), (sizeof (struct avl_branch *) * ((*init)->classes[class_index]->avl_size + 1)));
+    (*init)->classes[class_index]->avl_tree[(*init)->classes[class_index]->avl_size] = pgetopt__alloc (sizeof (struct avl_branch));
     (*init)->classes[class_index]->avl_tree[(*init)->classes[class_index]->avl_size]->opt_id      = opt_id;
     (*init)->classes[class_index]->avl_tree[(*init)->classes[class_index]->avl_size]->values_size = 0;
     (*init)->classes[class_index]->avl_tree[(*init)->classes[class_index]->avl_size]->values      = NULL;
@@ -101,8 +98,6 @@ bool is_value_allowed (struct alw_branch *alw_tree, char *value) {
     return false;
 }
 
-
-
 int _phead_key (pinit **init, unsigned int class_index, unsigned int opt_id, char *value) {
     struct alw_branch **alw_key_point = get_alw_point ((*init)->classes[class_index], opt_id);
 
@@ -111,15 +106,14 @@ int _phead_key (pinit **init, unsigned int class_index, unsigned int opt_id, cha
     if (((*alw_key_point)->key_type == DENY_CUSTOM) && (is_value_allowed ((*alw_key_point), value) == 1))
         return -1;
 
-    (*init)->classes[class_index]->avl_tree = (struct avl_branch **) pgetopt_realloc (((*init)->classes[class_index]->avl_tree), (sizeof(struct avl_branch *)*((*init)->classes[class_index]->avl_size+1)));
-    (*init)->classes[class_index]->avl_tree[(*init)->classes[class_index]->avl_size] = pgetopt_alloc (sizeof (struct avl_branch));
+    (*init)->classes[class_index]->avl_tree = (struct avl_branch **) pgetopt__realloc (((*init)->classes[class_index]->avl_tree), (sizeof(struct avl_branch *)*((*init)->classes[class_index]->avl_size+1)));
+    (*init)->classes[class_index]->avl_tree[(*init)->classes[class_index]->avl_size] = pgetopt__alloc (sizeof (struct avl_branch));
     (*init)->classes[class_index]->avl_tree[(*init)->classes[class_index]->avl_size]->opt_id      = opt_id;
     (*init)->classes[class_index]->avl_tree[(*init)->classes[class_index]->avl_size]->values_size = 1;
-    (*init)->classes[class_index]->avl_tree[(*init)->classes[class_index]->avl_size]->values      = pgetopt_alloc (sizeof (char *));
+    (*init)->classes[class_index]->avl_tree[(*init)->classes[class_index]->avl_size]->values      = pgetopt__alloc (sizeof (char *));
     (*init)->classes[class_index]->avl_tree[(*init)->classes[class_index]->avl_size]->values[0]   = value;
     ++(*init)->classes[class_index]->avl_size;
 }
-
 
 int _phead_repetitive_key (pinit **init, unsigned int class_index, unsigned int opt_id, char *value) {
     struct avl_branch **key_point = get_avl_point ((*init)->classes[class_index], opt_id);
@@ -130,7 +124,7 @@ int _phead_repetitive_key (pinit **init, unsigned int class_index, unsigned int 
     if (((*alw_key_point)->key_type == DENY_CUSTOM) && (is_value_allowed ((*alw_key_point), value) == 1))
         return -1;   
 
-    (*key_point)->values   = (char **) pgetopt_realloc ((*key_point)->values, (sizeof (char *)*((*key_point)->values_size+1)));
+    (*key_point)->values   = (char **) pgetopt__realloc ((*key_point)->values, (sizeof (char *)*((*key_point)->values_size+1)));
     (*key_point)->values [(*key_point) -> values_size] = value;
     ++(*key_point)->values_size;
 }

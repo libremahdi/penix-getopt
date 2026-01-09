@@ -9,16 +9,16 @@ void pclass_set_allowed_options (pclass *class, palw *allowed_options) {
 
     while (allowed_options[i].option_name != NULL) {
         if ((repetitive_opt_id = is_alw_tree_repetitive_id (class, allowed_options[i].option_id)) != -1) {
-            class->alw_tree[repetitive_opt_id]->names = (char **) pgetopt_realloc ((class->alw_tree[repetitive_opt_id]->names), (sizeof (char *)*(class->alw_tree[repetitive_opt_id]->names_size+1)));
+            class->alw_tree[repetitive_opt_id]->names = (char **) pgetopt__realloc ((class->alw_tree[repetitive_opt_id]->names), (sizeof (char *)*(class->alw_tree[repetitive_opt_id]->names_size+1)));
             class->alw_tree[repetitive_opt_id]->names[class->alw_tree[repetitive_opt_id]->names_size] = allowed_options[i].option_name;
             ++class->alw_tree[repetitive_opt_id]->names_size;
             ++i;
             continue;
         }
-        class->alw_tree = (struct alw_branch **) pgetopt_realloc (class->alw_tree, (sizeof (struct alw_branch *) * (class->alw_size+1)));
-        class->alw_tree[class->alw_size] = pgetopt_alloc (sizeof (struct alw_branch));
+        class->alw_tree = (struct alw_branch **) pgetopt__realloc (class->alw_tree, (sizeof (struct alw_branch *) * (class->alw_size+1)));
+        class->alw_tree[class->alw_size] = pgetopt__alloc (sizeof (struct alw_branch));
 
-        class->alw_tree[class->alw_size]->names = pgetopt_alloc (sizeof (char *));
+        class->alw_tree[class->alw_size]->names = pgetopt__alloc (sizeof (char *));
         class->alw_tree[class->alw_size]->names[0] = allowed_options[i].option_name;
         class->alw_tree[class->alw_size]->names_size = 1;
 

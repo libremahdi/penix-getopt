@@ -9,17 +9,18 @@ typedef struct { unsigned int error; unsigned int index; } usrerr;
 
 enum PKEY_TYPE { ALW_CUSTOM, DENY_CUSTOM, NONE, VOID };
 
+/* must be defined bedore init */
 struct alw_branch;
 struct avl_branch;
 struct class;
 struct init;
-
 struct master_alw;
 struct master_avl;
 
-typedef struct init pinit;
 typedef struct class pclass;
 typedef struct alw_branch pkey;
+typedef struct init pinit;
+
 
 pinit  *pinit_create();
 void    pinit_free(pinit *init);

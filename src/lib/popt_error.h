@@ -15,8 +15,8 @@
 // #define ANSI_COLOR_BLUE    "\x1b[34m"
 #define ANSI_COLOR_RESET   "\x1b[0m"
 
-void _printerr_pgetopt  (char *, int, char*);
-void _printerr_user     (char *, char *);
-void _mem_alloc_fail    (int, char* );
+void pgetopt__printerr(char *, int, char*);
+void pgetopt__printerr_user(char *, char *);
+void pgetopt__mem_alloc_fail(int, char* );
 
 #endif /* PGETOPT__POPT_ERROR */

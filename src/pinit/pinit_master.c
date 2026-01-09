@@ -7,8 +7,8 @@
 void pinit_set_allowed_masters (pinit *init, palw *allowed_names) {
     unsigned long int i = 0;
     while (allowed_names[i].option_name != NULL) {
-        init->alw_masters = (struct master_alw **) pgetopt_realloc (init->alw_masters, (sizeof (struct master_alw *)*(init->alw_masters_size+1)));
-        init->alw_masters [init->alw_masters_size] = pgetopt_alloc (sizeof (struct master_alw));
+        init->alw_masters = (struct master_alw **) pgetopt__realloc (init->alw_masters, (sizeof (struct master_alw *)*(init->alw_masters_size+1)));
+        init->alw_masters [init->alw_masters_size] = pgetopt__alloc (sizeof (struct master_alw));
         init->alw_masters [init->alw_masters_size]->name = allowed_names[i].option_name;
         init->alw_masters [init->alw_masters_size]->master_id = allowed_names[i].option_id;
         ++i;
@@ -26,7 +26,7 @@ char **pinit_get_master_argv (pinit  *init) {
 
 char *pinit_get_master_name (pinit  *init) {
     if (init->avl_master == NULL)
-        _printerr_pgetopt ("The user has not used any Master, but you want to get the name of the available master!", __LINE__, __FILE__);
+        pgetopt__printerr ("The user has not used any Master, but you want to get the name of the available master!", __LINE__, __FILE__);
     return init->avl_master->name;
 }
 

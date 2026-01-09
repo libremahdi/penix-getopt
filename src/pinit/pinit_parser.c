@@ -49,7 +49,7 @@ usrerr pinit_parser (pinit *init, int argc, char **argv) {
         }
         else if ((argv[i][0] == '-') && (argv[i][1] != '-')) { // They must be flag
             for (int j = 1 ; j <= strlen (argv[i])-1 ; ++j) {
-                char *char2strv = (char *) pgetopt_alloc (sizeof (char) * 2);
+                char *char2strv = (char *) pgetopt__alloc (sizeof (char) * 2);
                 char2strv[0] = argv[i][j]; 
                 char2strv[1]='\0';
                 
@@ -155,7 +155,7 @@ usrerr pinit_parser (pinit *init, int argc, char **argv) {
                 /* When the user uses a master that is not defined!
                 */ return _setup_return_usrerr (_lack_of_master, i, __LINE__, __FILE__); 
     
-            init->avl_master = pgetopt_alloc (sizeof (struct master_avl));
+            init->avl_master = pgetopt__alloc (sizeof (struct master_avl));
             init->avl_master->name = argv[i];
             init->avl_master->master_id = glob_index.master_id;
             init->avl_master->options_size = argc - i;

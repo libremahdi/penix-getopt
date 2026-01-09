@@ -13,7 +13,7 @@ int is_alw_tree_repetitive_id (pclass *class, unsigned int opt_id) {
 }
 
 char *pstr_get_class_name (char *str) {
-    const unsigned int find_dot_char = (int)(strstr(str, ".")-str);
+    const unsigned int find_dot_char = PGETOPT__FIND_CHAR(str, ".");
 
     char *ret_value = pgetopt__alloc (sizeof (char) * find_dot_char+1); // one character for \0
     strncpy (ret_value, str, find_dot_char);
@@ -22,7 +22,7 @@ char *pstr_get_class_name (char *str) {
 }
 
 char *pstr_get_class_value (char *str) {
-    char *ret_value = strdup (str + ___FIND_CHAR_INDEX___(str, ".")+1);
+    char *ret_value = strdup (str + PGETOPT__FIND_CHAR(str, ".")+1);
     return ret_value;
 }
 

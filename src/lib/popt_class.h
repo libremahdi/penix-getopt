@@ -3,7 +3,7 @@
 #ifndef PGETOPT__POPT_CLASS
 #define PGETOPT__POPT_CLASS
 
-#define ___FIND_CHAR_INDEX___(STRING, CHAR_P) (strstr(STRING, CHAR_P)-STRING)
+#define PGETOPT__FIND_CHAR(STRING, CHAR_P) (int)(strstr(STRING, CHAR_P)-STRING)
 
 /* if opt_id already exists, this function returns
  * its index in the pclass structure. Otherwise, return the number -1.
