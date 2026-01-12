@@ -1,11 +1,7 @@
-/*++
- *  PARABYTE PENIX PGETOPT (PLIBC)
- *  
- *  Copyright (C) 2025-2026 Parabyte Company, All rights reserved.
- *  FILE: pgetopt_alloc.h
- *
+/*
+ *  Copyright (C) Parabyte Company, All rights reserved.
  *  For more information, please read LICENSE file.
- *--
+ *
 */
 
 #include <stddef.h>

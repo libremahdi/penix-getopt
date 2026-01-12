@@ -1,3 +1,8 @@
+##
+ # Copyright (C) Parabyte Company, All rights reserved.
+ # For more information, please read LICENSE file.
+##
+
 cmake_minimum_required(VERSION 3.10)
 project(pgetopt VERSION 4.3 LANGUAGES C)
 
