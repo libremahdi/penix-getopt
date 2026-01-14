@@ -4,7 +4,6 @@
  *
 */
 #include <string.h>
-#include "pstring.h"
 #include <stdio.h>
 
 #include "pgetopt.h"
@@ -12,11 +11,11 @@
 #include "branch.h"
 #include "pgetopt_alloc.h"
 
-static int internal_pclass_add_hint(pclass *class, palw *allowed_options, unsigned int i ) {
+static int internal_add_hint(struct alw_branch *alw_p, palw *allowed_options, unsigned int i ) {
     if (allowed_options[i].option_hint) {
-        class->alw_tree[class->alw_size]->hints = pgetopt__realloc(class->alw_tree[class->alw_size]->hints, (sizeof(char *)*(class->alw_tree[class->alw_size]->hint_size+1)));
-        class->alw_tree[class->alw_size]->hints[class->alw_tree[class->alw_size]->hint_size]=strdup(allowed_options[i].option_hint);
-        ++class->alw_tree[class->alw_size]->hint_size;
+        alw_p->hints = pgetopt__realloc(alw_p->hints, (sizeof(char *)*(alw_p->hint_size+1)));
+        alw_p->hints[alw_p->hint_size]=strdup(allowed_options[i].option_hint);
+        ++alw_p->hint_size;
         return 0;
     } return 1;
 }
@@ -31,7 +30,7 @@ void pclass_set_allowed_options(pclass *class, palw *allowed_options) {
             
             class->alw_tree[repetitive_opt_id]->names[class->alw_tree[repetitive_opt_id]->names_size] = allowed_options[i].option_name;
             ++class->alw_tree[repetitive_opt_id]->names_size;
-            internal_pclass_add_hint(class, allowed_options, i);
+            internal_add_hint(class->alw_tree[repetitive_opt_id], allowed_options, i);
 
             ++i;
             continue;
@@ -53,7 +52,7 @@ void pclass_set_allowed_options(pclass *class, palw *allowed_options) {
 
         class->alw_tree[class->alw_size]->hints = NULL;
         class->alw_tree[class->alw_size]->hint_size = 0;
-        internal_pclass_add_hint(class, allowed_options, i);
+        internal_add_hint(class->alw_tree[class->alw_size], allowed_options, i);
 
         ++i;
         ++class->alw_size;   // also i can write it : class->alw_tree[class->alw_size+i] and remove the ++class->alw_size

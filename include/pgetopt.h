@@ -32,28 +32,29 @@ typedef struct alw_branch pkey;
 typedef struct init pinit;
 
 
-pinit  *pinit_create();
-void    pinit_free(pinit *init);
-void    pinit_set_main_class(pinit *init, pclass *class);
-usrerr  pinit_parser(pinit *init, int argc, char **argv, char *hint_c);
-void    pinit_set_allowed_masters(pinit *init, palw *allowed_names);
+pinit  *pinit_create(char *);
+void    pinit_free(pinit *);
+void    pinit_set_main_class(pinit *, pclass *);
+usrerr  pinit_parser(pinit *, int , char **);
+void    pinit_set_allowed_masters(pinit *, palw *);
+void    pinit_hint(pinit *);
 
-int     pinit_get_master_argc(pinit *init);
-char  **pinit_get_master_argv(pinit *init);
-char   *pinit_get_master_name(pinit *init);
-int     pinit_get_master_id(pinit *init);
+int     pinit_get_master_argc(pinit *);
+char  **pinit_get_master_argv(pinit *);
+char   *pinit_get_master_name(pinit *);
+int     pinit_get_master_id(pinit *);
 
-int     usererror_parser(usrerr _error, char **argv);
+int     usererror_parser(usrerr , char **);
 
-pclass *pclass_create(pinit *init, char *name);
-void    pclass_free(pclass *class);
+pclass *pclass_create(pinit *, char *);
+void    pclass_free(pclass *);
 void    pclass_set_allowed_options(pclass*, palw*);
-int     pclass_loop_get_opt_id(pclass *class, unsigned int index);
+int     pclass_loop_get_opt_id(pclass *, unsigned int);
 
-pkey   *pclass_set_key(pclass *class, unsigned int opt_id, enum PKEY_TYPE key_type);
-void    pkey_set_custom_value(pkey *key, char *value);
+pkey   *pclass_set_key(pclass *, unsigned int, enum PKEY_TYPE);
+void    pkey_set_custom_value(pkey *, char *);
 unsigned 
-int     pclass_get_key_size(pclass *class, unsigned int opt_id);
-char   *pclass_key_loop_get_value(pclass *class, unsigned int opt_id, unsigned int index);
+int     pclass_get_key_size(pclass *, unsigned int);
+char   *pclass_key_loop_get_value(pclass *, unsigned int, unsigned int);
 
 #endif /* PENIX__PGETOPT */

@@ -10,6 +10,15 @@
 #include "master.h"
 #include "pgetopt_alloc.h"
 
+// static int internal_add_hint(struct master_alw *alw_p, palw *allowed_options, unsigned int i ) {
+//     if (allowed_options[i].option_hint) {
+//         alw_p->hints = pgetopt__realloc(alw_p->hints, (sizeof(char *)*(alw_p->hint_size+1)));
+//         alw_p->hints[alw_p->hint_size]=strdup(allowed_options[i].option_hint);
+//         ++alw_p->hint_size;
+//         return 0;
+//     } return 1;
+// }
+
 void pinit_set_allowed_masters (pinit *init, palw *allowed_names) {
     unsigned long int i = 0;
     while (allowed_names[i].option_name != NULL) {
@@ -17,6 +26,12 @@ void pinit_set_allowed_masters (pinit *init, palw *allowed_names) {
         init->alw_masters [init->alw_masters_size] = pgetopt__alloc (sizeof (struct master_alw));
         init->alw_masters [init->alw_masters_size]->name = allowed_names[i].option_name;
         init->alw_masters [init->alw_masters_size]->master_id = allowed_names[i].option_id;
+
+        if (allowed_names[i].option_hint==NULL) 
+            init->alw_masters [init->alw_masters_size]->hint=NULL;
+        else 
+            init->alw_masters [init->alw_masters_size]->hint = allowed_names[i].option_hint;
+
         ++i;
         ++init->alw_masters_size;
     }

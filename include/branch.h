@@ -39,4 +39,6 @@ struct init {
 
     unsigned int alw_masters_size;
     struct master_alw **alw_masters;
+
+    char *usage;
 };

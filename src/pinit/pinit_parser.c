@@ -16,11 +16,16 @@
 #include "master.h"
 #include "pgetopt_alloc.h"
 
-usrerr pinit_parser (pinit *init, int argc, char **argv, char *hint_c) {
+usrerr pinit_parser (pinit *init, int argc, char **argv) {
     int opt_id;
-
     union _INDEX { int class_id; int master_id; } glob_index;
 
+    for (int i=1 ; i<argc ; ++i) {
+        if (!strcmp(argv[i], "--help")) {
+            pinit_hint(init);
+            goto EXIT_CORRECTLY;
+        }
+    }
     for (int i = 1 ; i < argc ; ++i) {
         if ((strlen (argv[i]) == 2) && (argv[i][0] == '-') && (argv[i][1] != '-')) { // it's either a single short flag or a key
             if ((opt_id = get_opt_id (init->classes[0], argv[i]+1)) == -1) // When an undefined option is used by the user.
@@ -28,7 +33,6 @@ usrerr pinit_parser (pinit *init, int argc, char **argv, char *hint_c) {
                  * get_opt_id returns the value -1 and this condition is executed.
                 */
                 return _setup_return_usrerr (_invalid_option, i, __LINE__, __FILE__);
-
             switch (get_key_type (init->classes[0], opt_id)) {
                 case VOID:
                     if (is_avl_tree_repetitive_id (init->classes[0], opt_id) == -1) // -1 means no
@@ -55,12 +59,12 @@ usrerr pinit_parser (pinit *init, int argc, char **argv, char *hint_c) {
                     break;
             }
         }
-        else if ((argv[i][0] == '-') && (argv[i][1] != '-')) { // They must be flag
+        else if ((argv[i][0] == '-') && (argv[i][1] != '-')) { // it's either a single short flag or a key
             for (int j = 1 ; j <= strlen (argv[i])-1 ; ++j) {
                 char *char2strv = (char *) pgetopt__alloc (sizeof (char) * 2);
                 char2strv[0] = argv[i][j]; 
                 char2strv[1]='\0';
-                
+
                 if ((opt_id = get_opt_id (init->classes[0], char2strv)) == -1) {
                     free (char2strv);
                     return _setup_return_usrerr (_invalid_option, i, __LINE__, __FILE__);
@@ -172,6 +176,8 @@ usrerr pinit_parser (pinit *init, int argc, char **argv, char *hint_c) {
         }
         
     }
+
+EXIT_CORRECTLY:
     /* Because the pinit_parser function must always return a value, no error is issued in this method.
     */ _setup_return_usrerr (_without_error, -1, __LINE__, __FILE__);
 }

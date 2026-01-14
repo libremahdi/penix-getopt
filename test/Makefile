@@ -11,14 +11,12 @@ clean:
 		printf "'output' is clean\n"; \
 	fi
 
-
-
+# -I../../parabyte-pstring/include -I../../parabyte-pstring/src/lib -I../../parabyte-pstring/src ../../parabyte-pstring/src/*.c \
 
 %:
 	@if [ -f $@.c ]; then \
 		mkdir -p $(output); \
 	gcc -g -O0 -I../include -I../src/lib/ \
-	-I../../parabyte-pstring/include -I../../parabyte-pstring/src/lib -I../../parabyte-pstring/src ../../parabyte-pstring/src/*.c \
 	./$@.c \
 	../src/*.c \
 	../src/pclass/*.c \

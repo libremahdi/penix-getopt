@@ -7,6 +7,7 @@
 struct master_alw {
     char *name;
     unsigned int master_id;
+    char *hint;
 };
 
 struct master_avl {
