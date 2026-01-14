@@ -6,6 +6,7 @@
 
 #include <stdlib.h>
 #include <string.h>
+#include <stdio.h>
 
 #include "pgetopt.h"
 #include "../lib/popt_init.h"
@@ -15,7 +16,7 @@
 #include "master.h"
 #include "pgetopt_alloc.h"
 
-usrerr pinit_parser (pinit *init, int argc, char **argv) {
+usrerr pinit_parser (pinit *init, int argc, char **argv, char *hint_c) {
     int opt_id;
 
     union _INDEX { int class_id; int master_id; } glob_index;

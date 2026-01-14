@@ -27,7 +27,11 @@ pclass *pclass_create (pinit *init, char *name) {
 void pclass_free (pclass *class) {
     // ALW Frees
     for (int i = 0 ; i < class->alw_size ; ++i) {
+        for (int in_2=0 ; in_2<class->alw_tree[i]->hint_size ; ++in_2) {
+            free (class->alw_tree[i]->hints[in_2]);
+        }
         free (class->alw_tree[i]->names);
+        free (class->alw_tree[i]->hints);
         free (class->alw_tree[i]->values);
         free (class->alw_tree[i]);
     }

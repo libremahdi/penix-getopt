@@ -7,8 +7,10 @@ int main (int argc, char **argv) {
     pclass *main = pclass_create (init, "main");
     pinit_set_main_class (init, main);
     palw main_allowed_options [] = {
-		{ 1, "long_flag" },
-		{ 2, "key" },
+      /*{ 0, "option:this is hint or note for option when"}*/
+		{ 1, "long_flag", "option_hint" },
+		{ 2, "key"},
+        { 3, "kk"},
         EOL
     };
     pclass_set_allowed_options (main, main_allowed_options);
@@ -36,7 +38,7 @@ int main (int argc, char **argv) {
     };
     pinit_set_allowed_masters (init, master_avl);
 
-    usrerr _error = pinit_parser (init, argc, argv);
+    usrerr _error = pinit_parser (init, argc, argv, NULL);
     if (usererror_parser (_error, argv)) goto EXIT;
 
     char **_argv;
@@ -62,7 +64,7 @@ int main (int argc, char **argv) {
             char **_argv = pinit_get_master_argv (init);
             int _argc = pinit_get_master_argc (init);
 
-            usrerr cr_error = pinit_parser (cr_init, _argc, _argv);
+            usrerr cr_error = pinit_parser (cr_init, _argc, _argv, NULL);
             if (usererror_parser (cr_error, _argv)) {
                 pclass_free (cr_main);
                 pinit_free (cr_init);

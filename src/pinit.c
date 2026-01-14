@@ -31,8 +31,8 @@ pinit* pinit_create () {
 void pinit_free (pinit *init) {   
     free (init->classes);
 
-    for (int i = 0 ; i < init->alw_masters_size ; ++i) {
-        free (init->alw_masters[i]);
+    for (int in_1=0 ; in_1<init->alw_masters_size ; ++in_1) {
+        free (init->alw_masters[in_1]);
     }
 
     free (init->alw_masters);

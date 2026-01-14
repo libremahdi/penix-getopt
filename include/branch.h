@@ -12,6 +12,8 @@ struct alw_branch {
     char **values;
     unsigned int names_size;
     char **names;
+    unsigned int hint_size;
+    char **hints;
     enum PKEY_TYPE key_type;
 };
 
