@@ -73,6 +73,7 @@ char **get_master_options (unsigned int _argc, char **_argv, unsigned int index)
 enum PKEY_TYPE get_key_type (pclass *class, int opt_id) {
     for (int i = 0 ; i < class->alw_size ; ++i)
         if (class->alw_tree[i]->opt_id == opt_id) return class->alw_tree[i]->key_type;
+    return -1; /* never used */
 }
 
 void _phead_flag (pinit **init, unsigned int class_index, unsigned int opt_id) {
@@ -88,12 +89,14 @@ struct avl_branch **get_avl_point (pclass *class, unsigned int opt_id) {
     for (int i = 0 ; i < class->avl_size ; ++i)
         if (class->avl_tree[i]->opt_id == opt_id)
             return &class->avl_tree[i];
+    return NULL; /* never used */
 }
 
 struct alw_branch **get_alw_point (pclass *class, unsigned int opt_id) {
     for (int i = 0 ; i < class->alw_size ; ++i)
         if (class->alw_tree[i]->opt_id == opt_id)
             return &class->alw_tree[i];
+    return NULL; /* never used */
 }
 
 bool is_value_allowed (struct alw_branch *alw_tree, char *value) {
@@ -119,6 +122,8 @@ int _phead_key (pinit **init, unsigned int class_index, unsigned int opt_id, cha
     (*init)->classes[class_index]->avl_tree[(*init)->classes[class_index]->avl_size]->values      = pgetopt__alloc (sizeof (char *));
     (*init)->classes[class_index]->avl_tree[(*init)->classes[class_index]->avl_size]->values[0]   = value;
     ++(*init)->classes[class_index]->avl_size;
+
+    return 0;
 }
 
 int _phead_repetitive_key (pinit **init, unsigned int class_index, unsigned int opt_id, char *value) {
@@ -133,4 +138,6 @@ int _phead_repetitive_key (pinit **init, unsigned int class_index, unsigned int 
     (*key_point)->values   = (char **) pgetopt__realloc ((*key_point)->values, (sizeof (char *)*((*key_point)->values_size+1)));
     (*key_point)->values [(*key_point) -> values_size] = value;
     ++(*key_point)->values_size;
+
+    return 0;
 }

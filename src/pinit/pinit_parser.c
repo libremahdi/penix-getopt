@@ -20,12 +20,6 @@ usrerr pinit_parser (pinit *init, int argc, char **argv) {
     int opt_id;
     union _INDEX { int class_id; int master_id; } glob_index;
 
-    for (int i=1 ; i<argc ; ++i) {
-        if (!strcmp(argv[i], "--help")) {
-            pinit_hint(init);
-            goto EXIT_CORRECTLY;
-        }
-    }
     for (int i = 1 ; i < argc ; ++i) {
         if ((strlen (argv[i]) == 2) && (argv[i][0] == '-') && (argv[i][1] != '-')) { // it's either a single short flag or a key
             if ((opt_id = get_opt_id (init->classes[0], argv[i]+1)) == -1) // When an undefined option is used by the user.
@@ -81,6 +75,11 @@ usrerr pinit_parser (pinit *init, int argc, char **argv) {
 
         }
         else if (argv[i][0] == '-' && argv[i][1] == '-') { // long options
+            if (!strcmp(argv[i], "--help")) {
+                pinit_hint(init);
+                goto EXIT_CORRECTLY;
+            }
+
             if ((opt_id = get_opt_id (init->classes[0], argv[i] + 2)) == -1)
                 return _setup_return_usrerr (_invalid_option, i, __LINE__, __FILE__);
 
@@ -179,5 +178,5 @@ usrerr pinit_parser (pinit *init, int argc, char **argv) {
 
 EXIT_CORRECTLY:
     /* Because the pinit_parser function must always return a value, no error is issued in this method.
-    */ _setup_return_usrerr (_without_error, -1, __LINE__, __FILE__);
+    */ return _setup_return_usrerr (_without_error, -1, __LINE__, __FILE__); 
 }

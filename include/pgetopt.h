@@ -52,8 +52,7 @@ void    pclass_set_allowed_options(pclass*, palw*);
 int     pclass_loop_get_opt_id(pclass *, unsigned int);
 
 pkey   *pclass_set_key(pclass *, unsigned int, enum PKEY_TYPE);
-void    pkey_set_custom_value(pkey *, char *);
-unsigned 
+void    pkey_set_custom_value(pkey *, char *); 
 int     pclass_get_key_size(pclass *, unsigned int);
 char   *pclass_key_loop_get_value(pclass *, unsigned int, unsigned int);
 

@@ -11,7 +11,7 @@
 #include "branch.h"
 #include "pgetopt_alloc.h"
 
-unsigned int pclass_get_key_size (pclass *class, unsigned int opt_id) {
+int pclass_get_key_size (pclass *class, unsigned int opt_id) {
     for (int classI=0 ; classI < (class)->avl_size ; ++classI) {
         if ((class)->avl_tree[classI]->opt_id == opt_id) {
             return (class)->avl_tree[classI]->values_size;
@@ -21,6 +21,7 @@ unsigned int pclass_get_key_size (pclass *class, unsigned int opt_id) {
     /* The user may not have used any key, but you want to get the number of values of that key!
     */
     pgetopt__printerr (err, __LINE__, __FILE__);
+    return -1; /* never used */
 }
 
 char *pclass_key_loop_get_value (pclass  *class, unsigned int opt_id, unsigned int index) {
@@ -33,6 +34,7 @@ char *pclass_key_loop_get_value (pclass  *class, unsigned int opt_id, unsigned i
     /* The user may not have used any key, but you want to get the values of that key!
     */
     pgetopt__printerr (err, __LINE__, __FILE__);
+    return NULL; /* never used */
 }
 
 pkey *pclass_set_key (pclass *class, unsigned int opt_id, enum PKEY_TYPE key_type) {
@@ -46,6 +48,7 @@ pkey *pclass_set_key (pclass *class, unsigned int opt_id, enum PKEY_TYPE key_typ
     /* This error is issued when you want to set an option to key but such an opt_id is not found.
     */
     pgetopt__printerr (err, __LINE__, __FILE__);
+    return NULL; /* never used */
 }
 
 void pkey_set_custom_value (pkey *key, char *value) {
