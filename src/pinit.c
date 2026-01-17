@@ -48,24 +48,23 @@ void pinit_free (pinit *init) {
     free (init);
 }
 
-
 void pinit_hint(pinit *init) {
     if (init->usage!=NULL) printf ("Usage: %s\n\n", init->usage);
 
-    for (unsigned int in_1=1 ; in_1<init->classes_size ; ++in_1) {
+    for (unsigned int in_1=1 ; in_1<init->classes_size ; ++in_1) { /* For Classes */
         printf ("Class: %s\n", init->classes[in_1]->name);
-        for (unsigned int in_2=0 ; in_2<init->classes[in_1]->alw_size ; ++in_2) {
-            for (unsigned int in_3=0 ; in_3<(init->classes[in_1]->alw_tree[in_2]->names_size) ; ++in_3) {
+        for (unsigned int in_2=0 ; in_2<init->classes[in_1]->alw_size ; ++in_2) { /* For Options */
+            for (unsigned int in_3=0 ; in_3<(init->classes[in_1]->alw_tree[in_2]->names_size) ; ++in_3) { /* For Names of options that have Clone Options */
                 if (init->classes[in_1]->alw_tree[in_2]->hint_size!=0) {
-                    printf ("  + Opt: %s\n", init->classes[in_1]->alw_tree[in_2]->names[in_3]);
+                    printf ("  | Opt: %s\n", init->classes[in_1]->alw_tree[in_2]->names[in_3]);
                 }
             }
-            for (unsigned int in_3=0 ; in_3<(init->classes[in_1]->alw_tree[in_2]->hint_size) ; ++in_3) {
+            for (unsigned int in_3=0 ; in_3<(init->classes[in_1]->alw_tree[in_2]->hint_size) ; ++in_3) { 
                 printf ("       Hint: %s\n", init->classes[in_1]->alw_tree[in_2]->hints[in_3]);
             }
         }
         
-        for (unsigned int in_2=0 ; in_2<init->classes[in_1]->alw_size ; ++in_2) {
+        for (unsigned int in_2=0 ; in_2<init->classes[in_1]->alw_size ; ++in_2) { /* For Names of alone options (Without any clones) */
             for (unsigned int in_3=0 ; in_3<(init->classes[in_1]->alw_tree[in_2]->names_size) ; ++in_3) {
                 if (init->classes[in_1]->alw_tree[in_2]->hint_size==0) {
                     printf ("  - Opt: %s\n", init->classes[in_1]->alw_tree[in_2]->names[in_3]);
@@ -75,7 +74,7 @@ void pinit_hint(pinit *init) {
     }
     
     printf ("\n");
-    for (unsigned int in_1=0 ; in_1<init->alw_masters_size ; ++in_1) {
+    for (unsigned int in_1=0 ; in_1<init->alw_masters_size ; ++in_1) { /* For Masters */
         if (init->alw_masters[in_1]->hint!=NULL) {
             printf ("Master: %s\n   %s\n", init->alw_masters[in_1]->name, init->alw_masters[in_1]->hint);
         }
