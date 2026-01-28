@@ -6,7 +6,10 @@
 
 #include "pgetopt.h"
 
-struct alw_branch {
+/* This structure is repeated for each of the allowed options. 
+ * That is, each option essentially has the same structure that holds the valid and invalid information 
+   along with the hints.
+*/ struct alw_branch {
     unsigned int opt_id;
     unsigned int values_size;
     char **values;
@@ -17,13 +20,20 @@ struct alw_branch {
     enum PKEY_TYPE key_type;
 };
 
-struct avl_branch {
+/* The options that the parser has deemed valid and generated no errors for are 
+   accommodated within this structure for traversal by the corresponding functions.
+   
+ | Please also review the comment related to the struct class.
+*/ struct avl_branch { 
     unsigned int opt_id;
     unsigned int values_size;
     char **values;
 };
 
-struct class {
+/* Classes contain all user inputs  and valid options (palw_branch). The parser compares these two, 
+   and if any option or value in alw_branch is invalid, it generates an error. Otherwise, 
+   it loads avl_branch for traversal by the corresponding functions (e.g., pclass_loop_get_opt_id / pclass_key_loop_get_value).
+*/ struct class {
     char *name;
     unsigned int alw_size;
     struct alw_branch **alw_tree;
@@ -31,7 +41,9 @@ struct class {
     struct avl_branch **avl_tree;
 };
 
-struct init {
+/* It holds all classes, masters, and the main hint text of the program. 
+ * It serves as the foundation of the entire pgetopt library.
+*/ struct init {
     unsigned int classes_size;
     struct class **classes;
 
