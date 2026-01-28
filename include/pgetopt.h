@@ -13,9 +13,16 @@
 #ifndef PENIX__PGETOPT
 #define PENIX__PGETOPT
 
+/* To ensure that NULL is defined when it's not already included from <stdio.h>,
+ * we redefined NULL here so that EOL works correctly without the need to include <stdio.h>.
+*/  #ifndef NULL
+    #define NULL ((void*)0)
+    #endif
+
+#define EOL { 0, NULL } /* Indicates the end of the list of allowed options. */
+
 typedef struct { unsigned int option_id; char *option_name; char *option_hint; } palw;
 typedef struct { unsigned int error; unsigned int index; } usrerr;
-#define EOL { 0, NULL } /* Indicates the end of the list of allowed options. */
 
 enum PKEY_TYPE { ALW_CUSTOM, DENY_CUSTOM, NONE, VOID };
 

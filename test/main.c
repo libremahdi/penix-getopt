@@ -1,7 +1,7 @@
 #include "pgetopt.h"
 #include "t-lib/opts.h"
 
-#include <stdio.h>
+#include <stdio.h> /* printf */
 
 int main (int argc, char **argv) {
     pinit *init = pinit_create ("This is a simple Usage text\nyou can use new_line character...");
