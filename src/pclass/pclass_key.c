@@ -11,7 +11,8 @@
 #include "branch.h"
 #include "pgetopt_alloc.h"
 
-int pclass_get_key_size (pclass *class, unsigned int opt_id) {
+int __attribute__((nonnull))
+pclass_get_key_size (pclass *class, unsigned int opt_id) {
     for (int classI=0 ; classI < (class)->avl_size ; ++classI) {
         if ((class)->avl_tree[classI]->opt_id == opt_id) {
             return (class)->avl_tree[classI]->values_size;
@@ -24,7 +25,8 @@ int pclass_get_key_size (pclass *class, unsigned int opt_id) {
     return -1; /* never used */
 }
 
-char *pclass_key_loop_get_value (pclass  *class, unsigned int opt_id, unsigned int index) {
+char* __attribute__((nonnull))
+pclass_key_loop_get_value (pclass  *class, unsigned int opt_id, unsigned int index) {
     for (int classI=0 ; classI <  (class)->avl_size ; ++classI) {
         if ((class)->avl_tree[classI]->opt_id == opt_id) {
             return (class)->avl_tree[classI]->values[index];
@@ -37,7 +39,8 @@ char *pclass_key_loop_get_value (pclass  *class, unsigned int opt_id, unsigned i
     return NULL; /* never used */
 }
 
-pkey *pclass_set_key (pclass *class, unsigned int opt_id, enum PKEY_TYPE key_type) {
+pkey* __attribute__((nonnull))
+pclass_set_key (pclass *class, unsigned int opt_id, enum PKEY_TYPE key_type) {
     for (int classI = 0 ; classI < class->alw_size ; ++classI) {
         if (class->alw_tree[classI]->opt_id == opt_id) {
             class->alw_tree[classI]->key_type = key_type;
@@ -51,7 +54,8 @@ pkey *pclass_set_key (pclass *class, unsigned int opt_id, enum PKEY_TYPE key_typ
     return NULL; /* never used */
 }
 
-void pkey_set_custom_value (pkey *key, char *value) {
+void __attribute__((nonnull))
+pkey_set_custom_value (pkey *key, char *value) {
     key->values = pgetopt__realloc (key->values, (sizeof (char *)*(key->values_size+1)));
     key->values[(key->values_size)] = value;
     ++key->values_size;

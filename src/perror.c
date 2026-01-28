@@ -7,7 +7,8 @@
 #include "pgetopt.h"
 #include "lib/popt_error.h"
 
-int usererror_parser (usrerr _error, char **argv) {
+int __attribute__((nonnull))
+usererror_parser (usrerr _error, char **argv) {
     return  (_error.error == _invalid_option)
     ?   (pgetopt__printerr_user ("invalid option.", argv[_error.index]), 1):
             (_error.error == _key_without_value)  

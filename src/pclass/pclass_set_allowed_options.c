@@ -11,7 +11,8 @@
 #include "branch.h"
 #include "pgetopt_alloc.h"
 
-void pclass_set_allowed_options(pclass *class, palw *allowed_options) {   
+void __attribute__((nonnull))
+pclass_set_allowed_options(pclass *class, palw *allowed_options) {   
     unsigned long int i=0;
     unsigned int repetitive_opt_id = 0;
 

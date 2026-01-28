@@ -16,7 +16,8 @@
 #include "master.h"
 #include "pgetopt_alloc.h"
 
-pinit* pinit_create (char *usage) {
+pinit* __attribute__((warn_unused_result, malloc))
+pinit_create (char *usage) {
     pinit *init         = (pinit *) pgetopt__alloc (sizeof (pinit));
 
     init->classes       = (struct class **) pgetopt__alloc ((sizeof (struct class *)));
@@ -33,7 +34,8 @@ pinit* pinit_create (char *usage) {
     return init;
 }
 
-void pinit_free (pinit *init) {   
+void __attribute__((nonnull))
+pinit_free (pinit *init) {   
     free (init->classes);
 
     for (int in_1=0 ; in_1<init->alw_masters_size ; ++in_1) {
@@ -48,7 +50,8 @@ void pinit_free (pinit *init) {
     free (init);
 }
 
-void pinit_hint(pinit *init) {
+void __attribute__((nonnull))
+pinit_hint(pinit *init) {
     if (init->usage!=NULL) printf ("Usage: %s\n\n", init->usage);
 
     for (unsigned int in_1=1 ; in_1<init->classes_size ; ++in_1) { /* For Classes */

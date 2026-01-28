@@ -16,7 +16,8 @@
 #include "master.h"
 #include "pgetopt_alloc.h"
 
-usrerr pinit_parser (pinit *init, int argc, char **argv) {
+usrerr __attribute__((nonnull))
+pinit_parser (pinit *init, int argc, char **argv) {
     int opt_id;
     union _INDEX { int class_id; int master_id; } glob_index;
 
