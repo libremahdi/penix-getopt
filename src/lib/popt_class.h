@@ -15,10 +15,18 @@
 */ char *pstr_get_class_name (char *);
 
 /* when you insert the 'class.flag' string, this function must return 'flag' from the string.
-*/ char *pstr_get_class_value (char *str);
+*/ char *pstr_get_class_value (char *);
 
-bool is_class_syntax_correct (char *str);
+bool is_class_syntax_correct (char *);
 
-int get_class_index (pinit *init, char *class_name);
+int get_class_index (pinit *, char *);
+
+/* The hint string is read from palw and assigned to the alw_branch structure. 
+ * It allocates the necessary space on its own. It does not return any value.
+*/ void internal_add_hint(struct alw_branch *, palw *, unsigned int);
+
+/* if opt_id already exists, this function returns
+ * its index in the pclass structure. Otherwise, return the number -1.
+*/ int is_alw_tree_repetitive_id (pclass *, unsigned int);
 
 #endif /* PGETOPT__POPT_CLASS */

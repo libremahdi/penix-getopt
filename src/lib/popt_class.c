@@ -5,12 +5,27 @@
 */
 
 #include <string.h>
+#include <stdio.h>
 
 #include "pgetopt.h"
 #include "popt_class.h"
 #include "branch.h"
 #include "pgetopt_alloc.h"
 #include <stdbool.h>
+
+void internal_add_hint(struct alw_branch *alw_p, palw *allowed_options, unsigned int idx_1 ) {
+    if (allowed_options[idx_1].option_hint) {
+        alw_p->hints = pgetopt__realloc(alw_p->hints, (sizeof(char *)*(alw_p->hint_size+1)));
+        alw_p->hints[alw_p->hint_size]=strdup(allowed_options[idx_1].option_hint);
+        ++alw_p->hint_size;
+    } return;
+}
+
+int is_alw_tree_repetitive_id (pclass *class, unsigned int opt_id) {
+    for (int i = 0 ; i < class->alw_size ; ++i)
+        if (class->alw_tree[i]->opt_id == opt_id) return i;
+    return -1;
+}
 
 char *pstr_get_class_name (char *str) {
     const unsigned int find_dot_char = PGETOPT__FIND_CHAR(str, ".");
