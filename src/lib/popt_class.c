@@ -12,12 +12,6 @@
 #include "pgetopt_alloc.h"
 #include <stdbool.h>
 
-int is_alw_tree_repetitive_id (pclass *class, unsigned int opt_id) {
-    for (int i = 0 ; i < class->alw_size ; ++i)
-        if (class->alw_tree[i]->opt_id == opt_id) return i;
-    return -1;
-}
-
 char *pstr_get_class_name (char *str) {
     const unsigned int find_dot_char = PGETOPT__FIND_CHAR(str, ".");
 

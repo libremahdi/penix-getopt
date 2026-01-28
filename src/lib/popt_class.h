@@ -11,10 +11,6 @@
 
 #define PGETOPT__FIND_CHAR(STRING, CHAR_P) (int)(strstr(STRING, CHAR_P)-STRING)
 
-/* if opt_id already exists, this function returns
- * its index in the pclass structure. Otherwise, return the number -1.
-*/ int is_alw_tree_repetitive_id ( pclass *, unsigned int );
-
 /* when you insert the 'class.flag' string, this function must return 'class' from the string
 */ char *pstr_get_class_name (char *);
 

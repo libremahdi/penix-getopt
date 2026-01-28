@@ -20,6 +20,14 @@ static int internal_add_hint(struct alw_branch *alw_p, palw *allowed_options, un
     } return 1;
 }
 
+/* if opt_id already exists, this function returns
+ * its index in the pclass structure. Otherwise, return the number -1.
+*/ static int is_alw_tree_repetitive_id (pclass *class, unsigned int opt_id) {
+    for (int i = 0 ; i < class->alw_size ; ++i)
+        if (class->alw_tree[i]->opt_id == opt_id) return i;
+    return -1;
+}
+
 void pclass_set_allowed_options(pclass *class, palw *allowed_options) {   
     unsigned long int i=0;
     unsigned int repetitive_opt_id = 0;
