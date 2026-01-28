@@ -8,7 +8,7 @@
  *--
 */
 
-// #include "pstring.h"
+#include "pstring.h"
 
 #ifndef PENIX__PGETOPT
 #define PENIX__PGETOPT

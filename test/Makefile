@@ -16,6 +16,7 @@ main:
 	@if [ -f main.c ]; then \
 		mkdir -p $(output); \
 	clang -g -O0 -I../include -I../src/lib/ -I./t-lib/ \
+	-I../../parabyte-pstring/include -I../../parabyte-pstring/src/lib -I../../parabyte-pstring/src ../../parabyte-pstring/src/*.c \
 	./t-lib/*.c \
 	./main.c \
 	../src/*.c \
@@ -25,8 +26,6 @@ main:
 	else \
 		printf "Makefile Error:\nmain.c does not exist.\n"; \
 	fi
-
-# -I../../parabyte-pstring/include -I../../parabyte-pstring/src/lib -I../../parabyte-pstring/src ../../parabyte-pstring/src/*.c \
 
 %:
 	@if [ -f $@.c ]; then \
