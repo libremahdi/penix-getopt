@@ -1,9 +1,9 @@
 /*++
  *  PARABYTE PENIX PGETOPT (PLIBC)
  *  
- *  Copyright (C) 2025-2026 Parabyte Company, All rights reserved.
+ *  Copyright (C) 2025-2026 Mahdi Hosseini Asaad, All rights reserved.
  * 
- *  Author: Parabyte Company, Parabyte Developer Team (Core)
+ *  Author: Mahdi Hosseini Asaad, Parabyte Developer Team (Core)
  *  For more information, please read LICENSE file.
  *--
 */

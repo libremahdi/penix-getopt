@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) Parabyte Company, All rights reserved.
+ *  Copyright (C) Mahdi Hosseini Asaad, All rights reserved.
  *  For more information, please read LICENSE file.
  *
 */
