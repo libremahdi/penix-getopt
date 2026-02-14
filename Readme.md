@@ -70,4 +70,4 @@ You can find us on the following pages.
 
 ---
 ### License
-This software is distributed under the proprietary open-source license POSEL (Parabyte Open Source Exclusive License). For more information about the terms of this license, please check the LICENSE file or visit the [website](https://license.parabyte.com/posel)
+This project is developed and distributed under the GNU GPL-3.0 license. For more information, please read the LICENSE file.
