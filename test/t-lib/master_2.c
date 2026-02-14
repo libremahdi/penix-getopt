@@ -1,3 +1,8 @@
+/* 
+ * Copyright (C) 2025-2026 Mahdi Hosseini Asaad
+ * For more information, please read LICENSE file.
+ */
+
 #include "pgetopt.h"
 #include <stdio.h>
 

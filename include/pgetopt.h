@@ -1,11 +1,9 @@
 /*++
  *  PARABYTE PENIX PGETOPT (PLIBC)
  *  
- *  Copyright (C) 2025-2026 Mahdi Hosseini Asaad, All rights reserved.
- * 
- *  Author: Mahdi Hosseini Asaad, Parabyte Developer Team (Core)
+ *  Copyright (C) 2025-2026 Mahdi Hosseini Asaad
  *  For more information, please read LICENSE file.
- *--
+ *
 */
 
 // #include "pstring.h"

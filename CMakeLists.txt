@@ -1,5 +1,5 @@
 ##
- # Copyright (C) Mahdi Hosseini Asaad, All rights reserved.
+ # Copyright (C) 2025-2026 Mahdi Hosseini Asaad
  # For more information, please read LICENSE file.
 ##
 
