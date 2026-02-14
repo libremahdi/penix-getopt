@@ -61,12 +61,11 @@ There are several ways to install this library. Based on your requirements, you 
 ---
 ### Contact Us
 
-You can find us on the following pages.
+You can find me on the following pages.
 
-- **IRC :** [irc.parabyte.com/#pgetopt]()
-- **EMAIL :** [support@parabyte.com]()
-- **CALIX :** [https://calix.parabyte.com/pgetopt]()
-- **Themis :** [tms://parabyte/pgetopt]()
+- **EMAIL :** [mahdi.libremann@gmail.com]()
+- **Telegram :** [@libremann]()
+
 
 ---
 ### License
