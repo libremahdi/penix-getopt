@@ -1,7 +1,6 @@
 # Parabyte Penix getopt
 [![Version](https://img.shields.io/badge/Version-4.3-blue)]()
-[![Project Mode](https://img.shields.io/badge/Mode-Private-red)]()
-[![Project Owner](https://img.shields.io/badge/Owner-Parabyte-red)]()
+[![Project Mode](https://img.shields.io/badge/Mode-Public-green)]()
 
 ## Introduction
 
