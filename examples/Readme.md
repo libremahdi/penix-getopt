@@ -1,4 +1,4 @@
-## Examples section
+## Examples section for pgetopt-4.2
 
 The **examples** folder contains examples of implementation and usage of the `pgetopt` library, which greatly helps in learning this library. You can study each file in numerical order and, if needed, compile and run them.
 
